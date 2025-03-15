@@ -11,6 +11,9 @@ interface ContentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertContent(content: Content)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(content: List<Content>)
+
     @Query("SELECT * FROM content")
     fun getAllContent(): Flow<List<Content>>
 

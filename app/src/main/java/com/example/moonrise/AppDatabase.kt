@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.launch
 
 @Database(entities = [Content::class, Status::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
@@ -23,16 +24,10 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "moonrise_database"
                 ).build()
+
                 INSTANCE = instance
                 instance
             }
         }
-
-        private fun loadJsonData(context: Context): List<Content> {
-            val jsonString = context.assets.open("data.json").bufferedReader().use { it.readText() }
-            val gson = Gson()
-            return gson.fromJson(jsonString, object : TypeToken<List<Content>>() {}.type)
-        }
-
     }
 }

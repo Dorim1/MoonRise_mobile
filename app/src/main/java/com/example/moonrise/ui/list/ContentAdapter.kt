@@ -1,4 +1,4 @@
-package com.example.moonrise
+package com.example.moonrise.ui.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.moonrise.Content
+import com.example.moonrise.R
 
 class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() {
 
@@ -38,7 +40,7 @@ class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() 
             titleTextView.text = content.title
 
             Glide.with(itemView.context)
-                .load(content.image) // URL или путь к изображению
+                .load(content.image) // Загружаем изображение с URL
                 .error(R.drawable.error_image) // Если ошибка загрузки
                 .into(imageView)
         }

@@ -4,48 +4,40 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.moonrise.ContentAdapter
-import com.example.moonrise.databinding.FragmentListBinding
+import androidx.recyclerview.widget.RecyclerView
+import com.example.moonrise.R
+import androidx.lifecycle.Observer
 
 class ListFragment : Fragment() {
 
-    private var _binding: FragmentListBinding? = null
-    private val binding get() = _binding!!
-
-    private val viewModel: ListViewModel by viewModels()
+    private lateinit var recyclerView: RecyclerView
     private lateinit var contentAdapter: ContentAdapter
+    private val viewModel: ListViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentListBinding.inflate(inflater, container, false)
-        return binding.root
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        recyclerView = view.findViewById(R.id.itemsList)
         contentAdapter = ContentAdapter()
-        binding.itemsList.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = contentAdapter
-        }
 
-        // Подписка на данные из ViewModel
-        viewModel.allContent.observe(viewLifecycleOwner) { contentList ->
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = contentAdapter
+
+        // Подписка на обновления данных
+        viewModel.allContent.observe(viewLifecycleOwner, Observer { contentList ->
             contentAdapter.setContentList(contentList)
-        }
-    }
+        })
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        // Загрузка данных из JSON
+        viewModel.loadJsonData(requireContext())
     }
 }
