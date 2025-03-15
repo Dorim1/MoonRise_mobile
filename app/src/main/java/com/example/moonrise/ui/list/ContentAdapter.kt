@@ -1,13 +1,21 @@
 package com.example.moonrise.ui.list
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import com.bumptech.glide.request.target.Target
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.example.moonrise.Content
+import com.example.moonrise.ContentDiffCallback
 import com.example.moonrise.R
 
 class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() {
@@ -15,8 +23,11 @@ class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() 
     private var contentList: List<Content> = emptyList()
 
     fun setContentList(newList: List<Content>) {
+        val diffCallback = ContentDiffCallback(contentList, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         contentList = newList
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
@@ -35,13 +46,46 @@ class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() 
     class ContentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val titleTextView: TextView = view.findViewById(R.id.item_list_title)
         private val imageView: ImageView = view.findViewById(R.id.item_list_image)
+        private val loadingAnimation: LottieAnimationView = view.findViewById(R.id.loading_animation)
 
         fun bind(content: Content) {
             titleTextView.text = content.title
 
+            // Показываем анимацию загрузки
+            loadingAnimation.visibility = View.VISIBLE
+            loadingAnimation.playAnimation()
+            imageView.visibility = View.INVISIBLE
+
             Glide.with(itemView.context)
-                .load(content.image) // Загружаем изображение с URL
-                .error(R.drawable.error_image) // Если ошибка загрузки
+                .load(content.image)
+                .error(R.drawable.error_image) // Изображение ошибки
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        loadingAnimation.pauseAnimation()
+                        loadingAnimation.visibility = View.GONE
+                        imageView.visibility = View.VISIBLE
+                        imageView.setImageResource(R.drawable.error_image)
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        model: Any,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        loadingAnimation.pauseAnimation()
+                        loadingAnimation.visibility = View.GONE
+                        imageView.visibility = View.VISIBLE
+                        return false
+                    }
+                })
                 .into(imageView)
         }
     }

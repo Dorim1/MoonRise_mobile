@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.launch
+
 
 @Database(entities = [Content::class, Status::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

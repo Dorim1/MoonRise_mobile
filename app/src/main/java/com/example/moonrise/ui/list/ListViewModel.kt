@@ -11,6 +11,7 @@ import com.example.moonrise.Content
 import com.example.moonrise.Status
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ListViewModel(application: Application) : AndroidViewModel(application) {
@@ -21,9 +22,9 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     val allContent: LiveData<List<Content>> = contentDao.getAllContent().asLiveData()
 
-    fun addContent(content: Content) {
+    fun addContent(vararg content: Content) {
         viewModelScope.launch {
-            contentDao.insertContent(content)
+            contentDao.insertAll(content.toList())
         }
     }
 
@@ -33,14 +34,21 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun loadJsonData(context: Context) {
-        val jsonString = context.assets.open("data.json").bufferedReader().use { it.readText() }
-        val gson = Gson()
-        val contentList: List<Content> = gson.fromJson(jsonString, object : TypeToken<List<Content>>() {}.type)
+    private fun saveContentList(contentList: List<Content>) {
+        viewModelScope.launch {
+            contentDao.insertAll(contentList)
+        }
+    }
 
-        // Добавляем данные в базу данных
-        contentList.forEach { content ->
-            addContent(content) // Добавляем каждый элемент в базу данных
+    fun loadDataFromJson(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (contentDao.getContentCount() == 0) {
+                val jsonString = context.assets.open("data.json").bufferedReader().use { it.readText() }
+                val gson = Gson()
+                val contentList: List<Content> = gson.fromJson(jsonString, object : TypeToken<List<Content>>() {}.type)
+
+                saveContentList(contentList)
+            }
         }
     }
 }

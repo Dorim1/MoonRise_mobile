@@ -19,4 +19,7 @@ interface ContentDao {
 
     @Query("SELECT * FROM content WHERE id = :contentId")
     fun getContentById(contentId: Int): Flow<Content>
+
+    @Query("SELECT COUNT(*) FROM content")
+    suspend fun getContentCount(): Int
 }

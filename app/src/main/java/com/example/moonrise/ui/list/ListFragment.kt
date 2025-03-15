@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moonrise.R
-import androidx.lifecycle.Observer
 
 class ListFragment : Fragment() {
 
@@ -32,12 +31,12 @@ class ListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = contentAdapter
 
-        // Подписка на обновления данных
-        viewModel.allContent.observe(viewLifecycleOwner, Observer { contentList ->
+        viewModel.allContent.observe(viewLifecycleOwner) { contentList ->
             contentAdapter.setContentList(contentList)
-        })
 
-        // Загрузка данных из JSON
-        viewModel.loadJsonData(requireContext())
+            if (contentList.isEmpty()) {
+                viewModel.loadDataFromJson(requireContext())
+            }
+        }
     }
 }
