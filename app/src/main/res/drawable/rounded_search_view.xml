@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <!-- Цвет фона -->
+        <shape android:shape="rectangle">
+            <solid android:color="@color/gray555"/> <!-- Цвет границы -->
+            <corners android:radius="25dp"/> <!-- Закругленные углы -->
+        </shape>
+    </item>
+    <item android:right="1dp" android:left="1dp" android:top="1dp" android:bottom="1dp">
+        <!-- Граница -->
+        <shape android:shape="rectangle">
+            <solid android:color="@color/gray111"/> <!-- Цвет фона -->
+            <corners android:radius="25dp"/> <!-- Закругленные углы границы -->
+        </shape>
+    </item>
+
+</layer-list>

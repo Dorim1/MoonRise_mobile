@@ -1,5 +1,6 @@
 package com.example.moonrise
 
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
@@ -10,7 +11,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import com.example.moonrise.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,18 +72,14 @@ class MainActivity : AppCompatActivity() {
     private fun animateButtonScale(itemId: Int) {
         val menuItemView = getMenuItemView(itemId) ?: return
 
-        // Анимация увеличения и уменьшения
-        val scaleXAnimator = ObjectAnimator.ofFloat(menuItemView, "scaleX", 1f, 1.2f, 1f).apply {
+        val scaleXAnimator = ObjectAnimator.ofFloat(menuItemView, "scaleX", 1f, 1.2f, 1f)
+        val scaleYAnimator = ObjectAnimator.ofFloat(menuItemView, "scaleY", 1f, 1.2f, 1f)
+
+        AnimatorSet().apply {
+            playTogether(scaleXAnimator, scaleYAnimator)
             duration = 300
             interpolator = AccelerateDecelerateInterpolator()
+            start()
         }
-
-        val scaleYAnimator = ObjectAnimator.ofFloat(menuItemView, "scaleY", 1f, 1.2f, 1f).apply {
-            duration = 300
-            interpolator = AccelerateDecelerateInterpolator()
-        }
-
-        scaleXAnimator.start()
-        scaleYAnimator.start()
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray111"
+    android:padding="13dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="10dp"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/rounded_item_background">
+
+        <FrameLayout
+            android:layout_width="125dp"
+            android:layout_height="177dp">
+
+            <ImageView
+                android:id="@+id/item_list_image"
+                android:layout_width="125dp"
+                android:layout_height="175dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/rounded_image"
+                android:clipToOutline="true"
+                app:srcCompat="@drawable/adventure_time"
+                android:layout_gravity="bottom"/>
+
+            <ImageView
+                android:id="@+id/favorite_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="top|end"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_favorite"
+                android:visibility="gone" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loading_animation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:lottie_rawRes="@raw/placeholder"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:visibility="visible" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/item_list_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="19dp"
+            android:textColor="#C9C9C9"
+            android:focusable="true"
+            android:text="TextView" />
+    </LinearLayout>
+
+</LinearLayout>

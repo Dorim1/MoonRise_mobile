@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray111"
+    tools:context=".ui.list.ListFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="23dp">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_in_list"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_search_view"
+            android:padding="10dp"
+            app:queryHint="Поиск по названию"
+            app:iconifiedByDefault="false"
+            android:inputType="text"
+            app:searchIcon="@drawable/customicon"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/filter_button"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="15dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:layout_gravity="center_vertical"
+            android:tint="@color/white"
+            android:src="@drawable/ic_filter"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemsList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@color/main_purple"
+        android:scrollbarTrackVertical="@android:color/transparent"
+        android:layout_marginTop="15dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:contentDescription=""/>
+
+</LinearLayout>

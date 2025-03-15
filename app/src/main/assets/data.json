@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "image": "https://i.imgur.com/nTaEJfo.jpeg",
+    "title": "Фильм 1",
+    "orTitle": "Original Title 1",
+    "text": "Описание 1",
+    "category": "Фильм",
+    "genres": "Драма, Боевик",
+    "ageRating": "16+",
+    "releaseDate": "2022-10-15"
+  },
+  {
+    "id": 2,
+    "image": "https://image.url/2.jpg",
+    "title": "Аниме 1",
+    "orTitle": "Original Title 2",
+    "text": "Описание 2",
+    "category": "Аниме",
+    "genres": "Фэнтези, Приключения",
+    "ageRating": "12+",
+    "releaseDate": "2019-04-10"
+  }
+]
