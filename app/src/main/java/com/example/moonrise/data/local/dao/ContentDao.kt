@@ -1,9 +1,10 @@
-package com.example.moonrise
+package com.example.moonrise.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.moonrise.data.local.entity.Content
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -22,4 +23,7 @@ interface ContentDao {
 
     @Query("SELECT COUNT(*) FROM content")
     suspend fun getContentCount(): Int
+
+    @Query("SELECT * FROM content WHERE categoryId = :categoryId")
+    fun getContentByCategory(categoryId: Int): Flow<List<Content>>
 }

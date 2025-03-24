@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "image": "https://i.imgur.com/nTaEJfo.jpeg",
+    "title": "Фильм 3232",
+    "orTitle": "Original Movie 1",
+    "description": "Описание первого фильма.",
+    "categoryId": 1,
+    "ageRating": "16+",
+    "releaseDate": "2024-03-08"
+  },
+  {
+    "id": 2,
+    "image": "https://image.url/2.jpg",
+    "title": "Аниме 1",
+    "orTitle": "Original Anime 1",
+    "description": "Описание первого аниме.",
+    "categoryId": 3,
+    "ageRating": "12+",
+    "releaseDate": "2023-07-15"
+  }
+]

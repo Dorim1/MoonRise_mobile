@@ -1,4 +1,4 @@
-package com.example.moonrise
+package com.example.moonrise.data.local.entity
 
 import androidx.room.Entity
 

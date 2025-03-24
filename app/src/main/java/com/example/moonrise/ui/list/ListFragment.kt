@@ -35,8 +35,11 @@ class ListFragment : Fragment() {
             contentAdapter.setContentList(contentList)
 
             if (contentList.isEmpty()) {
-                viewModel.loadDataFromJson(requireContext())
+                viewModel.loadDataFromJson(requireContext())  // Загрузка данных контента из JSON
             }
         }
+
+        // Вызов функции для загрузки категорий, если таблица пустая
+        viewModel.loadCategoriesFromJson(requireContext())
     }
 }
