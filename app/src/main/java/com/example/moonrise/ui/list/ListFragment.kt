@@ -31,7 +31,7 @@ class ListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = contentAdapter
 
-        viewModel.allContent.observe(viewLifecycleOwner) { contentList ->
+        viewModel.allContentWithCategory.observe(viewLifecycleOwner) { contentList ->
             contentAdapter.setContentList(contentList)
 
             if (contentList.isEmpty()) {

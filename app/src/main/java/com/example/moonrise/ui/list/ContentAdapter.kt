@@ -14,19 +14,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.example.moonrise.data.local.entity.Content
 import com.example.moonrise.ContentDiffCallback
 import com.example.moonrise.R
+import com.example.moonrise.data.local.entity.ContentWithCategory
 
 class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() {
 
-    private var contentList: List<Content> = emptyList()
+    private var contentWithCategoryList: List<ContentWithCategory> = emptyList()
 
-    fun setContentList(newList: List<Content>) {
-        val diffCallback = ContentDiffCallback(contentList, newList)
+    fun setContentList(newList: List<ContentWithCategory>) {
+        val diffCallback = ContentDiffCallback(contentWithCategoryList, newList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
 
-        contentList = newList
+        contentWithCategoryList = newList
         diffResult.dispatchUpdatesTo(this)
     }
 
@@ -37,19 +37,22 @@ class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
-        val content = contentList[position]
-        holder.bind(content)
+        val contentWithCategory = contentWithCategoryList[position]
+        holder.bind(contentWithCategory)
     }
 
-    override fun getItemCount(): Int = contentList.size
+    override fun getItemCount(): Int = contentWithCategoryList.size
 
     class ContentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val titleTextView: TextView = view.findViewById(R.id.item_list_title)
         private val imageView: ImageView = view.findViewById(R.id.item_list_image)
+        private val categoryTextView: TextView = view.findViewById(R.id.item_list_category)
         private val loadingAnimation: LottieAnimationView = view.findViewById(R.id.loading_animation)
 
-        fun bind(content: Content) {
+        fun bind(contentWithCategory: ContentWithCategory) {
+            val content = contentWithCategory.content
             titleTextView.text = content.title
+            categoryTextView.text = contentWithCategory.category.name  // Устанавливаем категорию
 
             // Показываем анимацию загрузки
             loadingAnimation.visibility = View.VISIBLE

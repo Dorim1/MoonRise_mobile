@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.data.local.entity.Category
 import com.example.moonrise.data.local.entity.Content
+import com.example.moonrise.data.local.entity.ContentWithCategory
 import com.example.moonrise.data.local.entity.Status
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -23,7 +24,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     private val statusDao = database.statusDao()
     private val categoryDao = database.categoryDao()
 
-    val allContent: LiveData<List<Content>> = contentDao.getAllContent().asLiveData()
+    val allContentWithCategory: LiveData<List<ContentWithCategory>> = contentDao.getAllContentWithCategory().asLiveData()
 
     fun addContent(vararg content: Content) {
         viewModelScope.launch {
