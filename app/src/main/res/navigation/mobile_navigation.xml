@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_list" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.moonrise.ui.dashboard.DashboardFragment"
+        android:id="@+id/navigation_item"
+        android:name="com.example.moonrise.ui.item.ItemFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_item" />
 
     <fragment
         android:id="@+id/navigation_notifications"

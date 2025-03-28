@@ -1,10 +1,10 @@
-package com.example.moonrise.ui.dashboard
+package com.example.moonrise.ui.item
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DashboardViewModel : ViewModel() {
+class ItemViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"

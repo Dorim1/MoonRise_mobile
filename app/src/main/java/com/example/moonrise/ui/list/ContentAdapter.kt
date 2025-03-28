@@ -1,12 +1,14 @@
 package com.example.moonrise.ui.list
 
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import com.bumptech.glide.request.target.Target
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -18,7 +20,8 @@ import com.example.moonrise.ContentDiffCallback
 import com.example.moonrise.R
 import com.example.moonrise.data.local.entity.ContentWithCategory
 
-class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() {
+class ContentAdapter(private val navController: NavController) :
+    RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() {
 
     private var contentWithCategoryList: List<ContentWithCategory> = emptyList()
 
@@ -39,6 +42,16 @@ class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() 
     override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
         val contentWithCategory = contentWithCategoryList[position]
         holder.bind(contentWithCategory)
+
+        // Устанавливаем обработчик клика
+        holder.itemView.setOnClickListener {
+            // Передаем данные в следующий фрагмент через аргументы
+            val bundle = Bundle().apply {
+                putInt("contentId", contentWithCategory.content.id) // Передаем ID контента
+            }
+            // Навигация на ItemFragment с передачей данных
+            navController.navigate(R.id.navigation_item, bundle)
+        }
     }
 
     override fun getItemCount(): Int = contentWithCategoryList.size

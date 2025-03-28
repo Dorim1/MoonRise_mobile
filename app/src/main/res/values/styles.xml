@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColorHint">#595959</item>
+    </style>
+
+    <style name="RoundedBottomCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+
+</resources>
