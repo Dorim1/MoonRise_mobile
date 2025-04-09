@@ -26,7 +26,6 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val navController = findNavController()
         contentAdapter = ContentAdapter(navController)
 
@@ -38,11 +37,14 @@ class ListFragment : Fragment() {
             contentAdapter.setContentList(contentList)
 
             if (contentList.isEmpty()) {
-                viewModel.loadDataFromJson(requireContext())  // Загрузка данных контента из JSON
+                // Загрузка основных данных, если база пуста
+                viewModel.loadDataFromJson(requireContext())
             }
         }
 
-        // Вызов функции для загрузки категорий, если таблица пустая
+        // Эти данные можно загружать параллельно — они проверяют, нужна ли загрузка
         viewModel.loadCategoriesFromJson(requireContext())
+        viewModel.loadGenresFromJson(requireContext())
+        viewModel.loadContentGenresFromJson(requireContext())
     }
 }

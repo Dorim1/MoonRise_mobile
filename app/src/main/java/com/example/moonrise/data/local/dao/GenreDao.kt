@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface GenreDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGenre(genre: Genre)
+    suspend fun insertGenreList(genres: List<Genre>)
 
     @Query("SELECT * FROM genre")
     fun getAllGenres(): Flow<List<Genre>>

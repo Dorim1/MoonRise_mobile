@@ -43,13 +43,11 @@ class ContentAdapter(private val navController: NavController) :
         val contentWithCategory = contentWithCategoryList[position]
         holder.bind(contentWithCategory)
 
-        // Устанавливаем обработчик клика
         holder.itemView.setOnClickListener {
             // Передаем данные в следующий фрагмент через аргументы
             val bundle = Bundle().apply {
                 putInt("contentId", contentWithCategory.content.id) // Передаем ID контента
             }
-            // Навигация на ItemFragment с передачей данных
             navController.navigate(R.id.navigation_item, bundle)
         }
     }

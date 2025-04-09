@@ -5,4 +5,8 @@
     <string name="title_notifications">Notifications</string>
     <string name="delete_button_description">Удалить</string>
     <string name="add_button">Добавить</string>
+    <string name="category_format">Категория: %1$s</string>
+    <string name="genres_format">Жанры: %1$s</string>
+    <string name="no_genres">Жанры: отсутствуют</string>
+    <string name="release_date">Дата выпуска: %s</string>
 </resources>

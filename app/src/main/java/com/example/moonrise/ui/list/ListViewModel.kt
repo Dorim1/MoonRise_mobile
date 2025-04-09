@@ -9,7 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.data.local.entity.Category
 import com.example.moonrise.data.local.entity.Content
+import com.example.moonrise.data.local.entity.ContentGenre
 import com.example.moonrise.data.local.entity.ContentWithCategory
+import com.example.moonrise.data.local.entity.Genre
 import com.example.moonrise.data.local.entity.Status
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -66,6 +68,36 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                 val categoryList: List<Category> = gson.fromJson(jsonString, object : TypeToken<List<Category>>() {}.type)
 
                 categoryDao.insertCategory(categoryList)
+            }
+        }
+    }
+
+    fun loadGenresFromJson(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val genreDao = database.genreDao()
+            val genres = genreDao.getAllGenres().firstOrNull()
+
+            if (genres.isNullOrEmpty()) {
+                val jsonString = context.assets.open("genres.json").bufferedReader().use { it.readText() }
+                val gson = Gson()
+                val genreList: List<Genre> = gson.fromJson(jsonString, object : TypeToken<List<Genre>>() {}.type)
+
+                genreDao.insertGenreList(genreList)
+            }
+        }
+    }
+
+    fun loadContentGenresFromJson(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val contentGenreDao = database.contentGenreDao()
+            val someContentGenre = contentGenreDao.getContentByGenre(1).firstOrNull()
+
+            if (someContentGenre.isNullOrEmpty()) {
+                val jsonString = context.assets.open("content_genre.json").bufferedReader().use { it.readText() }
+                val gson = Gson()
+                val contentGenreList: List<ContentGenre> = gson.fromJson(jsonString, object : TypeToken<List<ContentGenre>>() {}.type)
+
+                contentGenreList.forEach { contentGenreDao.insert(it) }
             }
         }
     }

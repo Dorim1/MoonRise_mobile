@@ -1,0 +1,6 @@
+[
+  { "contentId": 1, "genreId": 1 },
+  { "contentId": 1, "genreId": 2 },
+  { "contentId": 2, "genreId": 3 },
+  { "contentId": 2, "genreId": 4 }
+]

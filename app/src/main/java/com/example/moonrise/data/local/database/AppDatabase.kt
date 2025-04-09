@@ -6,6 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.moonrise.data.local.dao.CategoryDao
 import com.example.moonrise.data.local.dao.ContentDao
+import com.example.moonrise.data.local.dao.ContentGenreDao
+import com.example.moonrise.data.local.dao.GenreDao
 import com.example.moonrise.data.local.dao.StatusDao
 import com.example.moonrise.data.local.entity.Category
 import com.example.moonrise.data.local.entity.Content
@@ -14,11 +16,13 @@ import com.example.moonrise.data.local.entity.Genre
 import com.example.moonrise.data.local.entity.Status
 
 
-@Database(entities = [Content::class, Status::class, Category::class, ContentGenre::class, Genre::class], version = 4, exportSchema = false)
+@Database(entities = [Content::class, Status::class, Category::class, ContentGenre::class, Genre::class], version = 6, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun contentDao(): ContentDao
     abstract fun statusDao(): StatusDao
     abstract fun categoryDao(): CategoryDao
+    abstract fun genreDao(): GenreDao
+    abstract fun contentGenreDao(): ContentGenreDao
 
     companion object {
         @Volatile
