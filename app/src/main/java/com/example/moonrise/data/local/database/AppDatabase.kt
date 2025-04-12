@@ -16,7 +16,7 @@ import com.example.moonrise.data.local.entity.Genre
 import com.example.moonrise.data.local.entity.Status
 
 
-@Database(entities = [Content::class, Status::class, Category::class, ContentGenre::class, Genre::class], version = 6, exportSchema = false)
+@Database(entities = [Content::class, Status::class, Category::class, ContentGenre::class, Genre::class], version = 13, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun contentDao(): ContentDao
     abstract fun statusDao(): StatusDao

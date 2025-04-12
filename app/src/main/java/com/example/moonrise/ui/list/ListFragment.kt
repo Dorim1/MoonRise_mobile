@@ -42,7 +42,6 @@ class ListFragment : Fragment() {
             }
         }
 
-        // Эти данные можно загружать параллельно — они проверяют, нужна ли загрузка
         viewModel.loadCategoriesFromJson(requireContext())
         viewModel.loadGenresFromJson(requireContext())
         viewModel.loadContentGenresFromJson(requireContext())

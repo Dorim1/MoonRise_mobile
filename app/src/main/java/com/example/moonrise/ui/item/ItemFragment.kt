@@ -1,11 +1,14 @@
 package com.example.moonrise.ui.item
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -13,6 +16,7 @@ import com.example.moonrise.R
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.data.local.entity.ContentWithCategory
 import com.example.moonrise.databinding.FragmentItemBinding
+import androidx.core.net.toUri
 
 class ItemFragment : Fragment() {
 
@@ -32,6 +36,13 @@ class ItemFragment : Fragment() {
 
         val database = AppDatabase.getDatabase(requireContext())
         val contentDao = database.contentDao()
+
+        binding.showMoreText.text = getString(R.string.show_more)
+
+        binding.showMoreText.setOnClickListener {
+            toggleDescription()
+        }
+
         viewModel = ViewModelProvider(this, ItemViewModelFactory(contentDao))[ItemViewModel::class.java]
 
         viewModel.getContent(contentId).observe(viewLifecycleOwner) { contentWithCategory ->
@@ -43,6 +54,24 @@ class ItemFragment : Fragment() {
             Glide.with(this).load(contentWithCategory.content.image).into(binding.imageItem)
 
             binding.category.text = getString(R.string.category_format, contentWithCategory.category.name)
+
+            val watchingUrl = contentWithCategory.content.watchingUrl
+            if (!watchingUrl.isNullOrEmpty()) {
+                binding.watchLabel.visibility = View.VISIBLE
+                binding.watchButton.visibility = View.VISIBLE
+
+                binding.watchButton.setOnClickListener {
+                    try {
+                        val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, watchingUrl.toUri())
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        Toast.makeText(requireContext(), "Не удалось открыть ссылку", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else {
+                binding.watchLabel.visibility = View.GONE
+                binding.watchButton.visibility = View.GONE
+            }
         }
 
         viewModel.getGenres(contentId).observe(viewLifecycleOwner) { genres ->
@@ -56,6 +85,20 @@ class ItemFragment : Fragment() {
         }
 
         return root
+    }
+
+    private fun toggleDescription() {
+        val isExpanded = binding.descriptionItem.maxLines == Int.MAX_VALUE
+
+        if (isExpanded) {
+            binding.descriptionItem.maxLines = 8
+            binding.descriptionItem.ellipsize = TextUtils.TruncateAt.END
+            binding.showMoreText.text = getString(R.string.show_more)
+        } else {
+            binding.descriptionItem.maxLines = Int.MAX_VALUE
+            binding.descriptionItem.ellipsize = null
+            binding.showMoreText.text = getString(R.string.hide)
+        }
     }
 
     override fun onDestroyView() {

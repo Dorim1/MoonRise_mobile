@@ -9,4 +9,6 @@
     <string name="genres_format">Жанры: %1$s</string>
     <string name="no_genres">Жанры: отсутствуют</string>
     <string name="release_date">Дата выпуска: %s</string>
+    <string name="show_more">Подробнее...</string>
+    <string name="hide">Скрыть</string>
 </resources>

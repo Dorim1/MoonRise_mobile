@@ -16,5 +16,6 @@ data class Content(
     val description: String,
     val categoryId: Int,
     val ageRating: String,
-    val releaseDate: String
+    val releaseDate: String,
+    val watchingUrl: String?
 )
