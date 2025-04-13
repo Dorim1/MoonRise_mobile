@@ -6,17 +6,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.moonrise.R
 import com.example.moonrise.data.local.database.AppDatabase
-import com.example.moonrise.data.local.entity.ContentWithCategory
 import com.example.moonrise.databinding.FragmentItemBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.moonrise.ui.item.RelatedAdapter
 import androidx.core.net.toUri
+import androidx.navigation.fragment.findNavController
+
 
 class ItemFragment : Fragment() {
 
@@ -36,6 +37,12 @@ class ItemFragment : Fragment() {
 
         val database = AppDatabase.getDatabase(requireContext())
         val contentDao = database.contentDao()
+        val relatedContentDao = database.relatedContentDao()
+
+        val navController = findNavController()
+        val relatedAdapter = RelatedAdapter(navController)
+        binding.relatedRecyclerView.adapter = relatedAdapter
+        binding.relatedRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         binding.showMoreText.text = getString(R.string.show_more)
 
@@ -43,7 +50,18 @@ class ItemFragment : Fragment() {
             toggleDescription()
         }
 
-        viewModel = ViewModelProvider(this, ItemViewModelFactory(contentDao))[ItemViewModel::class.java]
+        viewModel = ViewModelProvider(this, ItemViewModelFactory(contentDao, relatedContentDao))[ItemViewModel::class.java]
+
+        viewModel.getRelatedContent(contentId).observe(viewLifecycleOwner) { relatedContent ->
+            if (relatedContent.isNotEmpty()) {
+                binding.relatedLabel.visibility = View.VISIBLE
+                binding.relatedRecyclerView.visibility = View.VISIBLE
+                relatedAdapter.setRelatedContentList(relatedContent)
+            } else {
+                binding.relatedLabel.visibility = View.GONE
+                binding.relatedRecyclerView.visibility = View.GONE
+            }
+        }
 
         viewModel.getContent(contentId).observe(viewLifecycleOwner) { contentWithCategory ->
             binding.titleItem.text = contentWithCategory.content.title
@@ -52,6 +70,7 @@ class ItemFragment : Fragment() {
             binding.descriptionItem.text = contentWithCategory.content.description
             binding.releaseDate.text = getString(R.string.release_date, contentWithCategory.content.releaseDate)
             Glide.with(this).load(contentWithCategory.content.image).into(binding.imageItem)
+            viewModel.loadRelatedContentFromJson(requireContext())
 
             binding.category.text = getString(R.string.category_format, contentWithCategory.category.name)
 

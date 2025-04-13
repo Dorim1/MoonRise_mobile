@@ -151,12 +151,24 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/about_what_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginHorizontal="22dp"
+                android:textStyle="bold"
+                android:text="О Чём"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                />
+
+            <TextView
                 android:id="@+id/description_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="22dp"
-                android:layout_marginTop="10dp"
-                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
                 android:textColor="@color/white"
                 android:maxLines="8"
                 android:ellipsize="end"
@@ -167,7 +179,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="22dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="18dp"
                 android:textColor="@color/main_purple"
                 android:textSize="20sp"
                 android:clickable="true"
@@ -180,16 +192,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginHorizontal="22dp"
-                android:text="Смотреть:"
-                android:textSize="20sp"
+                android:text="Смотреть"
+                android:textSize="22sp"
+                android:textStyle="bold"
                 android:textColor="@color/white"
-                android:visibility="gone"/>
+                />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/watch_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginHorizontal="22dp"
                 android:paddingVertical="8dp"
                 android:text="Открыть в Кинопоиске"
@@ -200,6 +213,31 @@
                 android:drawablePadding="5dp"
                 android:paddingStart="90dp"
                 android:paddingEnd="90dp"/>
+
+            <TextView
+                android:id="@+id/related_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:layout_marginHorizontal="22dp"
+                android:text="Связанное"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/relatedRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginHorizontal="22dp"
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:clipToPadding="false"
+                android:paddingBottom="12dp"
+                android:scrollbars="horizontal"
+                tools:listitem="@layout/item_related" />
 
         </LinearLayout>
 

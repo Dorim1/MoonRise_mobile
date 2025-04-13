@@ -12,6 +12,7 @@ import com.example.moonrise.data.local.entity.Content
 import com.example.moonrise.data.local.entity.ContentGenre
 import com.example.moonrise.data.local.entity.ContentWithCategory
 import com.example.moonrise.data.local.entity.Genre
+import com.example.moonrise.data.local.entity.RelatedContent
 import com.example.moonrise.data.local.entity.Status
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
