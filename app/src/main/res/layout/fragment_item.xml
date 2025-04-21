@@ -97,6 +97,7 @@
                     android:layout_marginHorizontal="22dp">
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/addButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

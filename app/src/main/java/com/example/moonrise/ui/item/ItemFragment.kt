@@ -1,5 +1,6 @@
 package com.example.moonrise.ui.item
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -10,6 +11,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.example.moonrise.R
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.databinding.FragmentItemBinding
@@ -50,6 +55,11 @@ class ItemFragment : Fragment() {
             toggleDescription()
         }
 
+        binding.addButton.setOnClickListener {
+            val bottomSheet = AddToGroupBottomSheet()
+            bottomSheet.show(parentFragmentManager, "AddToGroupBottomSheet")
+        }
+
         viewModel = ViewModelProvider(this, ItemViewModelFactory(contentDao, relatedContentDao))[ItemViewModel::class.java]
 
         viewModel.getRelatedContent(contentId).observe(viewLifecycleOwner) { relatedContent ->
@@ -69,7 +79,35 @@ class ItemFragment : Fragment() {
             binding.ageRating.text = contentWithCategory.content.ageRating
             binding.descriptionItem.text = contentWithCategory.content.description
             binding.releaseDate.text = getString(R.string.release_date, contentWithCategory.content.releaseDate)
-            Glide.with(this).load(contentWithCategory.content.image).into(binding.imageItem)
+
+            // Загружаем изображение с обработкой ошибки
+            Glide.with(this)
+                .load(contentWithCategory.content.image)
+                .error(R.drawable.error_image)  // Изображение ошибки
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        Log.e("ItemFragment", "Image loading failed: ${e?.message}")
+                        // Действия при ошибке загрузки
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        model: Any,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        return false
+                    }
+                })
+                .into(binding.imageItem)
+
             viewModel.loadRelatedContentFromJson(requireContext())
 
             binding.category.text = getString(R.string.category_format, contentWithCategory.category.name)
