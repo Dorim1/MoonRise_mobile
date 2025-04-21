@@ -227,18 +227,30 @@
                 android:textColor="@color/white"
                 />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/relatedRecyclerView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginHorizontal="22dp"
-                android:orientation="horizontal"
-                android:overScrollMode="never"
-                android:clipToPadding="false"
-                android:paddingBottom="12dp"
-                android:scrollbars="horizontal"
-                tools:listitem="@layout/item_related" />
+                android:orientation="vertical"
+                android:layout_marginTop="22dp"
+                android:background="@color/gray151515"
+                android:paddingTop="13dp"
+                android:paddingBottom="23dp">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/relatedRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginHorizontal="22dp"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:clipToPadding="false"
+                    android:paddingBottom="12dp"
+                    android:scrollbars="horizontal"
+                    tools:listitem="@layout/item_related" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

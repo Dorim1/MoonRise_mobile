@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
+    implementation(libs.powerspinner)
     testImplementation(libs.junit)
     implementation(libs.glide)
     implementation(libs.lottie)
