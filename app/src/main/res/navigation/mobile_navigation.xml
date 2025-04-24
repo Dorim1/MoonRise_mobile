@@ -3,13 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_list">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_list"
         android:name="com.example.moonrise.ui.list.ListFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_navigation_list_to_navigation_filter"
+            app:destination="@id/navigation_filter" />
+        <action
+            android:id="@+id/action_navigation_list_to_navigation_item"
+            app:destination="@id/navigation_item" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_filter"
+        android:name="com.example.moonrise.ui.filter.FilterFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_filter" />
 
     <fragment
         android:id="@+id/navigation_item"

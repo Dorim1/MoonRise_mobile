@@ -13,9 +13,15 @@ interface StatusDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertStatus(status: Status)
 
-    @Query("SELECT * FROM status WHERE contentId = :contentId")
-    fun getStatusByContentId(contentId: Int): Flow<Status>
+    @Query("SELECT * FROM status WHERE contentId = :contentId LIMIT 1")
+    fun getStatusByContentId(contentId: Int): Flow<Status?>
 
     @Query("DELETE FROM status WHERE contentId = :contentId")
     suspend fun removeStatus(contentId: Int)
+
+    @Query("SELECT * FROM status WHERE contentId = :contentId LIMIT 1")
+    suspend fun getStatusOnce(contentId: Int): Status?
+
+    @Query("SELECT * FROM status WHERE contentId = :contentId LIMIT 1")
+    fun getStatus(contentId: Int): Flow<Status?>
 }

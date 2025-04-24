@@ -45,5 +45,11 @@ class ListFragment : Fragment() {
         viewModel.loadCategoriesFromJson(requireContext())
         viewModel.loadGenresFromJson(requireContext())
         viewModel.loadContentGenresFromJson(requireContext())
+
+        val filterButton = view.findViewById<View>(R.id.filter_button)
+        filterButton.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_list_to_navigation_filter)
+        }
+
     }
 }

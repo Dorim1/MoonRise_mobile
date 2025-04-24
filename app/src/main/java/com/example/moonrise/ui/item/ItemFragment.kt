@@ -1,5 +1,6 @@
 package com.example.moonrise.ui.item
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
@@ -19,9 +20,10 @@ import com.example.moonrise.R
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.databinding.FragmentItemBinding
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.moonrise.ui.item.RelatedAdapter
 import androidx.core.net.toUri
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.launch
 
 
 class ItemFragment : Fragment() {
@@ -44,6 +46,19 @@ class ItemFragment : Fragment() {
         val contentDao = database.contentDao()
         val relatedContentDao = database.relatedContentDao()
 
+        val statusDao = database.statusDao()
+
+        viewModel = ViewModelProvider(this, ItemViewModelFactory(contentDao, relatedContentDao, statusDao))[ItemViewModel::class.java]
+
+        viewModel.getStatus(contentId).observe(viewLifecycleOwner) { statusEntity ->
+            if (statusEntity != null) {
+                binding.addButton.text = getString(R.string.edit_button)
+            } else {
+                binding.addButton.text = getString(R.string.add_button)
+            }
+        }
+
+
         val navController = findNavController()
         val relatedAdapter = RelatedAdapter(navController)
         binding.relatedRecyclerView.adapter = relatedAdapter
@@ -56,11 +71,15 @@ class ItemFragment : Fragment() {
         }
 
         binding.addButton.setOnClickListener {
-            val bottomSheet = AddToGroupBottomSheet()
-            bottomSheet.show(parentFragmentManager, "AddToGroupBottomSheet")
+            viewLifecycleOwner.lifecycleScope.launch {
+                val statusEntity = statusDao.getStatusOnce(contentId)
+                val currentStatus = statusEntity?.status
+
+                AddToGroupBottomSheet(contentId, currentStatus)
+                    .show(parentFragmentManager, "AddToGroupBottomSheet")
+            }
         }
 
-        viewModel = ViewModelProvider(this, ItemViewModelFactory(contentDao, relatedContentDao))[ItemViewModel::class.java]
 
         viewModel.getRelatedContent(contentId).observe(viewLifecycleOwner) { relatedContent ->
             if (relatedContent.isNotEmpty()) {
@@ -119,7 +138,7 @@ class ItemFragment : Fragment() {
 
                 binding.watchButton.setOnClickListener {
                     try {
-                        val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, watchingUrl.toUri())
+                        val intent = Intent(Intent.ACTION_VIEW, watchingUrl.toUri())
                         startActivity(intent)
                     } catch (e: Exception) {
                         Toast.makeText(requireContext(), "Не удалось открыть ссылку", Toast.LENGTH_SHORT).show()
