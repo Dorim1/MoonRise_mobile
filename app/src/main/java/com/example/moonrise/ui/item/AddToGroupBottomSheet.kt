@@ -57,10 +57,10 @@ class AddToGroupBottomSheet(
             viewLifecycleOwner.lifecycleScope.launch {
                 if (newStatus == null) {
                     statusDao.removeStatus(contentId)
-                    Toast.makeText(requireContext(), "Удалено из группы", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Статус удалён", Toast.LENGTH_SHORT).show()
                 } else {
                     statusDao.insertStatus(Status(contentId, newStatus))
-                    Toast.makeText(requireContext(), "Добавлено: $newStatus", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Статус: $newStatus", Toast.LENGTH_SHORT).show()
                 }
                 dismiss()
             }

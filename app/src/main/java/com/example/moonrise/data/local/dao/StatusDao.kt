@@ -24,4 +24,7 @@ interface StatusDao {
 
     @Query("SELECT * FROM status WHERE contentId = :contentId LIMIT 1")
     fun getStatus(contentId: Int): Flow<Status?>
+
+    @Query("SELECT * FROM status")
+    fun getAllStatuses(): Flow<List<Status>>
 }

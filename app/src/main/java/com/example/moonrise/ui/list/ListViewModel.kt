@@ -28,6 +28,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     private val categoryDao = database.categoryDao()
 
     val allContentWithCategory: LiveData<List<ContentWithCategory>> = contentDao.getAllContentWithCategory().asLiveData()
+    val allStatuses: LiveData<List<Status>> = statusDao.getAllStatuses().asLiveData()
 
     fun addContent(vararg content: Content) {
         viewModelScope.launch {
@@ -35,10 +36,8 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun setStatus(contentId: Int, status: String) {
-        viewModelScope.launch {
-            statusDao.insertStatus(Status(contentId, status))
-        }
+    fun getStatus(contentId: Int): LiveData<Status?> {
+        return statusDao.getStatus(contentId).asLiveData()
     }
 
     private fun saveContentList(contentList: List<Content>) {
