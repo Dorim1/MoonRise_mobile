@@ -51,9 +51,5 @@ class ListFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_list_to_navigation_filter)
         }
 
-        viewModel.allStatuses.observe(viewLifecycleOwner) { statusList ->
-            contentAdapter.setStatuses(statusList)
-        }
-
     }
 }

@@ -25,7 +25,6 @@ class ContentAdapter(private val navController: NavController) :
     RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() {
 
     private var contentWithCategoryList: List<ContentWithCategory> = emptyList()
-    private var statuses: List<Status> = emptyList()
 
     fun setContentList(newList: List<ContentWithCategory>) {
         val diffCallback = ContentDiffCallback(contentWithCategoryList, newList)
@@ -33,11 +32,6 @@ class ContentAdapter(private val navController: NavController) :
 
         contentWithCategoryList = newList
         diffResult.dispatchUpdatesTo(this)
-    }
-
-    fun setStatuses(newStatuses: List<Status>) {
-        this.statuses = newStatuses
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
@@ -48,8 +42,7 @@ class ContentAdapter(private val navController: NavController) :
 
     override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
         val contentWithCategory = contentWithCategoryList[position]
-        val status = if (position < statuses.size) statuses[position] else null
-        holder.bind(contentWithCategory, status)
+        holder.bind(contentWithCategory)
 
         holder.itemView.setOnClickListener {
             val bundle = Bundle().apply {
@@ -68,8 +61,10 @@ class ContentAdapter(private val navController: NavController) :
         private val loadingAnimation: LottieAnimationView = view.findViewById(R.id.loading_animation)
         private val favoriteIcon: ImageView = view.findViewById(R.id.favorite_icon)
 
-        fun bind(contentWithCategory: ContentWithCategory, status: Status?) {
+        fun bind(contentWithCategory: ContentWithCategory) {
             val content = contentWithCategory.content
+            val status = contentWithCategory.status
+
             titleTextView.text = content.title
             categoryTextView.text = contentWithCategory.category.name
 
