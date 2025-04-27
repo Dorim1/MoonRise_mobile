@@ -44,4 +44,16 @@ interface ContentDao {
     WHERE content_genre.contentId = :contentId
 """)
     fun getGenresForContent(contentId: Int): Flow<List<Genre>>
+
+    @Query("SELECT MIN(CAST(SUBSTR(releaseDate, 1, LENGTH(releaseDate) - 1) AS INTEGER)) FROM content")
+    suspend fun getMinYear(): Int?
+
+    @Query("SELECT MAX(CAST(SUBSTR(releaseDate, 1, LENGTH(releaseDate) - 1) AS INTEGER)) FROM content")
+    suspend fun getMaxYear(): Int?
+
+    suspend fun getYearRange(): Pair<Int?, Int?> {
+        val minYear = getMinYear()
+        val maxYear = getMaxYear()
+        return Pair(minYear, maxYear)
+    }
 }

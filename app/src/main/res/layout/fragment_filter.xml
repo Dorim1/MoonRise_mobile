@@ -46,75 +46,116 @@
                     android:layout_marginStart="10dp"/>
             </LinearLayout>
 
+            <!-- Категория -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Категория"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"/>
+
             <com.skydoves.powerspinner.PowerSpinnerView
                 android:id="@+id/spinner_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="Тест"
+                android:text="Неважно"
                 android:padding="10dp"
-                android:layout_marginVertical="20dp"
+                android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
                 app:spinner_arrow_tint="@color/white" />
+
+            <!-- Жанр -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Жанр"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"/>
 
             <com.skydoves.powerspinner.PowerSpinnerView
                 android:id="@+id/spinner_genre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="Тест"
+                android:text="Неважно"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
                 app:spinner_arrow_tint="@color/white" />
+
+            <!-- Год выпуска -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Год выпуска"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"/>
 
             <com.skydoves.powerspinner.PowerSpinnerView
                 android:id="@+id/spinner_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="Тест"
+                android:text="Неважно"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
                 app:spinner_arrow_tint="@color/white" />
+
+            <!-- Возрастные ограничения -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Возрастные ограничения"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"/>
 
             <com.skydoves.powerspinner.PowerSpinnerView
                 android:id="@+id/spinner_age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="Тест"
+                android:text="Неважно"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
                 app:spinner_arrow_tint="@color/white" />
 
+            <!-- Статус -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Статус просмотра"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"/>
+
             <com.skydoves.powerspinner.PowerSpinnerView
                 android:id="@+id/spinner_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="Тест"
+                android:text="Неважно"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
                 app:spinner_arrow_tint="@color/white" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -130,23 +171,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/apply_button"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Принять"
-            android:background="@drawable/rounded_button_background"
-            android:textColor="@color/black"
-            android:layout_marginEnd="8dp"/>
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cancel_button"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Отмена"
+            android:text="Сбросить"
             android:background="@drawable/rounded_button_cansel_border"
             android:textColor="@color/white"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/apply_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Применить"
+            android:background="@drawable/rounded_button_background"
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp"/>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

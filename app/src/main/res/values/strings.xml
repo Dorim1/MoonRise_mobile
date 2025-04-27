@@ -12,4 +12,6 @@
     <string name="show_more">Подробнее...</string>
     <string name="hide">Скрыть</string>
     <string name="edit_button">Изменить</string>
+    <string name="year_range">%1$s - %2$s</string>
+    <string name="not_important">Неважно</string>
 </resources>
