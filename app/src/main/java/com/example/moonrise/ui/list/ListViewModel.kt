@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moonrise.data.local.dao.StatusTypeDao
@@ -29,9 +30,12 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     private val statusDao = database.statusDao()
     private val statusTypeDao = database.statusTypeDao()
     private val categoryDao = database.categoryDao()
+    private val genreDao = database.genreDao()
+    private val contentGenreDao = database.contentGenreDao()
 
     val allContentWithCategory: LiveData<List<ContentWithCategory>> = contentDao.getAllContentWithCategory().asLiveData()
     val allStatuses: LiveData<List<Status>> = statusDao.getAllStatuses().asLiveData()
+
 
     fun addContent(vararg content: Content) {
         viewModelScope.launch {
@@ -77,7 +81,6 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadGenresFromJson(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-            val genreDao = database.genreDao()
             val genres = genreDao.getAllGenres().firstOrNull()
 
             if (genres.isNullOrEmpty()) {
@@ -92,7 +95,6 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadContentGenresFromJson(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-            val contentGenreDao = database.contentGenreDao()
             val someContentGenre = contentGenreDao.getContentByGenre(1).firstOrNull()
 
             if (someContentGenre.isNullOrEmpty()) {
@@ -107,7 +109,6 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadStatusTypesFromJson(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-            val statusTypeDao = database.statusTypeDao()
             val statusTypes = statusTypeDao.getAllStatusTypes()
 
             if (statusTypes.isEmpty()) {

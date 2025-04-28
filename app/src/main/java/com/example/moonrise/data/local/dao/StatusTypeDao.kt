@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.moonrise.data.local.entity.StatusType
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface StatusTypeDao {
@@ -17,4 +18,7 @@ interface StatusTypeDao {
 
     @Query("SELECT * FROM status_type WHERE id = :id")
     suspend fun getStatusTypeById(id: Int): StatusType?
+
+    @Query("SELECT * FROM status_type")
+    fun observeAllStatusTypes(): Flow<List<StatusType>>
 }

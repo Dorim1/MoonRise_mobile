@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.moonrise.R
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.databinding.FragmentFilterBinding
@@ -16,6 +18,7 @@ class FilterFragment : Fragment() {
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
     private var selectedGenres = mutableSetOf<String>()
+    private var selectedStatusId: Int? = null
 
     private lateinit var viewModel: FilterViewModel
 
@@ -30,12 +33,21 @@ class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val backButton = view.findViewById<AppCompatImageButton>(R.id.back_button)
+        backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         val database = AppDatabase.getDatabase(requireContext())
         val genreDao = database.genreDao()
         val categoryDao = database.categoryDao()
         val contentDao = database.contentDao()
+        val statusTypeDao = database.statusTypeDao()
 
-        viewModel = ViewModelProvider(this, FilterViewModelFactory(genreDao, categoryDao, contentDao))[FilterViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            FilterViewModelFactory(genreDao, categoryDao, contentDao, statusTypeDao)
+        )[FilterViewModel::class.java]
 
         viewModel.categories.observe(viewLifecycleOwner) { categories ->
             val categoryNames = mutableListOf("Неважно") + categories.map { it.name }
@@ -93,6 +105,21 @@ class FilterFragment : Fragment() {
                 } else {
                     binding.spinnerAge.text = item
                     // Здесь можно запомнить выбранное ограничение
+                }
+            }
+        }
+
+        viewModel.statusTypes.observe(viewLifecycleOwner) { statusTypes ->
+            val statusNames = mutableListOf("Неважно") + statusTypes.map { it.name }
+            binding.spinnerStatus.setItems(statusNames)
+
+            binding.spinnerStatus.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
+                if (position == 0) {
+                    binding.spinnerStatus.text = "Неважно"
+                    selectedStatusId = null
+                } else {
+                    binding.spinnerStatus.text = item
+                    selectedStatusId = statusTypes[position - 1].id
                 }
             }
         }
