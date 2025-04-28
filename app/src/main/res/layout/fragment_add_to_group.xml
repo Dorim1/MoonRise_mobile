@@ -64,6 +64,16 @@
             android:text="Просмотрено" />
 
         <RadioButton
+            android:id="@+id/radio_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:buttonTint="@color/radio_selector"
+            android:minHeight="48dp"
+            android:textSize="18sp"
+            android:text="Любимое" />
+
+        <RadioButton
             android:id="@+id/radio_paused"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,15 +93,6 @@
             android:textSize="18sp"
             android:text="Брошено" />
 
-        <RadioButton
-            android:id="@+id/radio_scheduled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:buttonTint="@color/radio_selector"
-            android:minHeight="48dp"
-            android:textSize="18sp"
-            android:text="Запланировано" />
     </RadioGroup>
 
     <Button

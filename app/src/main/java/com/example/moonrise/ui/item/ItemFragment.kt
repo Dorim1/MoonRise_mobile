@@ -73,7 +73,7 @@ class ItemFragment : Fragment() {
         binding.addButton.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 val statusEntity = statusDao.getStatusOnce(contentId)
-                val currentStatus = statusEntity?.status
+                val currentStatus = statusEntity?.statusTypeId
 
                 AddToGroupBottomSheet(contentId, currentStatus)
                     .show(parentFragmentManager, "AddToGroupBottomSheet")

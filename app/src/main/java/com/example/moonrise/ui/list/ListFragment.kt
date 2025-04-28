@@ -45,6 +45,7 @@ class ListFragment : Fragment() {
         viewModel.loadCategoriesFromJson(requireContext())
         viewModel.loadGenresFromJson(requireContext())
         viewModel.loadContentGenresFromJson(requireContext())
+        viewModel.loadStatusTypesFromJson(requireContext())
 
         val filterButton = view.findViewById<View>(R.id.filter_button)
         filterButton.setOnClickListener {

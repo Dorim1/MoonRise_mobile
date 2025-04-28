@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.moonrise.data.local.dao.StatusTypeDao
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.data.local.entity.Category
 import com.example.moonrise.data.local.entity.Content
@@ -14,6 +15,7 @@ import com.example.moonrise.data.local.entity.ContentWithCategory
 import com.example.moonrise.data.local.entity.Genre
 import com.example.moonrise.data.local.entity.RelatedContent
 import com.example.moonrise.data.local.entity.Status
+import com.example.moonrise.data.local.entity.StatusType
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +27,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     private val database = AppDatabase.getDatabase(application)
     private val contentDao = database.contentDao()
     private val statusDao = database.statusDao()
+    private val statusTypeDao = database.statusTypeDao()
     private val categoryDao = database.categoryDao()
 
     val allContentWithCategory: LiveData<List<ContentWithCategory>> = contentDao.getAllContentWithCategory().asLiveData()
@@ -98,6 +101,21 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                 val contentGenreList: List<ContentGenre> = gson.fromJson(jsonString, object : TypeToken<List<ContentGenre>>() {}.type)
 
                 contentGenreList.forEach { contentGenreDao.insert(it) }
+            }
+        }
+    }
+
+    fun loadStatusTypesFromJson(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val statusTypeDao = database.statusTypeDao()
+            val statusTypes = statusTypeDao.getAllStatusTypes()
+
+            if (statusTypes.isEmpty()) {
+                val jsonString = context.assets.open("status_types.json").bufferedReader().use { it.readText() }
+                val gson = Gson()
+                val statusTypeList: List<StatusType> = gson.fromJson(jsonString, object : TypeToken<List<StatusType>>() {}.type)
+
+                statusTypeDao.insertAll(statusTypeList)
             }
         }
     }
