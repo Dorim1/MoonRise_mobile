@@ -9,7 +9,7 @@ import com.example.moonrise.data.local.dao.GenreDao
 class FilterViewModelFactory(
     private val genreDao: GenreDao,
     private val categoryDao: CategoryDao,
-    private val contentDao: ContentDao // Добавлен contentDao
+    private val contentDao: ContentDao
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")

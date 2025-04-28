@@ -56,4 +56,7 @@ interface ContentDao {
         val maxYear = getMaxYear()
         return Pair(minYear, maxYear)
     }
+
+    @Query("SELECT DISTINCT ageRating FROM content WHERE ageRating IS NOT NULL")
+    fun getAllAgeRatings(): Flow<List<String>>
 }

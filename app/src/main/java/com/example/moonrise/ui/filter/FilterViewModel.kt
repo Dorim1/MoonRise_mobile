@@ -16,6 +16,7 @@ class FilterViewModel(
 
     val genres = genreDao.getAllGenres().asLiveData()
     val categories = categoryDao.getAllCategories().asLiveData()
+    val ageRatings = contentDao.getAllAgeRatings().asLiveData()
 
     fun getYearRange(): LiveData<Pair<Int?, Int?>> = liveData {
         val yearRange = contentDao.getYearRange()

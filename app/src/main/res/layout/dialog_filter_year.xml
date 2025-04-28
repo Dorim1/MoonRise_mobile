@@ -25,12 +25,12 @@
 
         <NumberPicker
             android:id="@+id/numberPickerStart"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content" />
 
         <NumberPicker
             android:id="@+id/numberPickerEnd"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"/>
     </LinearLayout>

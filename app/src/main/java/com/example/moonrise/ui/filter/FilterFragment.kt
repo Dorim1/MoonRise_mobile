@@ -38,8 +38,19 @@ class FilterFragment : Fragment() {
         viewModel = ViewModelProvider(this, FilterViewModelFactory(genreDao, categoryDao, contentDao))[FilterViewModel::class.java]
 
         viewModel.categories.observe(viewLifecycleOwner) { categories ->
-            val categoryNames = categories.map { it.name }
+            val categoryNames = mutableListOf("Неважно") + categories.map { it.name }
             binding.spinnerCategory.setItems(categoryNames)
+
+            binding.spinnerCategory.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
+                if (position == 0) {
+                    // Выбрали "Неважно"
+                    binding.spinnerCategory.text = "Неважно"
+                    // Тут можно обнулить выбранную категорию, если хочешь
+                } else {
+                    binding.spinnerCategory.text = item
+                    // Здесь ты можешь запомнить выбранную категорию
+                }
+            }
         }
 
         viewModel.genres.observe(viewLifecycleOwner) { genres ->
@@ -58,15 +69,31 @@ class FilterFragment : Fragment() {
             val (minYear, maxYear) = yearRange
             binding.spinnerYear.setOnClickListener {
                 YearFilterDialog({ startYear, endYear ->
-                    // Обрабатываем выбранные годы
+                    if (startYear == null && endYear == null) {
+                        binding.spinnerYear.text = "Неважно"
+                        return@YearFilterDialog
+                    }
+
                     if (startYear != null && endYear != null) {
                         binding.spinnerYear.text = getString(R.string.year_range, startYear.toString(), endYear.toString())
-                    } else {
-                        // Когда тексты "С" и "ПО" используются по умолчанию
-                        binding.spinnerYear.text = getString(R.string.year_range, startYear?.toString() ?: "С", endYear?.toString() ?: "ПО")
                     }
-                }, minYear, maxYear, defaultStartText = "С", defaultEndText = "ПО")
+                }, minYear, maxYear)
                     .show(parentFragmentManager, "yearFilterDialog")
+            }
+        }
+
+        viewModel.ageRatings.observe(viewLifecycleOwner) { ageRatings ->
+            val ageRatingList = mutableListOf("Неважно") + ageRatings
+            binding.spinnerAge.setItems(ageRatingList)
+
+            binding.spinnerAge.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
+                if (position == 0) {
+                    binding.spinnerAge.text = "Неважно"
+                    // Тут можно обнулить выбранное ограничение
+                } else {
+                    binding.spinnerAge.text = item
+                    // Здесь можно запомнить выбранное ограничение
+                }
             }
         }
     }
