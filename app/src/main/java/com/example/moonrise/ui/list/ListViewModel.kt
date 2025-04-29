@@ -20,6 +20,7 @@ import com.example.moonrise.data.local.entity.StatusType
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
@@ -53,9 +54,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         genres: List<String>,
         category: String?,
         statusId: Int?,
-        ageRating: String?,
-        startYear: Int?,
-        endYear: Int?
+        ageRating: String?
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             contentDao.getFilteredContentWithRelations(
@@ -63,9 +62,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                 genresSize = genres.size,
                 category = category,
                 statusId = statusId,
-                ageRating = ageRating,
-                startYear = startYear,
-                endYear = endYear
+                ageRating = ageRating
             ).collect { filtered ->
                 _filteredContent.postValue(filtered)
             }

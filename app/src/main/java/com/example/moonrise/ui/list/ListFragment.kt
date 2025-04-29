@@ -40,8 +40,6 @@ class ListFragment : Fragment() {
                 category = selectedCategory,
                 statusId = selectedStatusId,
                 ageRating = selectedAgeRating,
-                startYear = selectedStartYear,
-                endYear = selectedEndYear
             )
         }
 
@@ -62,7 +60,7 @@ class ListFragment : Fragment() {
         }
 
         // Начальная загрузка фильтров
-        viewModel.applyFilters(emptyList(), null, null, null, null, null)
+        viewModel.applyFilters(emptyList(), null, null, null)
         viewModel.loadCategoriesFromJson(requireContext())
         viewModel.loadGenresFromJson(requireContext())
         viewModel.loadContentGenresFromJson(requireContext())

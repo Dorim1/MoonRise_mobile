@@ -63,35 +63,27 @@ interface ContentDao {
 
     @Transaction
     @Query("""
-        SELECT * FROM content
-        WHERE (:category IS NULL OR categoryId IN (
-            SELECT id FROM category WHERE name = :category
-        ))
-        AND (:statusId IS NULL OR content.id IN (
-            SELECT contentId FROM status WHERE statusTypeId = :statusId
-        ))
-        AND (:ageRating IS NULL OR ageRating = :ageRating)
-        AND (
-            :genresSize = 0 OR id IN (
-                SELECT contentId FROM content_genre
-                INNER JOIN genre ON content_genre.genreId = genre.id
-                WHERE genre.name IN (:genres)
-            )
+    SELECT * FROM content
+    WHERE (:category IS NULL OR categoryId IN (
+        SELECT id FROM category WHERE name = :category
+    ))
+    AND (:statusId IS NULL OR content.id IN (
+        SELECT contentId FROM status WHERE statusTypeId = :statusId
+    ))
+    AND (:ageRating IS NULL OR ageRating = :ageRating)
+    AND (
+        :genresSize = 0 OR id IN (
+            SELECT contentId FROM content_genre
+            INNER JOIN genre ON content_genre.genreId = genre.id
+            WHERE genre.name IN (:genres)
         )
-        AND (
-            :startYear IS NULL OR CAST(SUBSTR(releaseDate, 1, 4) AS INTEGER) >= :startYear
-        )
-        AND (
-            :endYear IS NULL OR CAST(SUBSTR(releaseDate, 1, 4) AS INTEGER) <= :endYear
-        )
-    """)
+    )
+""")
     fun getFilteredContentWithRelations(
         genres: List<String>,
         genresSize: Int,
         category: String?,
         statusId: Int?,
-        ageRating: String?,
-        startYear: Int?,
-        endYear: Int?
+        ageRating: String?
     ): Flow<List<ContentWithCategory>>
 }
