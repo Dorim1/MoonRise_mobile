@@ -32,9 +32,11 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     private val categoryDao = database.categoryDao()
     private val genreDao = database.genreDao()
     private val contentGenreDao = database.contentGenreDao()
+    private val _filteredContent = MutableLiveData<List<ContentWithCategory>>()
 
     val allContentWithCategory: LiveData<List<ContentWithCategory>> = contentDao.getAllContentWithCategory().asLiveData()
     val allStatuses: LiveData<List<Status>> = statusDao.getAllStatuses().asLiveData()
+    val filteredContent: LiveData<List<ContentWithCategory>> = _filteredContent
 
 
     fun addContent(vararg content: Content) {
@@ -45,6 +47,29 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getStatus(contentId: Int): LiveData<Status?> {
         return statusDao.getStatus(contentId).asLiveData()
+    }
+
+    fun applyFilters(
+        genres: List<String>,
+        category: String?,
+        statusId: Int?,
+        ageRating: String?,
+        startYear: Int?,
+        endYear: Int?
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            contentDao.getFilteredContentWithRelations(
+                genres = genres,
+                genresSize = genres.size,
+                category = category,
+                statusId = statusId,
+                ageRating = ageRating,
+                startYear = startYear,
+                endYear = endYear
+            ).collect { filtered ->
+                _filteredContent.postValue(filtered)
+            }
+        }
     }
 
     private fun saveContentList(contentList: List<Content>) {

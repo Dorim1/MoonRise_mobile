@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.example.moonrise.data.local.entity.Content
 import com.example.moonrise.data.local.entity.ContentWithCategory
 import com.example.moonrise.data.local.entity.Genre
@@ -59,4 +60,38 @@ interface ContentDao {
 
     @Query("SELECT DISTINCT ageRating FROM content WHERE ageRating IS NOT NULL")
     fun getAllAgeRatings(): Flow<List<String>>
+
+    @Transaction
+    @Query("""
+        SELECT * FROM content
+        WHERE (:category IS NULL OR categoryId IN (
+            SELECT id FROM category WHERE name = :category
+        ))
+        AND (:statusId IS NULL OR content.id IN (
+            SELECT contentId FROM status WHERE statusTypeId = :statusId
+        ))
+        AND (:ageRating IS NULL OR ageRating = :ageRating)
+        AND (
+            :genresSize = 0 OR id IN (
+                SELECT contentId FROM content_genre
+                INNER JOIN genre ON content_genre.genreId = genre.id
+                WHERE genre.name IN (:genres)
+            )
+        )
+        AND (
+            :startYear IS NULL OR CAST(SUBSTR(releaseDate, 1, 4) AS INTEGER) >= :startYear
+        )
+        AND (
+            :endYear IS NULL OR CAST(SUBSTR(releaseDate, 1, 4) AS INTEGER) <= :endYear
+        )
+    """)
+    fun getFilteredContentWithRelations(
+        genres: List<String>,
+        genresSize: Int,
+        category: String?,
+        statusId: Int?,
+        ageRating: String?,
+        startYear: Int?,
+        endYear: Int?
+    ): Flow<List<ContentWithCategory>>
 }

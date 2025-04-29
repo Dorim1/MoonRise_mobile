@@ -59,6 +59,7 @@ class YearFilterDialog(
         view.findViewById<AppCompatButton>(R.id.btn_apply).setOnClickListener {
             val startYear = yearValues.getOrNull(numberPickerStart.value)?.toInt()
             val endYear = yearValues.getOrNull(numberPickerEnd.value)?.toInt()
+
             onApply(startYear, endYear)
             dismiss()
         }

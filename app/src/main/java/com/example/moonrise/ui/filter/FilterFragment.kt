@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,10 @@ class FilterFragment : Fragment() {
     private val binding get() = _binding!!
     private var selectedGenres = mutableSetOf<String>()
     private var selectedStatusId: Int? = null
+    private var selectedCategory: String? = null
+    private var selectedAgeRating: String? = null
+    private var selectedStartYear: Int? = null
+    private var selectedEndYear: Int? = null
 
     private lateinit var viewModel: FilterViewModel
 
@@ -34,9 +39,41 @@ class FilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val backButton = view.findViewById<AppCompatImageButton>(R.id.back_button)
+        val cancelButton = view.findViewById<AppCompatButton>(R.id.cancel_button)
+
         backButton.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        cancelButton.setOnClickListener {
+            selectedGenres.clear()
+            selectedCategory = null
+            selectedStatusId = null
+            selectedAgeRating = null
+            selectedStartYear = null
+            selectedEndYear = null
+
+            binding.spinnerCategory.text = "Неважно"
+            binding.spinnerStatus.text = "Неважно"
+            binding.spinnerAge.text = "Неважно"
+            binding.spinnerYear.text = "Неважно"
+            updateGenreSpinnerText()
+        }
+
+        binding.applyButton.setOnClickListener {
+            val result = Bundle().apply {
+                putStringArrayList("selectedGenres", ArrayList(selectedGenres))
+                putString("selectedCategory", selectedCategory)
+                putInt("selectedStatusId", selectedStatusId ?: -1)
+                putString("selectedAgeRating", selectedAgeRating)
+                putInt("selectedStartYear", selectedStartYear ?: -1)
+                putInt("selectedEndYear", selectedEndYear ?: -1)
+            }
+
+            parentFragmentManager.setFragmentResult("filterRequest", result)
+            findNavController().navigateUp()
+        }
+
 
         val database = AppDatabase.getDatabase(requireContext())
         val genreDao = database.genreDao()
@@ -55,12 +92,11 @@ class FilterFragment : Fragment() {
 
             binding.spinnerCategory.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
                 if (position == 0) {
-                    // Выбрали "Неважно"
                     binding.spinnerCategory.text = "Неважно"
-                    // Тут можно обнулить выбранную категорию, если хочешь
+                    selectedCategory = null // Обнуляем выбранную категорию
                 } else {
                     binding.spinnerCategory.text = item
-                    // Здесь ты можешь запомнить выбранную категорию
+                    selectedCategory = item // Сохраняем выбранную категорию
                 }
             }
         }
@@ -83,11 +119,15 @@ class FilterFragment : Fragment() {
                 YearFilterDialog({ startYear, endYear ->
                     if (startYear == null && endYear == null) {
                         binding.spinnerYear.text = "Неважно"
+                        selectedStartYear = null
+                        selectedEndYear = null
                         return@YearFilterDialog
                     }
 
                     if (startYear != null && endYear != null) {
                         binding.spinnerYear.text = getString(R.string.year_range, startYear.toString(), endYear.toString())
+                        selectedStartYear = startYear
+                        selectedEndYear = endYear
                     }
                 }, minYear, maxYear)
                     .show(parentFragmentManager, "yearFilterDialog")
@@ -101,10 +141,10 @@ class FilterFragment : Fragment() {
             binding.spinnerAge.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
                 if (position == 0) {
                     binding.spinnerAge.text = "Неважно"
-                    // Тут можно обнулить выбранное ограничение
+                    selectedAgeRating = null // Сброс ограничения
                 } else {
                     binding.spinnerAge.text = item
-                    // Здесь можно запомнить выбранное ограничение
+                    selectedAgeRating = item // Сохранение ограничения
                 }
             }
         }

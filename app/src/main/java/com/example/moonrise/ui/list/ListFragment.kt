@@ -26,6 +26,25 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Обработчик для получения результатов фильтрации
+        parentFragmentManager.setFragmentResultListener("filterRequest", viewLifecycleOwner) { _, bundle ->
+            val selectedGenres = bundle.getStringArrayList("selectedGenres") ?: emptyList<String>()
+            val selectedCategory = bundle.getString("selectedCategory")
+            val selectedStatusId = bundle.getInt("selectedStatusId").takeIf { it != -1 }
+            val selectedAgeRating = bundle.getString("selectedAgeRating")
+            val selectedStartYear = bundle.getInt("selectedStartYear") // Добавляем фильтрацию по началу года
+            val selectedEndYear = bundle.getInt("selectedEndYear") // Добавляем фильтрацию по концу года
+
+            viewModel.applyFilters(
+                genres = selectedGenres,
+                category = selectedCategory,
+                statusId = selectedStatusId,
+                ageRating = selectedAgeRating,
+                startYear = selectedStartYear,
+                endYear = selectedEndYear
+            )
+        }
+
         val navController = findNavController()
         contentAdapter = ContentAdapter(navController)
 
@@ -33,15 +52,17 @@ class ListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = contentAdapter
 
-        viewModel.allContentWithCategory.observe(viewLifecycleOwner) { contentList ->
+        viewModel.filteredContent.observe(viewLifecycleOwner) { contentList ->
             contentAdapter.setContentList(contentList)
 
+            // Если контент пустой, загружаем данные
             if (contentList.isEmpty()) {
-                // Загрузка основных данных, если база пуста
-                viewModel.loadDataFromJson(requireContext())
+                viewModel.loadDataFromJson(requireContext()) // Загрузка данных из JSON
             }
         }
 
+        // Начальная загрузка фильтров
+        viewModel.applyFilters(emptyList(), null, null, null, null, null)
         viewModel.loadCategoriesFromJson(requireContext())
         viewModel.loadGenresFromJson(requireContext())
         viewModel.loadContentGenresFromJson(requireContext())
@@ -51,6 +72,5 @@ class ListFragment : Fragment() {
         filterButton.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_list_to_navigation_filter)
         }
-
     }
 }

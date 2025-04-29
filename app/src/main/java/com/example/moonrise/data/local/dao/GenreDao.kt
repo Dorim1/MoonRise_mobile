@@ -17,4 +17,5 @@ interface GenreDao {
 
     @Query("SELECT * FROM genre WHERE id = :genreId")
     fun getGenreById(genreId: Int): Flow<Genre>
+
 }
