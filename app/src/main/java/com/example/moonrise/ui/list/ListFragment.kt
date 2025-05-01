@@ -26,20 +26,21 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Обработчик для получения результатов фильтрации
         parentFragmentManager.setFragmentResultListener("filterRequest", viewLifecycleOwner) { _, bundle ->
             val selectedGenres = bundle.getStringArrayList("selectedGenres") ?: emptyList<String>()
             val selectedCategory = bundle.getString("selectedCategory")
             val selectedStatusId = bundle.getInt("selectedStatusId").takeIf { it != -1 }
             val selectedAgeRating = bundle.getString("selectedAgeRating")
-            val selectedStartYear = bundle.getInt("selectedStartYear") // Добавляем фильтрацию по началу года
-            val selectedEndYear = bundle.getInt("selectedEndYear") // Добавляем фильтрацию по концу года
+            val selectedStartYear = bundle.getInt("selectedStartYear").takeIf { it != -1 }
+            val selectedEndYear = bundle.getInt("selectedEndYear").takeIf { it != -1 }
 
             viewModel.applyFilters(
                 genres = selectedGenres,
                 category = selectedCategory,
                 statusId = selectedStatusId,
                 ageRating = selectedAgeRating,
+                startYear = selectedStartYear,
+                endYear = selectedEndYear
             )
         }
 
@@ -59,8 +60,7 @@ class ListFragment : Fragment() {
             }
         }
 
-        // Начальная загрузка фильтров
-        viewModel.applyFilters(emptyList(), null, null, null)
+        viewModel.applyFilters(emptyList(), null, null, null, null, null)
         viewModel.loadCategoriesFromJson(requireContext())
         viewModel.loadGenresFromJson(requireContext())
         viewModel.loadContentGenresFromJson(requireContext())

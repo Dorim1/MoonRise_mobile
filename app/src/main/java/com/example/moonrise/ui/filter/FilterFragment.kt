@@ -18,13 +18,6 @@ class FilterFragment : Fragment() {
 
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
-    private var selectedGenres = mutableSetOf<String>()
-    private var selectedStatusId: Int? = null
-    private var selectedCategory: String? = null
-    private var selectedAgeRating: String? = null
-    private var selectedStartYear: Int? = null
-    private var selectedEndYear: Int? = null
-
     private lateinit var viewModel: FilterViewModel
 
     override fun onCreateView(
@@ -46,12 +39,12 @@ class FilterFragment : Fragment() {
         }
 
         cancelButton.setOnClickListener {
-            selectedGenres.clear()
-            selectedCategory = null
-            selectedStatusId = null
-            selectedAgeRating = null
-            selectedStartYear = null
-            selectedEndYear = null
+            viewModel.selectedGenres.clear()
+            viewModel.selectedCategory = null
+            viewModel.selectedStatusId = null
+            viewModel.selectedAgeRating = null
+            viewModel.selectedStartYear = null
+            viewModel.selectedEndYear = null
 
             binding.spinnerCategory.text = "Неважно"
             binding.spinnerStatus.text = "Неважно"
@@ -62,52 +55,55 @@ class FilterFragment : Fragment() {
 
         binding.applyButton.setOnClickListener {
             val result = Bundle().apply {
-                putStringArrayList("selectedGenres", ArrayList(selectedGenres))
-                putString("selectedCategory", selectedCategory)
-                putInt("selectedStatusId", selectedStatusId ?: -1)
-                putString("selectedAgeRating", selectedAgeRating)
-                putInt("selectedStartYear", selectedStartYear ?: -1)
-                putInt("selectedEndYear", selectedEndYear ?: -1)
+                putStringArrayList("selectedGenres", ArrayList(viewModel.selectedGenres))
+                putString("selectedCategory", viewModel.selectedCategory)
+                putInt("selectedStatusId", viewModel.selectedStatusId ?: -1)
+                putString("selectedAgeRating", viewModel.selectedAgeRating)
+                putInt("selectedStartYear", viewModel.selectedStartYear ?: -1)
+                putInt("selectedEndYear", viewModel.selectedEndYear ?: -1)
             }
 
             parentFragmentManager.setFragmentResult("filterRequest", result)
             findNavController().navigateUp()
         }
 
-
         val database = AppDatabase.getDatabase(requireContext())
-        val genreDao = database.genreDao()
-        val categoryDao = database.categoryDao()
-        val contentDao = database.contentDao()
-        val statusTypeDao = database.statusTypeDao()
-
         viewModel = ViewModelProvider(
             this,
-            FilterViewModelFactory(genreDao, categoryDao, contentDao, statusTypeDao)
+            FilterViewModelFactory(
+                database.genreDao(),
+                database.categoryDao(),
+                database.contentDao(),
+                database.statusTypeDao()
+            )
         )[FilterViewModel::class.java]
 
         viewModel.categories.observe(viewLifecycleOwner) { categories ->
             val categoryNames = mutableListOf("Неважно") + categories.map { it.name }
             binding.spinnerCategory.setItems(categoryNames)
 
+            val selected = viewModel.selectedCategory
+            binding.spinnerCategory.text = selected ?: "Неважно"
+
             binding.spinnerCategory.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
                 if (position == 0) {
                     binding.spinnerCategory.text = "Неважно"
-                    selectedCategory = null // Обнуляем выбранную категорию
+                    viewModel.selectedCategory = null
                 } else {
                     binding.spinnerCategory.text = item
-                    selectedCategory = item // Сохраняем выбранную категорию
+                    viewModel.selectedCategory = item
                 }
             }
         }
 
         viewModel.genres.observe(viewLifecycleOwner) { genres ->
+            updateGenreSpinnerText()
             binding.spinnerGenre.setOnClickListener {
                 GenreFilterDialog(
                     genres = genres,
-                    selectedGenres = selectedGenres
+                    selectedGenres = viewModel.selectedGenres
                 ) { selected ->
-                    selectedGenres = selected.toMutableSet()
+                    viewModel.selectedGenres = selected.toMutableSet()
                     updateGenreSpinnerText()
                 }.show(parentFragmentManager, "GenreFilterDialog")
             }
@@ -115,19 +111,34 @@ class FilterFragment : Fragment() {
 
         viewModel.getYearRange().observe(viewLifecycleOwner) { yearRange ->
             val (minYear, maxYear) = yearRange
+
+            if (viewModel.selectedStartYear != null && viewModel.selectedEndYear != null) {
+                binding.spinnerYear.text = getString(
+                    R.string.year_range,
+                    viewModel.selectedStartYear.toString(),
+                    viewModel.selectedEndYear.toString()
+                )
+            } else {
+                binding.spinnerYear.text = "Неважно"
+            }
+
             binding.spinnerYear.setOnClickListener {
                 YearFilterDialog({ startYear, endYear ->
                     if (startYear == null && endYear == null) {
                         binding.spinnerYear.text = "Неважно"
-                        selectedStartYear = null
-                        selectedEndYear = null
+                        viewModel.selectedStartYear = null
+                        viewModel.selectedEndYear = null
                         return@YearFilterDialog
                     }
 
                     if (startYear != null && endYear != null) {
-                        binding.spinnerYear.text = getString(R.string.year_range, startYear.toString(), endYear.toString())
-                        selectedStartYear = startYear
-                        selectedEndYear = endYear
+                        binding.spinnerYear.text = getString(
+                            R.string.year_range,
+                            startYear.toString(),
+                            endYear.toString()
+                        )
+                        viewModel.selectedStartYear = startYear
+                        viewModel.selectedEndYear = endYear
                     }
                 }, minYear, maxYear)
                     .show(parentFragmentManager, "yearFilterDialog")
@@ -138,13 +149,16 @@ class FilterFragment : Fragment() {
             val ageRatingList = mutableListOf("Неважно") + ageRatings
             binding.spinnerAge.setItems(ageRatingList)
 
+            val selected = viewModel.selectedAgeRating
+            binding.spinnerAge.text = selected ?: "Неважно"
+
             binding.spinnerAge.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
                 if (position == 0) {
                     binding.spinnerAge.text = "Неважно"
-                    selectedAgeRating = null // Сброс ограничения
+                    viewModel.selectedAgeRating = null
                 } else {
                     binding.spinnerAge.text = item
-                    selectedAgeRating = item // Сохранение ограничения
+                    viewModel.selectedAgeRating = item
                 }
             }
         }
@@ -153,23 +167,27 @@ class FilterFragment : Fragment() {
             val statusNames = mutableListOf("Неважно") + statusTypes.map { it.name }
             binding.spinnerStatus.setItems(statusNames)
 
+            val selectedId = viewModel.selectedStatusId
+            val selectedStatus = statusTypes.find { it.id == selectedId }?.name
+            binding.spinnerStatus.text = selectedStatus ?: "Неважно"
+
             binding.spinnerStatus.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
                 if (position == 0) {
                     binding.spinnerStatus.text = "Неважно"
-                    selectedStatusId = null
+                    viewModel.selectedStatusId = null
                 } else {
                     binding.spinnerStatus.text = item
-                    selectedStatusId = statusTypes[position - 1].id
+                    viewModel.selectedStatusId = statusTypes[position - 1].id
                 }
             }
         }
     }
 
     private fun updateGenreSpinnerText() {
-        if (selectedGenres.isEmpty()) {
+        if (viewModel.selectedGenres.isEmpty()) {
             binding.spinnerGenre.text = "Неважно"
         } else {
-            binding.spinnerGenre.text = selectedGenres.joinToString(", ")
+            binding.spinnerGenre.text = viewModel.selectedGenres.joinToString(", ")
         }
     }
 

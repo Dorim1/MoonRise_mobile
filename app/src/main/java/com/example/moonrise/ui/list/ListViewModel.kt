@@ -54,18 +54,22 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         genres: List<String>,
         category: String?,
         statusId: Int?,
-        ageRating: String?
+        ageRating: String?,
+        startYear: Int?,
+        endYear: Int?
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            contentDao.getFilteredContentWithRelations(
+            val filtered = contentDao.getFilteredContentWithRelations(
                 genres = genres,
                 genresSize = genres.size,
                 category = category,
                 statusId = statusId,
-                ageRating = ageRating
-            ).collect { filtered ->
-                _filteredContent.postValue(filtered)
-            }
+                ageRating = ageRating,
+                startYear = startYear,
+                endYear = endYear
+            ).first() // ← замена collect
+
+            _filteredContent.postValue(filtered) // ← результат помещаем в LiveData
         }
     }
 

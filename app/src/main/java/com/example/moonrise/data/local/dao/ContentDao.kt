@@ -36,20 +36,22 @@ interface ContentDao {
     @Query("""
     SELECT * FROM content 
     WHERE id = :contentId
-""")
+    """)
     fun getContentWithCategoryById(contentId: Int): Flow<ContentWithCategory>
 
     @Query("""
     SELECT genre.* FROM genre
     INNER JOIN content_genre ON genre.id = content_genre.genreId
     WHERE content_genre.contentId = :contentId
-""")
+    """)
     fun getGenresForContent(contentId: Int): Flow<List<Genre>>
 
-    @Query("SELECT MIN(CAST(SUBSTR(releaseDate, 1, LENGTH(releaseDate) - 1) AS INTEGER)) FROM content")
+    // Изменён запрос на получение минимального года
+    @Query("SELECT MIN(releaseDate) FROM content")
     suspend fun getMinYear(): Int?
 
-    @Query("SELECT MAX(CAST(SUBSTR(releaseDate, 1, LENGTH(releaseDate) - 1) AS INTEGER)) FROM content")
+    // Изменён запрос на получение максимального года
+    @Query("SELECT MAX(releaseDate) FROM content")
     suspend fun getMaxYear(): Int?
 
     suspend fun getYearRange(): Pair<Int?, Int?> {
@@ -78,12 +80,16 @@ interface ContentDao {
             WHERE genre.name IN (:genres)
         )
     )
-""")
+    AND (:startYear IS NULL OR releaseDate >= :startYear)
+    AND (:endYear IS NULL OR releaseDate <= :endYear)
+    """)
     fun getFilteredContentWithRelations(
         genres: List<String>,
         genresSize: Int,
         category: String?,
         statusId: Int?,
-        ageRating: String?
+        ageRating: String?,
+        startYear: Int?,
+        endYear: Int?
     ): Flow<List<ContentWithCategory>>
 }

@@ -27,4 +27,11 @@ class FilterViewModel(
         val yearRange = contentDao.getYearRange()
         emit(yearRange)
     }
+
+    var selectedGenres = mutableSetOf<String>()
+    var selectedStatusId: Int? = null
+    var selectedCategory: String? = null
+    var selectedAgeRating: String? = null
+    var selectedStartYear: Int? = null
+    var selectedEndYear: Int? = null
 }

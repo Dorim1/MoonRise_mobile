@@ -97,7 +97,7 @@ class ItemFragment : Fragment() {
             binding.orTitleItem.text = contentWithCategory.content.orTitle
             binding.ageRating.text = contentWithCategory.content.ageRating
             binding.descriptionItem.text = contentWithCategory.content.description
-            binding.releaseDate.text = getString(R.string.release_date, contentWithCategory.content.releaseDate)
+            binding.releaseDate.text = getString(R.string.release_date, "${contentWithCategory.content.releaseDate} г.")
 
             // Загружаем изображение с обработкой ошибки
             Glide.with(this)
