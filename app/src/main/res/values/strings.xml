@@ -16,4 +16,7 @@
     <string name="year_range">%1$s - %2$s</string>
     <string name="year_from">С %1$s</string>
     <string name="year_to">До %1$s</string>
+    <string name="save_rating">Сохранить</string>
+    <string name="change_rating">Изменить оценку</string>
+    <string name="delete_rating">Удалить оценку</string>
 </resources>

@@ -108,15 +108,38 @@
                         android:textSize="16sp"
                         android:background="@drawable/rounded_button_background" />
 
-                    <androidx.appcompat.widget.AppCompatImageButton
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/rateButton"
                         android:layout_width="76dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/rounded_button_background"
-                        android:padding="10dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/ic_rating"
-                        android:contentDescription="@string/delete_button_description"/>
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/rateIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_rating"
+                            android:contentDescription="@string/delete_button_description"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/rateText"
+                            android:layout_marginEnd="4dp" />
+
+                        <TextView
+                            android:id="@+id/rateText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="@color/main_purple"
+                            android:textSize="20sp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </LinearLayout>
 

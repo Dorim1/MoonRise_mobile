@@ -21,7 +21,9 @@ import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.databinding.FragmentItemBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.core.net.toUri
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
 
@@ -45,10 +47,10 @@ class ItemFragment : Fragment() {
         val database = AppDatabase.getDatabase(requireContext())
         val contentDao = database.contentDao()
         val relatedContentDao = database.relatedContentDao()
-
         val statusDao = database.statusDao()
+        val ratingDao = database.ratingDao()
 
-        viewModel = ViewModelProvider(this, ItemViewModelFactory(contentDao, relatedContentDao, statusDao))[ItemViewModel::class.java]
+        viewModel = ViewModelProvider(this, ItemViewModelFactory(contentDao, relatedContentDao, statusDao, ratingDao))[ItemViewModel::class.java]
 
         viewModel.getStatus(contentId).observe(viewLifecycleOwner) { statusEntity ->
             if (statusEntity != null) {
@@ -81,11 +83,28 @@ class ItemFragment : Fragment() {
         }
 
         binding.rateButton.setOnClickListener {
-            val ratingBottomSheet = AddRatingBottomSheet { rating ->
-                Toast.makeText(requireContext(), "Вы поставили оценку: $rating", Toast.LENGTH_SHORT).show()
-                // Здесь можно сохранить рейтинг в базу данных
-            }
+            val ratingBottomSheet = AddRatingBottomSheet(
+                onSaveRating = { rating ->
+                    val intRating = rating.toInt()
+                    Toast.makeText(requireContext(), "Оценка: $intRating", Toast.LENGTH_SHORT).show()
+                },
+                contentId = contentId,
+                viewModel = viewModel
+            )
             ratingBottomSheet.show(parentFragmentManager, "RatingBottomSheetFragment")
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.getRating(contentId).collect { rating ->
+                    if (rating != null) {
+                        binding.rateText.text = rating.ratingValue.toInt().toString()
+                        binding.rateText.visibility = View.VISIBLE
+                    } else {
+                        binding.rateText.visibility = View.GONE
+                    }
+                }
+            }
         }
 
 

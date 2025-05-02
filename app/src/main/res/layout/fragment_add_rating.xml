@@ -23,10 +23,12 @@
         android:numStars="10"
         android:stepSize="1"
         android:layout_gravity="center"
+        android:isIndicator="false"
         android:layout_marginTop="16dp"
-        android:indeterminate="false"
-        android:progressDrawable="@drawable/rating_star"
-        style="@android:style/Widget.RatingBar"
+        android:progressBackgroundTint="@color/gray555"
+        android:progressTint="@color/main_purple"
+        android:secondaryProgressTint="@color/main_purple"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
     />
 
     <androidx.appcompat.widget.AppCompatButton

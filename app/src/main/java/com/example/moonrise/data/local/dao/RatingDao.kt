@@ -17,4 +17,7 @@ interface RatingDao {
 
     @Query("SELECT AVG(ratingValue) FROM ratings WHERE contentId = :contentId")
     fun getAverageRating(contentId: Int): Flow<Float?>
+
+    @Query("DELETE FROM ratings WHERE contentId = :contentId")
+    suspend fun deleteByContentId(contentId: Int)
 }
