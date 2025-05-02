@@ -26,6 +26,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 
 class ItemFragment : Fragment() {
@@ -85,8 +86,11 @@ class ItemFragment : Fragment() {
         binding.rateButton.setOnClickListener {
             val ratingBottomSheet = AddRatingBottomSheet(
                 onSaveRating = { rating ->
-                    val intRating = rating.toInt()
-                    Toast.makeText(requireContext(), "Оценка: $intRating", Toast.LENGTH_SHORT).show()
+                    val intRating = rating.roundToInt()
+
+                    if (intRating != 0) {
+                        Toast.makeText(requireContext(), "Оценка: $intRating", Toast.LENGTH_SHORT).show()
+                    }
                 },
                 contentId = contentId,
                 viewModel = viewModel

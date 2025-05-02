@@ -37,7 +37,21 @@
                 android:layout_gravity="top|end"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_favorite"
-                android:visibility="gone" />
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/rating_text"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="top|end"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="-3dp"
+                android:text="5"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:visibility="gone"/>
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/loading_animation"
@@ -47,7 +61,6 @@
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 android:visibility="visible" />
-
         </FrameLayout>
 
         <LinearLayout

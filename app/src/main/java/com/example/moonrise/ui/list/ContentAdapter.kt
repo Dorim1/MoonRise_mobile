@@ -19,7 +19,6 @@ import com.bumptech.glide.request.RequestListener
 import com.example.moonrise.ContentDiffCallback
 import com.example.moonrise.R
 import com.example.moonrise.data.local.entity.ContentWithCategory
-import com.example.moonrise.data.local.entity.Status
 
 class ContentAdapter(private val navController: NavController) :
     RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() {
@@ -60,10 +59,12 @@ class ContentAdapter(private val navController: NavController) :
         private val categoryTextView: TextView = view.findViewById(R.id.item_list_category)
         private val loadingAnimation: LottieAnimationView = view.findViewById(R.id.loading_animation)
         private val favoriteIcon: ImageView = view.findViewById(R.id.favorite_icon)
+        private val ratingTextView: TextView = view.findViewById(R.id.rating_text)
 
         fun bind(contentWithCategory: ContentWithCategory) {
             val content = contentWithCategory.content
             val status = contentWithCategory.status
+            val rating = contentWithCategory.rating
 
             titleTextView.text = content.title
             categoryTextView.text = contentWithCategory.category.name
@@ -72,6 +73,13 @@ class ContentAdapter(private val navController: NavController) :
                 favoriteIcon.visibility = View.VISIBLE
             } else {
                 favoriteIcon.visibility = View.GONE
+            }
+
+            if (rating != null) {
+                ratingTextView.text = rating.ratingValue.toInt().toString()
+                ratingTextView.visibility = View.VISIBLE
+            } else {
+                ratingTextView.visibility = View.GONE
             }
 
             // Анимация загрузки и Glide

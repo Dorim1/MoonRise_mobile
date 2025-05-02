@@ -16,5 +16,11 @@ data class ContentWithCategory(
         parentColumn = "id",
         entityColumn = "contentId"
     )
-    val status: Status?
+    val status: Status?,
+
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "contentId"
+    )
+    val rating: Rating?
 )
