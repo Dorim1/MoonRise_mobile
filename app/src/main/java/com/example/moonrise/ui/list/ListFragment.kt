@@ -26,6 +26,13 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val navController = findNavController()
+        contentAdapter = ContentAdapter(navController)
+
+        recyclerView = view.findViewById(R.id.itemsList)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = contentAdapter
+
         parentFragmentManager.setFragmentResultListener("filterRequest", viewLifecycleOwner) { _, bundle ->
             val selectedGenres = bundle.getStringArrayList("selectedGenres") ?: emptyList<String>()
             val selectedCategory = bundle.getString("selectedCategory")
@@ -43,13 +50,6 @@ class ListFragment : Fragment() {
                 endYear = selectedEndYear
             )
         }
-
-        val navController = findNavController()
-        contentAdapter = ContentAdapter(navController)
-
-        recyclerView = view.findViewById(R.id.itemsList)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = contentAdapter
 
         viewModel.filteredContent.observe(viewLifecycleOwner) { contentList ->
             contentAdapter.setContentList(contentList)
@@ -70,5 +70,6 @@ class ListFragment : Fragment() {
         filterButton.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_list_to_navigation_filter)
         }
+
     }
 }

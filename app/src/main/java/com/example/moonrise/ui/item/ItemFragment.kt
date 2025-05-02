@@ -80,6 +80,15 @@ class ItemFragment : Fragment() {
             }
         }
 
+        binding.rateButton.setOnClickListener {
+            val ratingBottomSheet = AddRatingBottomSheet { rating ->
+                Toast.makeText(requireContext(), "Вы поставили оценку: $rating", Toast.LENGTH_SHORT).show()
+                // Здесь можно сохранить рейтинг в базу данных
+            }
+            ratingBottomSheet.show(parentFragmentManager, "RatingBottomSheetFragment")
+        }
+
+
 
         viewModel.getRelatedContent(contentId).observe(viewLifecycleOwner) { relatedContent ->
             if (relatedContent.isNotEmpty()) {

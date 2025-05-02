@@ -109,12 +109,13 @@
                         android:background="@drawable/rounded_button_background" />
 
                     <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/rateButton"
                         android:layout_width="76dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/rounded_button_background"
                         android:padding="10dp"
                         android:scaleType="centerInside"
-                        android:src="@drawable/ic_del"
+                        android:src="@drawable/ic_rating"
                         android:contentDescription="@string/delete_button_description"/>
                 </LinearLayout>
             </LinearLayout>

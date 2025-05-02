@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray111"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Твоя оценка"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_gravity="center" />
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="10"
+        android:stepSize="1"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/rating_star"
+        style="@android:style/Widget.RatingBar"
+    />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Неважно"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_button_cansel_border"
+        android:layout_marginTop="20dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Сохранить"
+        android:textColor="@color/black"
+        android:background="@drawable/rounded_button_background"
+        android:layout_marginTop="10dp" />
+</LinearLayout>

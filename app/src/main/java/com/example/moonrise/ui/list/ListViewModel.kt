@@ -87,6 +87,10 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                 val contentList: List<Content> = gson.fromJson(jsonString, object : TypeToken<List<Content>>() {}.type)
 
                 saveContentList(contentList)
+
+                kotlinx.coroutines.delay(500)
+
+                applyFilters(emptyList(), null, null, null, null, null)
             }
         }
     }
