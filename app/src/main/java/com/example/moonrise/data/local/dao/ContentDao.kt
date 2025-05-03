@@ -65,6 +65,14 @@ interface ContentDao {
 
     @Transaction
     @Query("""
+    SELECT * FROM content 
+    WHERE title LIKE '%' || :query || '%'
+""")
+    fun searchContentWithCategory(query: String): Flow<List<ContentWithCategory>>
+
+
+    @Transaction
+    @Query("""
     SELECT * FROM content
     WHERE (:category IS NULL OR categoryId IN (
         SELECT id FROM category WHERE name = :category

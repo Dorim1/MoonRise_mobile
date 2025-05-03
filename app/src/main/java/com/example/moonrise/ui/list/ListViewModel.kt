@@ -67,9 +67,20 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                 ageRating = ageRating,
                 startYear = startYear,
                 endYear = endYear
-            ).first() // ← замена collect
+            ).first()
 
-            _filteredContent.postValue(filtered) // ← результат помещаем в LiveData
+            _filteredContent.postValue(filtered)
+        }
+    }
+
+    fun searchContent(query: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val results = if (query.isBlank()) {
+                contentDao.getAllContentWithCategory().first()
+            } else {
+                contentDao.searchContentWithCategory(query).first()
+            }
+            _filteredContent.postValue(results)
         }
     }
 

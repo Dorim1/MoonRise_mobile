@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Состояние для выбранного элемента -->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#414040"/> <!-- Цвет фона для выбранного элемента -->
+            <corners android:radius="6dp"/>   <!-- Радиус для закругления углов -->
+        </shape>
+    </item>
+
+    <!-- Состояние для невыбранного элемента -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent"/> <!-- Прозрачный фон для обычного элемента -->
+            <corners android:radius="6dp"/>
+        </shape>
+    </item>
+</selector>

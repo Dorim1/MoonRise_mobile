@@ -71,14 +71,15 @@ class ContentAdapter(private val navController: NavController) :
 
             if (status != null) {
                 favoriteIcon.visibility = View.VISIBLE
+
+                if (rating != null) {
+                    ratingTextView.text = rating.ratingValue.toInt().toString()
+                    ratingTextView.visibility = View.VISIBLE
+                } else {
+                    ratingTextView.visibility = View.GONE
+                }
             } else {
                 favoriteIcon.visibility = View.GONE
-            }
-
-            if (rating != null) {
-                ratingTextView.text = rating.ratingValue.toInt().toString()
-                ratingTextView.visibility = View.VISIBLE
-            } else {
                 ratingTextView.visibility = View.GONE
             }
 
