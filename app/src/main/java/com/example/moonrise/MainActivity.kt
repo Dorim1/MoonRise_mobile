@@ -9,8 +9,8 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import com.example.moonrise.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,24 +19,37 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
+        indicator = binding.indicator // ← Сначала инициализируем индикатор
 
-        indicator = binding.indicator
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        val navView = binding.navView
 
-        // Используем post для перемещения индикатора после завершения раскладки
+        navView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.navigation_list,
+                R.id.navigation_dashboard,
+                R.id.navigation_profile -> {
+                    moveIndicatorTo(destination.id)
+                }
+            }
+        }
+
         navView.post {
             moveIndicatorTo(navView.selectedItemId)
         }
 
         navView.setOnItemSelectedListener { item ->
-            moveIndicatorTo(item.itemId)
-            item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment_activity_main)) // Переход безопасным способом
-            animateButtonScale(item.itemId) // Анимация увеличения и уменьшения
-            true
+            val handled = item.onNavDestinationSelected(navController)
+            if (handled) {
+                moveIndicatorTo(item.itemId)
+                animateButtonScale(item.itemId)
+            }
+            handled
         }
     }
 

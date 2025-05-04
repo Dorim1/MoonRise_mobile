@@ -27,4 +27,5 @@ interface StatusDao {
 
     @Query("SELECT * FROM status")
     fun getAllStatuses(): Flow<List<Status>>
+
 }
