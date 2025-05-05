@@ -18,12 +18,26 @@ class FilterFragment : Fragment() {
 
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
-    private var selectedGenres = mutableSetOf<String>()
-    private var selectedStatusId: Int? = null
-    private var selectedCategory: String? = null
-    private var selectedAgeRating: String? = null
-    private var selectedStartYear: Int? = null
-    private var selectedEndYear: Int? = null
+    private val selectedGenres get() = viewModel.selectedGenres
+    private var selectedCategory
+        get() = viewModel.selectedCategory
+        set(value) { viewModel.selectedCategory = value }
+
+    private var selectedStatusId
+        get() = viewModel.selectedStatusId
+        set(value) { viewModel.selectedStatusId = value }
+
+    private var selectedAgeRating
+        get() = viewModel.selectedAgeRating
+        set(value) { viewModel.selectedAgeRating = value }
+
+    private var selectedStartYear
+        get() = viewModel.selectedStartYear
+        set(value) { viewModel.selectedStartYear = value }
+
+    private var selectedEndYear
+        get() = viewModel.selectedEndYear
+        set(value) { viewModel.selectedEndYear = value }
 
     private lateinit var viewModel: FilterViewModel
 
@@ -90,6 +104,12 @@ class FilterFragment : Fragment() {
             val categoryNames = mutableListOf("Неважно") + categories.map { it.name }
             binding.spinnerCategory.setItems(categoryNames)
 
+            val initialIndex = categoryNames.indexOf(selectedCategory)
+            if (initialIndex >= 0) {
+                binding.spinnerCategory.selectItemByIndex(initialIndex)
+                binding.spinnerCategory.text = categoryNames[initialIndex]
+            }
+
             binding.spinnerCategory.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
                 if (position == 0) {
                     binding.spinnerCategory.text = "Неважно"
@@ -107,7 +127,8 @@ class FilterFragment : Fragment() {
                     genres = genres,
                     selectedGenres = selectedGenres
                 ) { selected ->
-                    selectedGenres = selected.toMutableSet()
+                    selectedGenres.clear()
+                    selectedGenres.addAll(selected)
                     updateGenreSpinnerText()
                 }.show(parentFragmentManager, "GenreFilterDialog")
             }
@@ -124,19 +145,26 @@ class FilterFragment : Fragment() {
                         return@YearFilterDialog
                     }
 
-                    if (startYear != null && endYear != null) {
-                        binding.spinnerYear.text = getString(R.string.year_range, startYear.toString(), endYear.toString())
-                        selectedStartYear = startYear
-                        selectedEndYear = endYear
-                    }
-                }, minYear, maxYear)
-                    .show(parentFragmentManager, "yearFilterDialog")
+                    binding.spinnerYear.text = getString(
+                        R.string.year_range,
+                        startYear.toString(),
+                        endYear.toString()
+                    )
+                    selectedStartYear = startYear
+                    selectedEndYear = endYear
+                }, minYear, maxYear).show(parentFragmentManager, "yearFilterDialog")
             }
         }
 
         viewModel.ageRatings.observe(viewLifecycleOwner) { ageRatings ->
             val ageRatingList = mutableListOf("Неважно") + ageRatings
             binding.spinnerAge.setItems(ageRatingList)
+
+            val initialIndex = ageRatings.indexOf(selectedCategory)
+            if (initialIndex >= 0) {
+                binding.spinnerAge.selectItemByIndex(initialIndex)
+                binding.spinnerAge.text = ageRatings[initialIndex]
+            }
 
             binding.spinnerAge.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
                 if (position == 0) {
@@ -152,6 +180,12 @@ class FilterFragment : Fragment() {
         viewModel.statusTypes.observe(viewLifecycleOwner) { statusTypes ->
             val statusNames = mutableListOf("Неважно") + statusTypes.map { it.name }
             binding.spinnerStatus.setItems(statusNames)
+
+            val initialIndex = statusNames.indexOf(selectedCategory)
+            if (initialIndex >= 0) {
+                binding.spinnerStatus.selectItemByIndex(initialIndex)
+                binding.spinnerStatus.text = statusNames[initialIndex]
+            }
 
             binding.spinnerStatus.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
                 if (position == 0) {
