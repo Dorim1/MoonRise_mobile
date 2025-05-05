@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +41,19 @@ class ProfileFragment : Fragment() {
         val contentDao = db.contentDao()
 
         val viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+
+        val searchView = binding.searchProfile
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { viewModel.searchItems(it) }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.searchItems(newText.orEmpty())
+                return true
+            }
+        })
 
         val filterRecycler = binding.recyclerFilter
         filterRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

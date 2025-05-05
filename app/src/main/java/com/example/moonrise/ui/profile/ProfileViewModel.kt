@@ -11,24 +11,43 @@ class ProfileViewModel : ViewModel() {
 
     private var allItems: List<ContentWithCategory> = emptyList()
     private var statusNameMap: Map<Int, String> = emptyMap()
+    private var currentStatusFilter: String = "Все"
+    private var currentQuery: String = ""
 
     fun setAllItems(items: List<ContentWithCategory>, nameMap: Map<Int, String>) {
         allItems = items
         statusNameMap = nameMap
-        _filteredItems.value = items
+        applyFilters()
+    }
+
+    fun searchItems(query: String) {
+        currentQuery = query
+        applyFilters()
     }
 
     fun filterByStatusName(statusName: String) {
-        val filtered = if (statusName == "Все") {
-            allItems.filter { item ->
-                item.status?.let { statusNameMap[it.statusTypeId] } != null
-            }
+        currentStatusFilter = statusName
+        applyFilters()
+    }
+
+    private fun applyFilters() {
+        val filteredByStatus = if (currentStatusFilter == "Все") {
+            allItems.filter { it.status != null }
         } else {
             allItems.filter { item ->
                 val typeName = item.status?.let { statusNameMap[it.statusTypeId] }
-                typeName == statusName
+                typeName == currentStatusFilter
             }
         }
-        _filteredItems.value = filtered
+
+        val filteredByQuery = if (currentQuery.isNotBlank()) {
+            filteredByStatus.filter { item ->
+                item.content.title.contains(currentQuery, ignoreCase = true)
+            }
+        } else {
+            filteredByStatus
+        }
+
+        _filteredItems.value = filteredByQuery
     }
 }
