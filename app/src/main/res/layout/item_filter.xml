@@ -16,7 +16,7 @@
             android:id="@+id/filter_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#C9C9C9"
+            android:textColor="@color/white_gray2"
             android:textSize="16sp"
             android:layout_marginEnd="8dp"
             android:text="Название" />
@@ -25,7 +25,7 @@
             android:id="@+id/filter_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#929292"
+            android:textColor="@color/white_gray3"
             android:textSize="14sp"
             android:text="0" />
     </LinearLayout>

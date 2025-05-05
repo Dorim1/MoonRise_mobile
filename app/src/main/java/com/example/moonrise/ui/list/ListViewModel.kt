@@ -35,20 +35,8 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     private val contentGenreDao = database.contentGenreDao()
     private val _filteredContent = MutableLiveData<List<ContentWithCategory>>()
 
-    val allContentWithCategory: LiveData<List<ContentWithCategory>> = contentDao.getAllContentWithCategory().asLiveData()
-    val allStatuses: LiveData<List<Status>> = statusDao.getAllStatuses().asLiveData()
     val filteredContent: LiveData<List<ContentWithCategory>> = _filteredContent
 
-
-    fun addContent(vararg content: Content) {
-        viewModelScope.launch {
-            contentDao.insertAll(content.toList())
-        }
-    }
-
-    fun getStatus(contentId: Int): LiveData<Status?> {
-        return statusDao.getStatus(contentId).asLiveData()
-    }
 
     fun applyFilters(
         genres: List<String>,
@@ -93,9 +81,11 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     fun loadDataFromJson(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             if (contentDao.getContentCount() == 0) {
-                val jsonString = context.assets.open("content.json").bufferedReader().use { it.readText() }
+                val jsonString =
+                    context.assets.open("content.json").bufferedReader().use { it.readText() }
                 val gson = Gson()
-                val contentList: List<Content> = gson.fromJson(jsonString, object : TypeToken<List<Content>>() {}.type)
+                val contentList: List<Content> =
+                    gson.fromJson(jsonString, object : TypeToken<List<Content>>() {}.type)
 
                 saveContentList(contentList)
 
@@ -111,9 +101,11 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
             val categories = categoryDao.getAllCategories().firstOrNull()
 
             if (categories.isNullOrEmpty()) {
-                val jsonString = context.assets.open("categories.json").bufferedReader().use { it.readText() }
+                val jsonString =
+                    context.assets.open("categories.json").bufferedReader().use { it.readText() }
                 val gson = Gson()
-                val categoryList: List<Category> = gson.fromJson(jsonString, object : TypeToken<List<Category>>() {}.type)
+                val categoryList: List<Category> =
+                    gson.fromJson(jsonString, object : TypeToken<List<Category>>() {}.type)
 
                 categoryDao.insertCategory(categoryList)
             }
@@ -125,9 +117,11 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
             val genres = genreDao.getAllGenres().firstOrNull()
 
             if (genres.isNullOrEmpty()) {
-                val jsonString = context.assets.open("genres.json").bufferedReader().use { it.readText() }
+                val jsonString =
+                    context.assets.open("genres.json").bufferedReader().use { it.readText() }
                 val gson = Gson()
-                val genreList: List<Genre> = gson.fromJson(jsonString, object : TypeToken<List<Genre>>() {}.type)
+                val genreList: List<Genre> =
+                    gson.fromJson(jsonString, object : TypeToken<List<Genre>>() {}.type)
 
                 genreDao.insertGenreList(genreList)
             }
@@ -139,9 +133,11 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
             val someContentGenre = contentGenreDao.getContentByGenre(1).firstOrNull()
 
             if (someContentGenre.isNullOrEmpty()) {
-                val jsonString = context.assets.open("content_genre.json").bufferedReader().use { it.readText() }
+                val jsonString =
+                    context.assets.open("content_genre.json").bufferedReader().use { it.readText() }
                 val gson = Gson()
-                val contentGenreList: List<ContentGenre> = gson.fromJson(jsonString, object : TypeToken<List<ContentGenre>>() {}.type)
+                val contentGenreList: List<ContentGenre> =
+                    gson.fromJson(jsonString, object : TypeToken<List<ContentGenre>>() {}.type)
 
                 contentGenreList.forEach { contentGenreDao.insert(it) }
             }
@@ -153,9 +149,11 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
             val statusTypes = statusTypeDao.getAllStatusTypes()
 
             if (statusTypes.isEmpty()) {
-                val jsonString = context.assets.open("status_types.json").bufferedReader().use { it.readText() }
+                val jsonString =
+                    context.assets.open("status_types.json").bufferedReader().use { it.readText() }
                 val gson = Gson()
-                val statusTypeList: List<StatusType> = gson.fromJson(jsonString, object : TypeToken<List<StatusType>>() {}.type)
+                val statusTypeList: List<StatusType> =
+                    gson.fromJson(jsonString, object : TypeToken<List<StatusType>>() {}.type)
 
                 statusTypeDao.insertAll(statusTypeList)
             }

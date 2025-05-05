@@ -34,5 +34,14 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.moonrise.ui.profile.ProfileFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_item"
+            app:destination="@id/navigation_item" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.moonrise.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>
