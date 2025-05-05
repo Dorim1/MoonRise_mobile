@@ -2,25 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@drawable/filter_selected_background"
-    android:padding="8dp">
+    android:orientation="vertical"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="8dp"
+    android:gravity="center">
 
-    <TextView
-        android:id="@+id/filter_name"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#C9C9C9"
-        android:textSize="16sp"
-        android:layout_marginEnd="8dp"
-        android:text="Название"/>
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/filter_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#929292"
-        android:textSize="14sp"
-        android:text="0"/>
+        <TextView
+            android:id="@+id/filter_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#C9C9C9"
+            android:textSize="16sp"
+            android:layout_marginEnd="8dp"
+            android:text="Название" />
 
+        <TextView
+            android:id="@+id/filter_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#929292"
+            android:textSize="14sp"
+            android:text="0" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/underline_view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/white"
+        android:visibility="gone" />
 </LinearLayout>

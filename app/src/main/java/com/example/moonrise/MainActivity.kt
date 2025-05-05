@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        indicator = binding.indicator // ← Сначала инициализируем индикатор
+        indicator = binding.indicator
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val navView = binding.navView

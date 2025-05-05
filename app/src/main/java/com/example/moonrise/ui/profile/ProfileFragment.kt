@@ -8,18 +8,18 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.data.local.entity.StatusWithCount
 import com.example.moonrise.databinding.FragmentProfileBinding
+import com.example.moonrise.ui.list.ContentAdapter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
-
-
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -27,14 +27,8 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(ProfileViewModel::class.java)
-
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,13 +37,26 @@ class ProfileFragment : Fragment() {
         val db = AppDatabase.getDatabase(requireContext())
         val statusDao = db.statusDao()
         val statusTypeDao = db.statusTypeDao()
+        val contentDao = db.contentDao()
 
-        val recycler = binding.recyclerFilter
-        recycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+
+        val filterRecycler = binding.recyclerFilter
+        filterRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        val navController = findNavController()
+        val contentAdapter = ContentAdapter(navController)
+        val itemsRecycler = binding.itemsList
+        itemsRecycler.layoutManager = LinearLayoutManager(requireContext())
+        itemsRecycler.adapter = contentAdapter
 
         lifecycleScope.launch {
             val statusTypes = statusTypeDao.getAllStatusTypes()
+            val statusNameMap = statusTypes.associateBy({ it.id }, { it.name })
+
             val statuses = statusDao.getAllStatuses().first()
+            val allItems = contentDao.getAllContentWithCategory().first()
+            viewModel.setAllItems(allItems, statusNameMap)
 
             val statusCountMap = statuses.groupingBy { it.statusTypeId }.eachCount()
             val filterItems = statusTypes.map {
@@ -62,10 +69,28 @@ class ProfileFragment : Fragment() {
             val totalCount = statuses.size
             filterItems.add(0, StatusWithCount("Все", totalCount))
 
-            recycler.adapter = FilterAdapter(filterItems) { selected ->
-                // TODO: отфильтровать itemsList по выбранному статусу
+            filterRecycler.adapter = FilterAdapter(filterItems) { selected ->
+                viewModel.filterByStatusName(selected.name)
             }
+            viewModel.filterByStatusName("Все")
         }
+        // Отображение надписи при пустом списке
+        viewModel.filteredItems.observe(viewLifecycleOwner) { items ->
+            if (items.isEmpty()) {
+                binding.emptyMessage.visibility = View.VISIBLE
+            } else {
+                binding.emptyMessage.visibility = View.GONE
+            }
+
+            contentAdapter.setContentList(items)
+        }
+
+        // Наблюдение за фильтрованным списком
+        viewModel.filteredItems.observe(viewLifecycleOwner) { filteredList ->
+            contentAdapter.setContentList(filteredList)
+        }
+
+
     }
 
     override fun onDestroyView() {
