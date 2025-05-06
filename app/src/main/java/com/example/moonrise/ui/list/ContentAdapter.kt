@@ -83,7 +83,6 @@ class ContentAdapter(private val navController: NavController) :
                 ratingTextView.visibility = View.GONE
             }
 
-            // Анимация загрузки и Glide
             loadingAnimation.visibility = View.VISIBLE
             loadingAnimation.playAnimation()
             imageView.visibility = View.INVISIBLE

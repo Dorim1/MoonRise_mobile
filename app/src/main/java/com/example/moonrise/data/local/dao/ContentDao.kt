@@ -46,11 +46,9 @@ interface ContentDao {
     """)
     fun getGenresForContent(contentId: Int): Flow<List<Genre>>
 
-    // Изменён запрос на получение минимального года
     @Query("SELECT MIN(releaseDate) FROM content")
     suspend fun getMinYear(): Int?
 
-    // Изменён запрос на получение максимального года
     @Query("SELECT MAX(releaseDate) FROM content")
     suspend fun getMaxYear(): Int?
 

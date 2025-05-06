@@ -30,6 +30,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_search_view"
                 android:padding="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 app:queryHint="Поиск по названию"
                 app:iconifiedByDefault="false"
                 android:inputType="text"
@@ -66,6 +68,7 @@
             android:layout_marginTop="20dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
+            android:visibility="gone"
             tools:listitem="@layout/item_search_history" />
 
         <!-- Блок франшизы -->
@@ -74,8 +77,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="20dp">
-<!--            android:visibility="gone"-->
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
 
 
             <TextView
@@ -92,7 +95,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"/>
-<!--                android:background="@drawable/rounded_background"-->
 
             <TextView
                 android:id="@+id/franchise_info"
@@ -121,8 +123,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="20dp">
-<!--            android:visibility="gone"-->
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
