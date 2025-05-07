@@ -1,21 +1,22 @@
 package com.example.moonrise.ui.search
 
-import android.content.Context
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.moonrise.R
-import com.example.moonrise.data.local.entity.ContentWithCategory
 import com.example.moonrise.ui.list.ContentAdapter
-import com.google.android.material.internal.ViewUtils.hideKeyboard
 
 class SearchFragment : Fragment() {
 
@@ -35,11 +36,56 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val franchiseBlock = view.findViewById<View>(R.id.franchise_block)
+        val franchiseInfo = view.findViewById<TextView>(R.id.franchise_info)
+
+        val imageLeft = view.findViewById<ImageView>(R.id.franchise_image_left)
+        val imageRight = view.findViewById<ImageView>(R.id.franchise_image_right)
+        val imageCenter = view.findViewById<ImageView>(R.id.franchise_image_center)
+
         val navController = findNavController()
         adapter = ContentAdapter(navController)
         recyclerView = view.findViewById(R.id.search_result_recycler)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
+
+        viewModel.franchiseContent.observe(viewLifecycleOwner) { relatedList ->
+            if (relatedList.isNotEmpty()) {
+                franchiseBlock.visibility = View.VISIBLE
+                franchiseInfo.text = getString(R.string.franchise_releases, relatedList.size)
+
+                // Центр — первый элемент
+                Glide.with(this)
+                    .load(relatedList.getOrNull(0)?.content?.image)
+                    .into(imageCenter)
+
+                // Слева — второй элемент (если есть)
+                if (relatedList.size > 1) {
+                    imageLeft.visibility = View.VISIBLE
+                    Glide.with(this)
+                        .load(relatedList.getOrNull(1)?.content?.image)
+                        .into(imageLeft)
+                } else {
+                    imageLeft.visibility = View.GONE
+                }
+
+                // Справа — третий элемент (если есть)
+                if (relatedList.size > 2) {
+                    imageRight.visibility = View.VISIBLE
+                    Glide.with(this)
+                        .load(relatedList.getOrNull(2)?.content?.image)
+                        .into(imageRight)
+                } else {
+                    imageRight.visibility = View.GONE
+                }
+
+                // Кнопка "Перейти" (если нужна)
+                // view.findViewById<AppCompatButton>(R.id.franchise_button).setOnClickListener { ... }
+
+            } else {
+                franchiseBlock.visibility = View.GONE
+            }
+        }
 
         // Наблюдение за результатами поиска
         viewModel.filteredContent.observe(viewLifecycleOwner) { results ->
@@ -60,5 +106,7 @@ class SearchFragment : Fragment() {
                 return true
             }
         })
+
+
     }
 }

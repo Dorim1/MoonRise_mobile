@@ -19,6 +19,9 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     private val database = AppDatabase.getDatabase(application)
     private val contentDao = database.contentDao()
 
+    private val _franchiseContent = MutableLiveData<List<ContentWithCategory>>()
+    val franchiseContent: LiveData<List<ContentWithCategory>> = _franchiseContent
+
     private val _filteredContent = MutableLiveData<List<ContentWithCategory>>()
     val filteredContent: LiveData<List<ContentWithCategory>> = _filteredContent
 
@@ -30,7 +33,18 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
                 contentDao.searchContentWithCategory(query).first()
             }
             _filteredContent.postValue(results)
+
+            // Если найден хотя бы один элемент — ищем его franchise (related content)
+            val firstMatch = results.firstOrNull()
+            if (firstMatch != null) {
+                val related = database.relatedContentDao()
+                    .getRelatedContentWithCategory(firstMatch.content.id).first()
+                _franchiseContent.postValue(related)
+            } else {
+                _franchiseContent.postValue(emptyList())
+            }
         }
     }
+
 
 }

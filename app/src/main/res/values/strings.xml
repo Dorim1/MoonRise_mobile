@@ -19,4 +19,5 @@
     <string name="save_rating">Сохранить</string>
     <string name="change_rating">Изменить оценку</string>
     <string name="delete_rating">Удалить оценку</string>
+    <string name="franchise_releases">Релизов во франшизе: %1$d</string>
 </resources>
