@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="20dp"
-            >
+            android:visibility="gone">
 
 
             <TextView
@@ -102,7 +102,7 @@
                     android:id="@+id/franchise_image_left"
                     android:layout_width="100dp"
                     android:layout_height="140dp"
-                    android:layout_marginEnd="40dp"
+                    android:layout_marginEnd="60dp"
                     android:scaleType="centerInside"
                     android:layout_gravity="center_vertical|start"
                     android:alpha="0.7"
@@ -117,7 +117,7 @@
                     android:id="@+id/franchise_image_right"
                     android:layout_width="100dp"
                     android:layout_height="140dp"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="60dp"
                     android:scaleType="centerInside"
                     android:layout_gravity="center_vertical|end"
                     android:alpha="0.7"

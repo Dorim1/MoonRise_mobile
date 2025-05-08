@@ -34,7 +34,13 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
             }
             _filteredContent.postValue(results)
 
-            // Если найден хотя бы один элемент — ищем его franchise (related content)
+            // Очистка франшизы, если строка запроса пуста
+            if (query.isBlank()) {
+                _franchiseContent.postValue(emptyList())
+                return@launch
+            }
+
+            // Если найден хотя бы один элемент — ищем его franchise
             val firstMatch = results.firstOrNull()
             if (firstMatch != null) {
                 val related = database.relatedContentDao()

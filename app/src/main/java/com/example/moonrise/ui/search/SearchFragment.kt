@@ -23,6 +23,7 @@ class SearchFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ContentAdapter
     private val viewModel: SearchViewModel by viewModels()
+    var currentQuery = ""
 
 
 
@@ -91,18 +92,27 @@ class SearchFragment : Fragment() {
         viewModel.filteredContent.observe(viewLifecycleOwner) { results ->
             adapter.setContentList(results)
             val resultsBlock = view.findViewById<View>(R.id.search_results_block)
-            resultsBlock.visibility = if (results.isNotEmpty()) View.VISIBLE else View.GONE
+
+            resultsBlock.visibility =
+                if (currentQuery.isNotBlank() && results.isNotEmpty()) View.VISIBLE else View.GONE
         }
 
         val searchView = view.findViewById<SearchView>(R.id.search_in_list)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { viewModel.searchContent(it) }
+                currentQuery = query.orEmpty()
+                viewModel.searchContent(currentQuery)
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.searchContent(newText.orEmpty())
+                currentQuery = newText.orEmpty()
+                viewModel.searchContent(currentQuery)
+
+                if (currentQuery.isBlank()) {
+                    view.findViewById<View>(R.id.franchise_block).visibility = View.GONE
+                }
+
                 return true
             }
         })
