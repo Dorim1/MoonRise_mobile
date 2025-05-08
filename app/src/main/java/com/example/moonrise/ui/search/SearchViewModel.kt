@@ -41,13 +41,11 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
             }
             _filteredContent.postValue(results)
 
-            // Очистка франшизы, если строка запроса пуста
             if (query.isBlank()) {
                 _franchiseContent.postValue(emptyList())
                 return@launch
             }
 
-            // Если найден хотя бы один элемент — ищем его franchise
             val firstMatch = results.firstOrNull()
             if (firstMatch != null) {
                 val related = database.relatedContentDao()
@@ -66,15 +64,24 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun addQueryToHistory(query: String) {
-        if (query.isNotBlank() && history.none { it.query == query }) {
-            history.add(0, SearchHistoryItem(query))
-            if (history.size > 10) history.removeAt(history.lastIndex)
-            _searchHistory.postValue(history.toList())
-            historyManager.saveHistory(history)
+        if (query.isBlank()) return
+
+        history.removeAll { it.query == query }
+
+        history.add(0, SearchHistoryItem(query))
+
+        if (history.size > 10) {
+            history = history.take(10).toMutableList()
         }
+
+        _searchHistory.postValue(history.toList())
+        historyManager.saveHistory(history)
     }
 
-
-
+    fun removeQueryFromHistory(item: SearchHistoryItem) {
+        history.remove(item)
+        _searchHistory.postValue(history.toList())
+        historyManager.saveHistory(history)
+    }
 
 }

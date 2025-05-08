@@ -1,6 +1,7 @@
 package com.example.moonrise.ui.search
 
 import android.content.Context
+import androidx.core.content.edit
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -10,7 +11,9 @@ class SearchHistoryManager(context: Context) {
 
     fun saveHistory(history: List<SearchHistoryItem>) {
         val json = gson.toJson(history)
-        prefs.edit().putString("search_history", json).apply()
+        prefs.edit {
+            putString("search_history", json)
+        }
     }
 
     fun loadHistory(): List<SearchHistoryItem> {

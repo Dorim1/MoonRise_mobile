@@ -37,5 +37,6 @@
         android:scaleType="centerInside"
         android:src="@drawable/ic_clear"
         android:tint="@color/white"
-        android:padding="4dp" />
+        android:padding="4dp"
+        android:background="@null" />
 </LinearLayout>

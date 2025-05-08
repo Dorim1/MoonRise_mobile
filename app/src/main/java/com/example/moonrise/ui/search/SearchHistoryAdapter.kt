@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moonrise.R
 
 class SearchHistoryAdapter(
-    private val onItemClick: (String) -> Unit
+    private val onItemClick: (String) -> Unit,
+    private val onDeleteClick: (SearchHistoryItem) -> Unit
 ) : RecyclerView.Adapter<SearchHistoryAdapter.HistoryViewHolder>() {
 
     private val historyList = mutableListOf<SearchHistoryItem>()
@@ -40,11 +41,15 @@ class SearchHistoryAdapter(
 
     inner class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val textView: TextView = itemView.findViewById(R.id.history_query_text)
+        private val deleteButton: ImageButton = itemView.findViewById(R.id.delete_history_button)
 
         fun bind(item: SearchHistoryItem) {
             textView.text = item.query
             itemView.setOnClickListener {
                 onItemClick(item.query)
+            }
+            deleteButton.setOnClickListener {
+                onDeleteClick(item)
             }
         }
     }
