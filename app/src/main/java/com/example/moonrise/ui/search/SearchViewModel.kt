@@ -16,6 +16,8 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
+    private lateinit var historyManager: SearchHistoryManager
+
     private val database = AppDatabase.getDatabase(application)
     private val contentDao = database.contentDao()
 
@@ -24,6 +26,11 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     private val _filteredContent = MutableLiveData<List<ContentWithCategory>>()
     val filteredContent: LiveData<List<ContentWithCategory>> = _filteredContent
+
+    private val _searchHistory = MutableLiveData<List<SearchHistoryItem>>()
+    val searchHistory: LiveData<List<SearchHistoryItem>> = _searchHistory
+
+    private var history = mutableListOf<SearchHistoryItem>()
 
     fun searchContent(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -51,6 +58,23 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
             }
         }
     }
+
+    fun initManager(context: Context) {
+        historyManager = SearchHistoryManager(context)
+        history = historyManager.loadHistory().toMutableList()
+        _searchHistory.postValue(history)
+    }
+
+    fun addQueryToHistory(query: String) {
+        if (query.isNotBlank() && history.none { it.query == query }) {
+            history.add(0, SearchHistoryItem(query))
+            if (history.size > 10) history.removeAt(history.lastIndex)
+            _searchHistory.postValue(history.toList())
+            historyManager.saveHistory(history)
+        }
+    }
+
+
 
 
 }

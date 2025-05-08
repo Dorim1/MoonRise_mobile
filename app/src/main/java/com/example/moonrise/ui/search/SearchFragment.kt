@@ -40,6 +40,14 @@ class SearchFragment : Fragment() {
         val franchiseBlock = view.findViewById<View>(R.id.franchise_block)
         val franchiseInfo = view.findViewById<TextView>(R.id.franchise_info)
 
+        val searchView = view.findViewById<SearchView>(R.id.search_in_list)
+
+        val historyRecycler = view.findViewById<RecyclerView>(R.id.search_history_recycler)
+        val historyAdapter = SearchHistoryAdapter { selectedQuery ->
+            searchView.setQuery(selectedQuery, true)
+        }
+
+
         val imageLeft = view.findViewById<ImageView>(R.id.franchise_image_left)
         val imageRight = view.findViewById<ImageView>(R.id.franchise_image_right)
         val imageCenter = view.findViewById<ImageView>(R.id.franchise_image_center)
@@ -49,6 +57,9 @@ class SearchFragment : Fragment() {
         recyclerView = view.findViewById(R.id.search_result_recycler)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
+
+        historyRecycler.layoutManager = LinearLayoutManager(requireContext())
+        historyRecycler.adapter = historyAdapter
 
         viewModel.franchiseContent.observe(viewLifecycleOwner) { relatedList ->
             if (relatedList.isNotEmpty()) {
@@ -88,6 +99,8 @@ class SearchFragment : Fragment() {
             }
         }
 
+        viewModel.initManager(requireContext())
+
         // Наблюдение за результатами поиска
         viewModel.filteredContent.observe(viewLifecycleOwner) { results ->
             adapter.setContentList(results)
@@ -97,9 +110,9 @@ class SearchFragment : Fragment() {
                 if (currentQuery.isNotBlank() && results.isNotEmpty()) View.VISIBLE else View.GONE
         }
 
-        val searchView = view.findViewById<SearchView>(R.id.search_in_list)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.addQueryToHistory(currentQuery)
                 currentQuery = query.orEmpty()
                 viewModel.searchContent(currentQuery)
                 return true
@@ -116,6 +129,12 @@ class SearchFragment : Fragment() {
                 return true
             }
         })
+
+        viewModel.searchHistory.observe(viewLifecycleOwner) { history ->
+            historyAdapter.setHistory(history)
+            historyRecycler.visibility = if (history.isNotEmpty()) View.VISIBLE else View.GONE
+        }
+
 
 
     }

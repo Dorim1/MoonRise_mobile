@@ -11,13 +11,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moonrise.R
 
 class SearchHistoryAdapter(
-    private var history: List<String>,
-    private val onItemClick: (String) -> Unit,
-    private val onDeleteClick: (String) -> Unit
+    private val onItemClick: (String) -> Unit
 ) : RecyclerView.Adapter<SearchHistoryAdapter.HistoryViewHolder>() {
 
-    class HistoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val queryText: TextView = view.findViewById(R.id.history_query_text)
+    private val historyList = mutableListOf<SearchHistoryItem>()
+
+    fun setHistory(newList: List<SearchHistoryItem>) {
+        val diffCallback = SearchHistoryDiffCallback(historyList, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        historyList.clear()
+        historyList.addAll(newList)
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
@@ -26,22 +31,21 @@ class SearchHistoryAdapter(
         return HistoryViewHolder(view)
     }
 
+    override fun getItemCount() = historyList.size
+
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val query = history[position]
-        holder.queryText.text = query
-        holder.itemView.setOnClickListener { onItemClick(query) }
-        holder.itemView.findViewById<ImageButton>(R.id.delete_history_button).setOnClickListener {
-            onDeleteClick(query)
-        }
+        val item = historyList[position]
+        holder.bind(item)
     }
 
-    override fun getItemCount(): Int = history.size
+    inner class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val textView: TextView = itemView.findViewById(R.id.history_query_text)
 
-    fun updateData(newHistory: List<String>) {
-        val diffCallback = SearchHistoryDiffCallback(history, newHistory)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-
-        history = newHistory
-        diffResult.dispatchUpdatesTo(this)
+        fun bind(item: SearchHistoryItem) {
+            textView.text = item.query
+            itemView.setOnClickListener {
+                onItemClick(item.query)
+            }
+        }
     }
 }
