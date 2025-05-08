@@ -23,6 +23,7 @@ class SearchFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ContentAdapter
     private val viewModel: SearchViewModel by viewModels()
+    private var isFilterApplied = false
     var currentQuery = ""
 
 
@@ -72,22 +73,42 @@ class SearchFragment : Fragment() {
             }
         }
 
+        parentFragmentManager.setFragmentResultListener("filterRequest", viewLifecycleOwner) { _, bundle ->
+            isFilterApplied = true
+            historyRecycler.visibility = View.GONE
+            val selectedGenres = bundle.getStringArrayList("selectedGenres") ?: emptyList()
+            val selectedCategory = bundle.getString("selectedCategory")
+            val selectedStatusId = bundle.getInt("selectedStatusId").takeIf { it != -1 }
+            val selectedAgeRating = bundle.getString("selectedAgeRating")
+            val selectedStartYear = bundle.getInt("selectedStartYear").takeIf { it != -1 }
+            val selectedEndYear = bundle.getInt("selectedEndYear").takeIf { it != -1 }
+
+            viewModel.applyFilters(
+                genres = selectedGenres,
+                category = selectedCategory,
+                statusId = selectedStatusId,
+                ageRating = selectedAgeRating,
+                startYear = selectedStartYear,
+                endYear = selectedEndYear
+            )
+        }
+
         viewModel.initManager(requireContext())
 
         viewModel.filteredContent.observe(viewLifecycleOwner) { results ->
             adapter.setContentList(results)
             val resultsBlock = view.findViewById<View>(R.id.search_results_block)
-            resultsBlock.visibility = if (currentQuery.isNotBlank() && results.isNotEmpty()) View.VISIBLE else View.GONE
+
+            val shouldShowResults = (currentQuery.isNotBlank() || isFilterApplied) && results.isNotEmpty()
+            resultsBlock.visibility = if (shouldShowResults) View.VISIBLE else View.GONE
         }
 
         // Слушатель для изменения фокуса в поле поиска
         searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
-                // Если фокус потерян, скрываем историю
                 historyRecycler.visibility = View.GONE
             } else {
-                // Если фокус на поле поиска, показываем историю, если запрос пустой
-                if (currentQuery.isBlank()) {
+                if (currentQuery.isBlank() && !isFilterApplied) {
                     val history = viewModel.searchHistory.value
                     historyRecycler.visibility = if (history?.isNotEmpty() == true) View.VISIBLE else View.GONE
                 } else {
@@ -128,6 +149,11 @@ class SearchFragment : Fragment() {
         // Наблюдение за историей поиска
         viewModel.searchHistory.observe(viewLifecycleOwner) { history ->
             historyAdapter.setHistory(history)
+        }
+
+        val filterButton = view.findViewById<View>(R.id.filter_button)
+        filterButton.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_search_to_navigation_filter)
         }
     }
 }

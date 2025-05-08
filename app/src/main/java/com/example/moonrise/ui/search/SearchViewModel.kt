@@ -57,6 +57,29 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    fun applyFilters(
+        genres: List<String>,
+        category: String?,
+        statusId: Int?,
+        ageRating: String?,
+        startYear: Int?,
+        endYear: Int?
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val filtered = contentDao.getFilteredContentWithRelations(
+                genres = genres,
+                genresSize = genres.size,
+                category = category,
+                statusId = statusId,
+                ageRating = ageRating,
+                startYear = startYear,
+                endYear = endYear
+            ).first()
+
+            _filteredContent.postValue(filtered)
+        }
+    }
+
     fun initManager(context: Context) {
         historyManager = SearchHistoryManager(context)
         history = historyManager.loadHistory().toMutableList()

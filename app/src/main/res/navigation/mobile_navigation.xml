@@ -43,5 +43,9 @@
         android:id="@+id/navigation_search"
         android:name="com.example.moonrise.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_filter"
+            app:destination="@id/navigation_filter" />
+    </fragment>
 </navigation>
