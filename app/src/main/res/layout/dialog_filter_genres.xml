@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp"
+    android:padding="22dp"
     android:background="@color/gray111">
 
     <TextView
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="Сбросить"
             android:background="@drawable/rounded_button_cansel_border"
-            android:textColor="@color/white"/>
+            android:textColor="@color/gray_for_cancel"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_select"

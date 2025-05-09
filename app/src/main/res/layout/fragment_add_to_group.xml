@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp"
+    android:padding="22dp"
     android:background="@color/gray333">
 
     <TextView
@@ -100,7 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Отмена"
-        android:textColor="@color/white"
+        android:textColor="@color/gray_for_cancel"
         android:background="@drawable/rounded_button_cansel_border"
         android:layout_marginTop="24dp"/>
 </LinearLayout>

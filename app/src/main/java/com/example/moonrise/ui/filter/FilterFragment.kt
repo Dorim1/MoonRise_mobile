@@ -84,8 +84,7 @@ class FilterFragment : Fragment() {
                 putInt("selectedEndYear", selectedEndYear ?: -1)
             }
 
-            parentFragmentManager.setFragmentResult("filterRequest", result)
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_navigation_filter_to_filteredListFragment, result)
         }
 
 

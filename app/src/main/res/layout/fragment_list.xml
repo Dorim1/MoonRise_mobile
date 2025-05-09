@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="25dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginEnd="23dp">
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_in_list"
@@ -48,7 +48,7 @@
         android:layout_weight="1"
         android:scrollbars="vertical"
         android:scrollbarThumbVertical="@color/main_purple"
-        android:scrollbarTrackVertical="@android:color/transparent"
+        android:scrollbarTrackVertical="@color/main_purple"
         android:layout_marginTop="15dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:contentDescription=""/>

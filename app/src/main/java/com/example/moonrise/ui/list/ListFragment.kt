@@ -47,24 +47,6 @@ class ListFragment : Fragment() {
             }
         })
 
-        parentFragmentManager.setFragmentResultListener("filterRequest", viewLifecycleOwner) { _, bundle ->
-            val selectedGenres = bundle.getStringArrayList("selectedGenres") ?: emptyList<String>()
-            val selectedCategory = bundle.getString("selectedCategory")
-            val selectedStatusId = bundle.getInt("selectedStatusId").takeIf { it != -1 }
-            val selectedAgeRating = bundle.getString("selectedAgeRating")
-            val selectedStartYear = bundle.getInt("selectedStartYear").takeIf { it != -1 }
-            val selectedEndYear = bundle.getInt("selectedEndYear").takeIf { it != -1 }
-
-            viewModel.applyFilters(
-                genres = selectedGenres,
-                category = selectedCategory,
-                statusId = selectedStatusId,
-                ageRating = selectedAgeRating,
-                startYear = selectedStartYear,
-                endYear = selectedEndYear
-            )
-        }
-
         viewModel.filteredContent.observe(viewLifecycleOwner) { contentList ->
             contentAdapter.setContentList(contentList)
 
@@ -74,7 +56,7 @@ class ListFragment : Fragment() {
             }
         }
 
-        viewModel.applyFilters(emptyList(), null, null, null, null, null)
+        viewModel.loadAllContent()
         viewModel.loadCategoriesFromJson(requireContext())
         viewModel.loadGenresFromJson(requireContext())
         viewModel.loadContentGenresFromJson(requireContext())

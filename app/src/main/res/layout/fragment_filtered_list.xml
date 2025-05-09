@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filteredListContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray111"
+    tools:context=".ui.FilteredList.FilteredListFragment">
+
+    <!-- Верхняя панель -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="22dp"
+        android:gravity="center_vertical"
+        android:background="@color/gray111">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Фильтры"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_marginStart="10dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/editFiltersButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="15dp"
+            android:layout_marginStart="135dp"
+            android:text="Изменить"
+            android:background="@drawable/rounded_button_cansel_border"
+            android:textColor="@color/gray_for_cancel" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/filteredItemsList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        tools:listitem="@layout/item_in_list" />
+
+</LinearLayout>

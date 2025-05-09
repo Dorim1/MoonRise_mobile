@@ -22,7 +22,11 @@
         android:id="@+id/navigation_filter"
         android:name="com.example.moonrise.ui.filter.FilterFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_filter" />
+        tools:layout="@layout/fragment_filter" >
+        <action
+            android:id="@+id/action_navigation_filter_to_filteredListFragment"
+            app:destination="@id/navigation_filteredList" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_item"
@@ -48,4 +52,9 @@
             android:id="@+id/action_navigation_search_to_navigation_filter"
             app:destination="@id/navigation_filter" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_filteredList"
+        android:name="com.example.moonrise.ui.FilteredList.FilteredListFragment"
+        android:label="fragment_filtered_list"
+        tools:layout="@layout/fragment_filtered_list" />
 </navigation>

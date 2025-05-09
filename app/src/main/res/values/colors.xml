@@ -14,7 +14,7 @@
     <color name="gray222">#222222</color>
     <color name="gray111">#111111</color>
     <color name="gray151515">#151515</color>
-    <color name="white_gray">#D0D0D0</color>
+    <color name="gray_for_cancel">#D0D0D0</color>
     <color name="white_gray2">#C9C9C9</color>
     <color name="white_gray3">#929292</color>
 </resources>

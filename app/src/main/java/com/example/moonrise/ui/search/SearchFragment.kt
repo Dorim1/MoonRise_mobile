@@ -103,45 +103,30 @@ class SearchFragment : Fragment() {
             resultsBlock.visibility = if (shouldShowResults) View.VISIBLE else View.GONE
         }
 
-        // Слушатель для изменения фокуса в поле поиска
         searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                historyRecycler.visibility = View.GONE
+            val isQueryEmpty = currentQuery.isBlank()
+            val hasHistory = viewModel.searchHistory.value?.isNotEmpty() == true
+            historyRecycler.visibility = if (hasFocus && isQueryEmpty && !isFilterApplied && hasHistory) {
+                View.VISIBLE
             } else {
-                if (currentQuery.isBlank() && !isFilterApplied) {
-                    val history = viewModel.searchHistory.value
-                    historyRecycler.visibility = if (history?.isNotEmpty() == true) View.VISIBLE else View.GONE
-                } else {
-                    historyRecycler.visibility = View.GONE
-                }
+                View.GONE
             }
         }
 
         // Слушатель для ввода текста
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.addQueryToHistory(currentQuery)
                 currentQuery = query.orEmpty()
+                viewModel.addQueryToHistory(currentQuery)
                 viewModel.searchContent(currentQuery)
-                historyRecycler.visibility = View.GONE  // Скрыть историю после отправки запроса
+                historyRecycler.visibility = View.GONE
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 currentQuery = newText.orEmpty()
                 viewModel.searchContent(currentQuery)
-
-                if (currentQuery.isBlank()) {
-                    view.findViewById<View>(R.id.franchise_block).visibility = View.GONE
-                    historyRecycler.visibility = if (viewModel.searchHistory.value?.isNotEmpty() == true) {
-                        View.VISIBLE
-                    } else {
-                        View.GONE
-                    }
-                } else {
-                    historyRecycler.visibility = View.GONE // Скрыть историю при вводе текста
-                }
-
+                historyRecycler.visibility = View.GONE // не показываем при вводе
                 return true
             }
         })

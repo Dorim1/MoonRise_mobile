@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/gray111"
-    android:padding="16dp"
+    android:padding="22dp"
     android:gravity="center">
 
     <TextView
@@ -43,7 +43,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_button_cansel_border"
         android:strokeColor="@color/white"
-        android:textColor="@color/white"/>
+        android:textColor="@color/gray_for_cancel"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_apply"

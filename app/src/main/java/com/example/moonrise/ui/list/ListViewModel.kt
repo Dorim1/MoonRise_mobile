@@ -38,26 +38,10 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     val filteredContent: LiveData<List<ContentWithCategory>> = _filteredContent
 
 
-    fun applyFilters(
-        genres: List<String>,
-        category: String?,
-        statusId: Int?,
-        ageRating: String?,
-        startYear: Int?,
-        endYear: Int?
-    ) {
+    fun loadAllContent() {
         viewModelScope.launch(Dispatchers.IO) {
-            val filtered = contentDao.getFilteredContentWithRelations(
-                genres = genres,
-                genresSize = genres.size,
-                category = category,
-                statusId = statusId,
-                ageRating = ageRating,
-                startYear = startYear,
-                endYear = endYear
-            ).first()
-
-            _filteredContent.postValue(filtered)
+            val allContent = contentDao.getAllContentWithCategory().first()
+            _filteredContent.postValue(allContent)
         }
     }
 
@@ -88,10 +72,6 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                     gson.fromJson(jsonString, object : TypeToken<List<Content>>() {}.type)
 
                 saveContentList(contentList)
-
-                kotlinx.coroutines.delay(500)
-
-                applyFilters(emptyList(), null, null, null, null, null)
             }
         }
     }

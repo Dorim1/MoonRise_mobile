@@ -20,8 +20,8 @@
         android:inputType="text"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="25dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginEnd="23dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
         app:searchIcon="@drawable/customicon"/>
 
     <androidx.recyclerview.widget.RecyclerView
