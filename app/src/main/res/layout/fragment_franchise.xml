@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/filteredListContainer"
+    android:id="@+id/franchiseListContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/gray111"
-    tools:context=".ui.filtered_list.FilteredListFragment">
+    tools:context=".ui.franchise.FranchiseFragment">
 
-    <!-- Верхняя панель -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
@@ -28,26 +27,27 @@
             android:tint="@color/white" />
 
         <TextView
+            android:id="@+id/franchiseTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Фильтры"
+            android:text="Франшиза"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:layout_marginStart="10dp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/editFiltersButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="15dp"
-            android:layout_marginStart="135dp"
-            android:text="Изменить"
-            android:background="@drawable/rounded_button_cansel_border"
-            android:textColor="@color/gray_for_cancel" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/franchise_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:paddingHorizontal="22dp"
+        android:paddingBottom="12dp"
+        android:textSize="16sp"
+        tools:text="Список всех частей франшизы: 3 сезона, 2 фильма." />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/filteredItemsList"
+        android:id="@+id/franchiseItemsList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

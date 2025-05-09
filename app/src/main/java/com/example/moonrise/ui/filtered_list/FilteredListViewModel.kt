@@ -1,10 +1,9 @@
-package com.example.moonrise.ui.FilteredList
+package com.example.moonrise.ui.filtered_list
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.data.local.entity.ContentWithCategory

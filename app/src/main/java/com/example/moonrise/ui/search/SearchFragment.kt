@@ -1,20 +1,22 @@
 package com.example.moonrise.ui.search
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatButton
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.moonrise.R
 import com.example.moonrise.ui.list.ContentAdapter
 
@@ -26,12 +28,22 @@ class SearchFragment : Fragment() {
     private var isFilterApplied = false
     var currentQuery = ""
 
-
+    private val voiceInputLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            val results = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val spokenText = results?.firstOrNull()
+            if (!spokenText.isNullOrBlank()) {
+                val searchView = view?.findViewById<SearchView>(R.id.search_in_list)
+                searchView?.setQuery(spokenText, true)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
@@ -40,19 +52,13 @@ class SearchFragment : Fragment() {
 
         val franchiseBlock = view.findViewById<View>(R.id.franchise_block)
         val franchiseInfo = view.findViewById<TextView>(R.id.franchise_info)
-
         val searchView = view.findViewById<SearchView>(R.id.search_in_list)
         val historyRecycler = view.findViewById<RecyclerView>(R.id.search_history_recycler)
-        val historyAdapter = SearchHistoryAdapter(
-            onItemClick = { selectedQuery ->
-                searchView.setQuery(selectedQuery, true)
-            },
-            onDeleteClick = { queryToRemove ->
-                viewModel.removeQueryFromHistory(queryToRemove)
-            }
-        )
 
-        // Скрываем историю по умолчанию
+        val historyAdapter = SearchHistoryAdapter(
+            onItemClick = { selectedQuery -> searchView.setQuery(selectedQuery, true) },
+            onDeleteClick = { queryToRemove -> viewModel.removeQueryFromHistory(queryToRemove) }
+        )
         historyRecycler.visibility = View.GONE
         historyRecycler.layoutManager = LinearLayoutManager(requireContext())
         historyRecycler.adapter = historyAdapter
@@ -64,33 +70,8 @@ class SearchFragment : Fragment() {
         recyclerView.adapter = adapter
 
         viewModel.franchiseContent.observe(viewLifecycleOwner) { relatedList ->
-            if (relatedList.isNotEmpty()) {
-                franchiseBlock.visibility = View.VISIBLE
-                franchiseInfo.text = getString(R.string.franchise_releases, relatedList.size)
-                // Загрузка изображений...
-            } else {
-                franchiseBlock.visibility = View.GONE
-            }
-        }
-
-        parentFragmentManager.setFragmentResultListener("filterRequest", viewLifecycleOwner) { _, bundle ->
-            isFilterApplied = true
-            historyRecycler.visibility = View.GONE
-            val selectedGenres = bundle.getStringArrayList("selectedGenres") ?: emptyList()
-            val selectedCategory = bundle.getString("selectedCategory")
-            val selectedStatusId = bundle.getInt("selectedStatusId").takeIf { it != -1 }
-            val selectedAgeRating = bundle.getString("selectedAgeRating")
-            val selectedStartYear = bundle.getInt("selectedStartYear").takeIf { it != -1 }
-            val selectedEndYear = bundle.getInt("selectedEndYear").takeIf { it != -1 }
-
-            viewModel.applyFilters(
-                genres = selectedGenres,
-                category = selectedCategory,
-                statusId = selectedStatusId,
-                ageRating = selectedAgeRating,
-                startYear = selectedStartYear,
-                endYear = selectedEndYear
-            )
+            franchiseBlock.visibility = if (relatedList.isNotEmpty()) View.VISIBLE else View.GONE
+            franchiseInfo.text = getString(R.string.franchise_releases, relatedList.size)
         }
 
         viewModel.initManager(requireContext())
@@ -98,7 +79,6 @@ class SearchFragment : Fragment() {
         viewModel.filteredContent.observe(viewLifecycleOwner) { results ->
             adapter.setContentList(results)
             val resultsBlock = view.findViewById<View>(R.id.search_results_block)
-
             val shouldShowResults = (currentQuery.isNotBlank() || isFilterApplied) && results.isNotEmpty()
             resultsBlock.visibility = if (shouldShowResults) View.VISIBLE else View.GONE
         }
@@ -106,14 +86,9 @@ class SearchFragment : Fragment() {
         searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
             val isQueryEmpty = currentQuery.isBlank()
             val hasHistory = viewModel.searchHistory.value?.isNotEmpty() == true
-            historyRecycler.visibility = if (hasFocus && isQueryEmpty && !isFilterApplied && hasHistory) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+            historyRecycler.visibility = if (hasFocus && isQueryEmpty && !isFilterApplied && hasHistory) View.VISIBLE else View.GONE
         }
 
-        // Слушатель для ввода текста
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 currentQuery = query.orEmpty()
@@ -126,12 +101,11 @@ class SearchFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 currentQuery = newText.orEmpty()
                 viewModel.searchContent(currentQuery)
-                historyRecycler.visibility = View.GONE // не показываем при вводе
+                historyRecycler.visibility = View.GONE
                 return true
             }
         })
 
-        // Наблюдение за историей поиска
         viewModel.searchHistory.observe(viewLifecycleOwner) { history ->
             historyAdapter.setHistory(history)
         }
@@ -139,6 +113,21 @@ class SearchFragment : Fragment() {
         val filterButton = view.findViewById<View>(R.id.filter_button)
         filterButton.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_search_to_navigation_filter)
+        }
+
+        val voiceButton = view.findViewById<View>(R.id.voice_button)
+        voiceButton.setOnClickListener {
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ru-RU")
+                putExtra(RecognizerIntent.EXTRA_PROMPT, "Скажите запрос для поиска")
+            }
+
+            try {
+                voiceInputLauncher.launch(intent)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(requireContext(), "Голосовой ввод не поддерживается", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.moonrise.ui.FilteredList
+package com.example.moonrise.ui.filtered_list
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -52,6 +54,14 @@ class FilteredListFragment : Fragment() {
 
         viewModel.filteredContent.observe(viewLifecycleOwner) { filteredList ->
             contentAdapter.setContentList(filteredList)
+        }
+
+        view.findViewById<AppCompatImageButton>(R.id.back_button).setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        view.findViewById<AppCompatButton>(R.id.editFiltersButton).setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 }

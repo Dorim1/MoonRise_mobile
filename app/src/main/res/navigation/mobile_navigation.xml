@@ -51,10 +51,18 @@
         <action
             android:id="@+id/action_navigation_search_to_navigation_filter"
             app:destination="@id/navigation_filter" />
+        <action
+            android:id="@+id/action_navigation_search_to_franchiseFragment"
+            app:destination="@id/navigation_franchise" />
     </fragment>
     <fragment
         android:id="@+id/navigation_filteredList"
-        android:name="com.example.moonrise.ui.FilteredList.FilteredListFragment"
+        android:name="com.example.moonrise.ui.filtered_list.FilteredListFragment"
         android:label="fragment_filtered_list"
         tools:layout="@layout/fragment_filtered_list" />
+    <fragment
+        android:id="@+id/navigation_franchise"
+        android:name="com.example.moonrise.ui.franchise.FranchiseFragment"
+        android:label="fragment_franchise"
+        tools:layout="@layout/fragment_franchise" />
 </navigation>
