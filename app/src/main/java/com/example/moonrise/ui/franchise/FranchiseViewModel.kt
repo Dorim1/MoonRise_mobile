@@ -34,13 +34,13 @@ class FranchiseViewModel(application: Application) : AndroidViewModel(applicatio
             }
 
             val franchiseId = allIds.minOrNull() ?: contentId
-
             val info = franchiseInfoDao.getFranchiseInfo(franchiseId)
             _description.postValue(info?.description ?: "Описание не найдено.")
 
-            relatedContentDao.getRelatedContentWithCategory(contentId).collect { list ->
-                _contentList.postValue(list)
-            }
+            val contentDao = db.contentDao()
+            val contents = contentDao.getContentWithCategoryByIds(allIds.toList())
+
+            _contentList.postValue(contents)
         }
     }
 }
