@@ -31,6 +31,9 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     val searchHistory: LiveData<List<SearchHistoryItem>> = _searchHistory
 
     private var history = mutableListOf<SearchHistoryItem>()
+    private var lastFranchiseContentId: Int? = null
+
+    fun getLastFranchiseContentId(): Int? = lastFranchiseContentId
 
     fun searchContent(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -48,10 +51,12 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
             val firstMatch = results.firstOrNull()
             if (firstMatch != null) {
+                lastFranchiseContentId = firstMatch.content.id // ← Сохраняем ID
                 val related = database.relatedContentDao()
                     .getRelatedContentWithCategory(firstMatch.content.id).first()
                 _franchiseContent.postValue(related)
             } else {
+                lastFranchiseContentId = null // ← Сбрасываем, если нет результатов
                 _franchiseContent.postValue(emptyList())
             }
         }

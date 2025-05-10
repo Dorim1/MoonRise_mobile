@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:textSize="16sp"
-                android:textColor="#A9A9A9"
+                android:textColor="@color/gray_for_cancel"
                 android:text="Категория"
                 android:maxLines="1"
                 android:ellipsize="end"/>

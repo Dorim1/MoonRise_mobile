@@ -52,11 +52,13 @@ class ListFragment : Fragment() {
 
             // Если контент пустой, загружаем данные
             if (contentList.isEmpty()) {
-                viewModel.loadDataFromJson(requireContext()) // Загрузка данных из JSON
+                viewModel.loadDataFromJson(requireContext())
+                viewModel.loadAllContent()
             }
         }
 
         viewModel.loadAllContent()
+        viewModel.loadFranchiseInfoFromJson(requireContext())
         viewModel.loadCategoriesFromJson(requireContext())
         viewModel.loadGenresFromJson(requireContext())
         viewModel.loadContentGenresFromJson(requireContext())

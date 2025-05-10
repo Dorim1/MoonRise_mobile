@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,6 +55,7 @@ class SearchFragment : Fragment() {
         val franchiseInfo = view.findViewById<TextView>(R.id.franchise_info)
         val searchView = view.findViewById<SearchView>(R.id.search_in_list)
         val historyRecycler = view.findViewById<RecyclerView>(R.id.search_history_recycler)
+        val franchiseButton = view.findViewById<AppCompatButton>(R.id.franchise_button)
 
         val historyAdapter = SearchHistoryAdapter(
             onItemClick = { selectedQuery -> searchView.setQuery(selectedQuery, true) },
@@ -127,6 +129,18 @@ class SearchFragment : Fragment() {
                 voiceInputLauncher.launch(intent)
             } catch (e: ActivityNotFoundException) {
                 Toast.makeText(requireContext(), "Голосовой ввод не поддерживается", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        franchiseButton.setOnClickListener {
+            val franchiseId = viewModel.getLastFranchiseContentId()
+            if (franchiseId != null) {
+                val bundle = Bundle().apply {
+                    putInt("contentId", franchiseId)
+                }
+                findNavController().navigate(R.id.action_navigation_search_to_franchiseFragment, bundle)
+            } else {
+                Toast.makeText(requireContext(), "Франшиза не найдена", Toast.LENGTH_SHORT).show()
             }
         }
     }

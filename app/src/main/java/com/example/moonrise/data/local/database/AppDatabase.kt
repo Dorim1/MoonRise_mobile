@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.moonrise.data.local.dao.CategoryDao
 import com.example.moonrise.data.local.dao.ContentDao
 import com.example.moonrise.data.local.dao.ContentGenreDao
+import com.example.moonrise.data.local.dao.FranchiseInfoDao
 import com.example.moonrise.data.local.dao.GenreDao
 import com.example.moonrise.data.local.dao.RatingDao
 import com.example.moonrise.data.local.dao.RelatedContentDao
@@ -15,6 +16,7 @@ import com.example.moonrise.data.local.dao.StatusTypeDao
 import com.example.moonrise.data.local.entity.Category
 import com.example.moonrise.data.local.entity.Content
 import com.example.moonrise.data.local.entity.ContentGenre
+import com.example.moonrise.data.local.entity.FranchiseInfo
 import com.example.moonrise.data.local.entity.Genre
 import com.example.moonrise.data.local.entity.Rating
 import com.example.moonrise.data.local.entity.RelatedContent
@@ -22,7 +24,7 @@ import com.example.moonrise.data.local.entity.Status
 import com.example.moonrise.data.local.entity.StatusType
 
 
-@Database(entities = [Content::class, Status::class, StatusType::class, Category::class, ContentGenre::class, Genre::class, RelatedContent::class, Rating::class], version = 27, exportSchema = false)
+@Database(entities = [Content::class, Status::class, StatusType::class, Category::class, ContentGenre::class, Genre::class, RelatedContent::class, Rating::class, FranchiseInfo::class], version = 29, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun contentDao(): ContentDao
     abstract fun statusDao(): StatusDao
@@ -32,6 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun contentGenreDao(): ContentGenreDao
     abstract fun relatedContentDao(): RelatedContentDao
     abstract fun ratingDao(): RatingDao
+    abstract fun franchiseInfoDao(): FranchiseInfoDao
 
     companion object {
         @Volatile

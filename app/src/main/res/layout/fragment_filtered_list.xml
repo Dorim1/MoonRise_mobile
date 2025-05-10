@@ -14,14 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="22dp"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="25dp"
         android:gravity="center_vertical"
         android:background="@color/gray111">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/back_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="@null"
             android:scaleType="centerInside"
             android:src="@drawable/ic_arrow_back"
@@ -38,7 +39,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/editFiltersButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:paddingHorizontal="15dp"
             android:layout_marginStart="135dp"
             android:text="Изменить"
@@ -51,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="8dp"
+        android:layout_marginTop="15dp"
         tools:listitem="@layout/item_in_list" />
 
 </LinearLayout>

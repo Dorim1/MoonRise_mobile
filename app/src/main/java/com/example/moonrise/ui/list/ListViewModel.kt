@@ -13,6 +13,7 @@ import com.example.moonrise.data.local.entity.Category
 import com.example.moonrise.data.local.entity.Content
 import com.example.moonrise.data.local.entity.ContentGenre
 import com.example.moonrise.data.local.entity.ContentWithCategory
+import com.example.moonrise.data.local.entity.FranchiseInfo
 import com.example.moonrise.data.local.entity.Genre
 import com.example.moonrise.data.local.entity.RelatedContent
 import com.example.moonrise.data.local.entity.Status
@@ -34,6 +35,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     private val genreDao = database.genreDao()
     private val contentGenreDao = database.contentGenreDao()
     private val _filteredContent = MutableLiveData<List<ContentWithCategory>>()
+    private val franchiseInfoDao = database.franchiseInfoDao()
 
     val filteredContent: LiveData<List<ContentWithCategory>> = _filteredContent
 
@@ -139,4 +141,19 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    fun loadFranchiseInfoFromJson(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val existing = franchiseInfoDao.getFranchiseInfo(1)
+            if (existing == null) {
+                val jsonString =
+                    context.assets.open("franchises.json").bufferedReader().use { it.readText() }
+                val gson = Gson()
+                val list: List<FranchiseInfo> =
+                    gson.fromJson(jsonString, object : TypeToken<List<FranchiseInfo>>() {}.type)
+                franchiseInfoDao.insertAll(list)
+            }
+        }
+    }
+
 }

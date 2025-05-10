@@ -98,4 +98,7 @@ interface ContentDao {
         startYear: Int?,
         endYear: Int?
     ): Flow<List<ContentWithCategory>>
+
+    @Query("SELECT * FROM content WHERE id IN (:ids)")
+    fun getContentWithCategoryByIds(ids: List<Int>): List<ContentWithCategory>
 }
