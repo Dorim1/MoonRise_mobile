@@ -29,7 +29,7 @@
         android:progressBackgroundTint="@color/gray555"
         android:progressTint="@color/main_purple"
         android:secondaryProgressTint="@color/main_purple"
-        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        style="?android:attr/ratingBarStyleIndicator"
     />
 
     <androidx.appcompat.widget.AppCompatButton

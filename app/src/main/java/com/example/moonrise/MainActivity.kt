@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
@@ -40,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Функция для получения нужного элемента меню по ID
     private fun getMenuItemView(menuItemId: Int): View? {
         val navView = binding.navView
         val menuView = navView.getChildAt(0)

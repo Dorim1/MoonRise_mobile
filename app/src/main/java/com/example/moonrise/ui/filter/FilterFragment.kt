@@ -131,6 +131,7 @@ class FilterFragment : Fragment() {
                     binding.spinnerCategory.text = item
                     selectedCategory = item
                 }
+                binding.spinnerCategory.setBackgroundResource(R.drawable.spinner_background)
             }
         }
         viewModel.genres.observe(viewLifecycleOwner) { genres ->
@@ -196,6 +197,7 @@ class FilterFragment : Fragment() {
                     binding.spinnerAge.text = item
                     selectedAgeRating = item
                 }
+                binding.spinnerAge.setBackgroundResource(R.drawable.spinner_background)
             }
         }
 
@@ -217,6 +219,7 @@ class FilterFragment : Fragment() {
                     binding.spinnerStatus.text = item
                     selectedStatusId = statusTypes[position - 1].id
                 }
+                binding.spinnerStatus.setBackgroundResource(R.drawable.spinner_background)
             }
         }
     }
