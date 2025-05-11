@@ -29,5 +29,4 @@ interface RelatedContentDao {
 """)
     fun getRelatedContentWithCategory(contentId: Int): Flow<List<ContentWithCategory>>
 
-
 }

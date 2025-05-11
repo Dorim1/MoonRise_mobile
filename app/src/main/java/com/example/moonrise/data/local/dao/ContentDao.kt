@@ -68,6 +68,13 @@ interface ContentDao {
 """)
     fun searchContentWithCategory(query: String): Flow<List<ContentWithCategory>>
 
+    @Query("""
+    SELECT DISTINCT content.* FROM content
+    INNER JOIN related_content ON content.id = related_content.contentId OR content.id = related_content.relatedId
+    WHERE related_content.franchiseId = :franchiseId
+    ORDER BY releaseDate ASC
+""")
+    fun getContentWithCategoryByFranchiseId(franchiseId: Int): List<ContentWithCategory>
 
     @Transaction
     @Query("""
@@ -98,7 +105,4 @@ interface ContentDao {
         startYear: Int?,
         endYear: Int?
     ): Flow<List<ContentWithCategory>>
-
-    @Query("SELECT * FROM content WHERE id IN (:ids)")
-    fun getContentWithCategoryByIds(ids: List<Int>): List<ContentWithCategory>
 }

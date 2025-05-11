@@ -57,6 +57,7 @@ class ContentAdapter(private val navController: NavController) :
         private val titleTextView: TextView = view.findViewById(R.id.item_list_title)
         private val imageView: ImageView = view.findViewById(R.id.item_list_image)
         private val categoryTextView: TextView = view.findViewById(R.id.item_list_category)
+        private val releaseDateTextView: TextView = view.findViewById(R.id.item_list_releaseDate)
         private val loadingAnimation: LottieAnimationView = view.findViewById(R.id.loading_animation)
         private val favoriteIcon: ImageView = view.findViewById(R.id.favorite_icon)
         private val ratingTextView: TextView = view.findViewById(R.id.rating_text)
@@ -68,6 +69,7 @@ class ContentAdapter(private val navController: NavController) :
 
             titleTextView.text = content.title
             categoryTextView.text = contentWithCategory.category.name
+            releaseDateTextView.text = itemView.context.getString(R.string.release_date_format, content.releaseDate)
 
             if (status != null) {
                 favoriteIcon.visibility = View.VISIBLE

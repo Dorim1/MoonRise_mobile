@@ -50,7 +50,6 @@ class ListFragment : Fragment() {
         viewModel.filteredContent.observe(viewLifecycleOwner) { contentList ->
             contentAdapter.setContentList(contentList)
 
-            // Если контент пустой, загружаем данные
             if (contentList.isEmpty()) {
                 viewModel.loadDataFromJson(requireContext())
                 viewModel.loadAllContent()
@@ -58,11 +57,14 @@ class ListFragment : Fragment() {
         }
 
         viewModel.loadAllContent()
-        viewModel.loadFranchiseInfoFromJson(requireContext())
+        viewModel.loadDataFromJson(requireContext())
         viewModel.loadCategoriesFromJson(requireContext())
         viewModel.loadGenresFromJson(requireContext())
         viewModel.loadContentGenresFromJson(requireContext())
         viewModel.loadStatusTypesFromJson(requireContext())
+        viewModel.loadFranchiseInfoFromJson(requireContext())
+        viewModel.loadRelatedContentFromJson(requireContext())
+
 
         val filterButton = view.findViewById<View>(R.id.filter_button)
         filterButton.setOnClickListener {

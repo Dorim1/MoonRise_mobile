@@ -144,7 +144,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadFranchiseInfoFromJson(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-            val existing = franchiseInfoDao.getFranchiseInfo(1)
+            val existing = franchiseInfoDao.getFranchiseInfo(100) // или franchiseInfoDao.getAll().firstOrNull()
             if (existing == null) {
                 val jsonString =
                     context.assets.open("franchises.json").bufferedReader().use { it.readText() }
@@ -152,6 +152,20 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                 val list: List<FranchiseInfo> =
                     gson.fromJson(jsonString, object : TypeToken<List<FranchiseInfo>>() {}.type)
                 franchiseInfoDao.insertAll(list)
+            }
+        }
+    }
+
+    fun loadRelatedContentFromJson(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val existing = database.relatedContentDao().getRelated(1)
+            if (existing.isEmpty()) {
+                val jsonString =
+                    context.assets.open("related_content.json").bufferedReader().use { it.readText() }
+                val gson = Gson()
+                val list: List<RelatedContent> =
+                    gson.fromJson(jsonString, object : TypeToken<List<RelatedContent>>() {}.type)
+                database.relatedContentDao().insertAll(list)
             }
         }
     }

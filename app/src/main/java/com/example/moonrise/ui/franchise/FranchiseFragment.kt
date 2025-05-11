@@ -55,6 +55,15 @@ class FranchiseFragment : Fragment() {
 
         viewModel.loadFranchise(contentId)
 
+        viewModel.description.observe(viewLifecycleOwner) { description ->
+            if (description.isNullOrEmpty()) {
+                descriptionView.visibility = View.GONE
+            } else {
+                descriptionView.visibility = View.VISIBLE
+                descriptionView.text = description
+            }
+        }
+
         view.findViewById<AppCompatImageButton>(R.id.back_button).setOnClickListener {
             findNavController().navigateUp()
         }

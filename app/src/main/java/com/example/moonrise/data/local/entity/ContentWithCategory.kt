@@ -22,5 +22,6 @@ data class ContentWithCategory(
         parentColumn = "id",
         entityColumn = "contentId"
     )
-    val rating: Rating?
+    val rating: Rating?,
+
 )

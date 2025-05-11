@@ -15,5 +15,11 @@ interface FranchiseInfoDao {
     @Query("SELECT * FROM franchise_info WHERE franchiseId = :id")
     suspend fun getFranchiseInfo(id: Int): FranchiseInfo?
 
-
+    @Query("""
+    SELECT franchiseId FROM related_content 
+    WHERE contentId = :contentId 
+    OR relatedId = :contentId 
+    LIMIT 1
+""")
+    suspend fun getFranchiseIdForContent(contentId: Int): Int?
 }
