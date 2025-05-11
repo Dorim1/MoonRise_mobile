@@ -2,11 +2,9 @@ package com.example.moonrise.ui.search
 
 import android.app.Application
 import android.content.Context
-import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.data.local.entity.ContentWithCategory
@@ -32,6 +30,14 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     private var history = mutableListOf<SearchHistoryItem>()
     private var lastFranchiseContentId: Int? = null
+
+    private var _currentQuery: String = ""
+    val currentQuery: String
+        get() = _currentQuery
+
+    fun setCurrentQuery(query: String) {
+        _currentQuery = query
+    }
 
     fun getLastFranchiseContentId(): Int? = lastFranchiseContentId
 

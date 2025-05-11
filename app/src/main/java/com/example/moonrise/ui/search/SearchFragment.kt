@@ -15,11 +15,15 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moonrise.R
 import com.example.moonrise.ui.list.ContentAdapter
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
 
@@ -27,7 +31,7 @@ class SearchFragment : Fragment() {
     private lateinit var adapter: ContentAdapter
     private val viewModel: SearchViewModel by viewModels()
     private var isFilterApplied = false
-    var currentQuery = ""
+    private var searchJob: Job? = null
 
     private val voiceInputLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -81,28 +85,36 @@ class SearchFragment : Fragment() {
         viewModel.filteredContent.observe(viewLifecycleOwner) { results ->
             adapter.setContentList(results)
             val resultsBlock = view.findViewById<View>(R.id.search_results_block)
-            val shouldShowResults = (currentQuery.isNotBlank() || isFilterApplied) && results.isNotEmpty()
+            val shouldShowResults = (viewModel.currentQuery.isNotBlank() || isFilterApplied) && results.isNotEmpty()
             resultsBlock.visibility = if (shouldShowResults) View.VISIBLE else View.GONE
         }
 
         searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
-            val isQueryEmpty = currentQuery.isBlank()
+            val isQueryEmpty = viewModel.currentQuery.isBlank()
             val hasHistory = viewModel.searchHistory.value?.isNotEmpty() == true
             historyRecycler.visibility = if (hasFocus && isQueryEmpty && !isFilterApplied && hasHistory) View.VISIBLE else View.GONE
         }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                currentQuery = query.orEmpty()
-                viewModel.addQueryToHistory(currentQuery)
-                viewModel.searchContent(currentQuery)
+                val cleanQuery = query.orEmpty()
+                viewModel.setCurrentQuery(cleanQuery)
+                viewModel.addQueryToHistory(cleanQuery)
+                viewModel.searchContent(cleanQuery)
                 historyRecycler.visibility = View.GONE
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                currentQuery = newText.orEmpty()
-                viewModel.searchContent(currentQuery)
+                val cleanQuery = newText.orEmpty()
+                viewModel.setCurrentQuery(cleanQuery)
+
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
+                    delay(300)
+                    viewModel.searchContent(cleanQuery)
+                }
+
                 historyRecycler.visibility = View.GONE
                 return true
             }
