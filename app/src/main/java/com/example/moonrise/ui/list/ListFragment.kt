@@ -38,6 +38,7 @@ class ListFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let { viewModel.searchContent(it) }
+                searchView.clearFocus()
                 return true
             }
 
@@ -49,21 +50,10 @@ class ListFragment : Fragment() {
 
         viewModel.filteredContent.observe(viewLifecycleOwner) { contentList ->
             contentAdapter.setContentList(contentList)
-
-            if (contentList.isEmpty()) {
-                viewModel.loadDataFromJson(requireContext())
-                viewModel.loadAllContent()
-            }
         }
 
+        viewModel.checkAndInitDatabase(requireContext())
         viewModel.loadAllContent()
-        viewModel.loadDataFromJson(requireContext())
-        viewModel.loadCategoriesFromJson(requireContext())
-        viewModel.loadGenresFromJson(requireContext())
-        viewModel.loadContentGenresFromJson(requireContext())
-        viewModel.loadStatusTypesFromJson(requireContext())
-        viewModel.loadFranchiseInfoFromJson(requireContext())
-        viewModel.loadRelatedContentFromJson(requireContext())
 
 
         val filterButton = view.findViewById<View>(R.id.filter_button)

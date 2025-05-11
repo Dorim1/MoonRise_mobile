@@ -5,9 +5,7 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.moonrise.data.local.dao.StatusTypeDao
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.data.local.entity.Category
 import com.example.moonrise.data.local.entity.Content
@@ -16,7 +14,6 @@ import com.example.moonrise.data.local.entity.ContentWithCategory
 import com.example.moonrise.data.local.entity.FranchiseInfo
 import com.example.moonrise.data.local.entity.Genre
 import com.example.moonrise.data.local.entity.RelatedContent
-import com.example.moonrise.data.local.entity.Status
 import com.example.moonrise.data.local.entity.StatusType
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -29,7 +26,6 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = AppDatabase.getDatabase(application)
     private val contentDao = database.contentDao()
-    private val statusDao = database.statusDao()
     private val statusTypeDao = database.statusTypeDao()
     private val categoryDao = database.categoryDao()
     private val genreDao = database.genreDao()
@@ -64,7 +60,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun loadDataFromJson(context: Context) {
+    private fun loadDataFromJson(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             if (contentDao.getContentCount() == 0) {
                 val jsonString =
@@ -78,7 +74,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun loadCategoriesFromJson(context: Context) {
+    private fun loadCategoriesFromJson(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             val categories = categoryDao.getAllCategories().firstOrNull()
 
@@ -94,7 +90,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun loadGenresFromJson(context: Context) {
+    private fun loadGenresFromJson(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             val genres = genreDao.getAllGenres().firstOrNull()
 
@@ -110,7 +106,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun loadContentGenresFromJson(context: Context) {
+    private fun loadContentGenresFromJson(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             val someContentGenre = contentGenreDao.getContentByGenre(1).firstOrNull()
 
@@ -126,7 +122,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun loadStatusTypesFromJson(context: Context) {
+    private fun loadStatusTypesFromJson(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             val statusTypes = statusTypeDao.getAllStatusTypes()
 
@@ -142,7 +138,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun loadFranchiseInfoFromJson(context: Context) {
+    private fun loadFranchiseInfoFromJson(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             val existing = franchiseInfoDao.getFranchiseInfo(100) // или franchiseInfoDao.getAll().firstOrNull()
             if (existing == null) {
@@ -156,7 +152,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun loadRelatedContentFromJson(context: Context) {
+    private fun loadRelatedContentFromJson(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             val existing = database.relatedContentDao().getRelated(1)
             if (existing.isEmpty()) {
@@ -166,6 +162,20 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                 val list: List<RelatedContent> =
                     gson.fromJson(jsonString, object : TypeToken<List<RelatedContent>>() {}.type)
                 database.relatedContentDao().insertAll(list)
+            }
+        }
+    }
+
+    fun checkAndInitDatabase(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (contentDao.getContentCount() == 0) {
+                loadDataFromJson(context)
+                loadCategoriesFromJson(context)
+                loadGenresFromJson(context)
+                loadContentGenresFromJson(context)
+                loadStatusTypesFromJson(context)
+                loadFranchiseInfoFromJson(context)
+                loadRelatedContentFromJson(context)
             }
         }
     }
