@@ -18,34 +18,48 @@ class FilterFragment : Fragment() {
 
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var viewModel: FilterViewModel
+
     private val selectedGenres get() = viewModel.selectedGenres
-    private var selectedCategory
+
+    private var selectedCategory: String?
         get() = viewModel.selectedCategory
         set(value) { viewModel.selectedCategory = value }
 
-    private var selectedStatusId
+    private var selectedStatusId: Int?
         get() = viewModel.selectedStatusId
         set(value) { viewModel.selectedStatusId = value }
 
-    private var selectedAgeRating
+    private var selectedAgeRating: String?
         get() = viewModel.selectedAgeRating
         set(value) { viewModel.selectedAgeRating = value }
 
-    private var selectedStartYear
+    private var selectedStartYear: Int?
         get() = viewModel.selectedStartYear
         set(value) { viewModel.selectedStartYear = value }
 
-    private var selectedEndYear
+    private var selectedEndYear: Int?
         get() = viewModel.selectedEndYear
         set(value) { viewModel.selectedEndYear = value }
-
-    private lateinit var viewModel: FilterViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
+
+        val database = AppDatabase.getDatabase(requireContext())
+        val genreDao = database.genreDao()
+        val categoryDao = database.categoryDao()
+        val contentDao = database.contentDao()
+        val statusTypeDao = database.statusTypeDao()
+
+        viewModel = ViewModelProvider(
+            this,
+            FilterViewModelFactory(genreDao, categoryDao, contentDao, statusTypeDao)
+        )[FilterViewModel::class.java]
+
         return binding.root
     }
 
@@ -104,7 +118,7 @@ class FilterFragment : Fragment() {
             binding.spinnerCategory.setItems(categoryNames)
 
             val initialIndex = categoryNames.indexOf(selectedCategory)
-            if (initialIndex >= 0) {
+            if (binding.spinnerCategory.text == "Неважно" && initialIndex >= 0) {
                 binding.spinnerCategory.selectItemByIndex(initialIndex)
                 binding.spinnerCategory.text = categoryNames[initialIndex]
             }
@@ -112,10 +126,10 @@ class FilterFragment : Fragment() {
             binding.spinnerCategory.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
                 if (position == 0) {
                     binding.spinnerCategory.text = "Неважно"
-                    selectedCategory = null // Обнуляем выбранную категорию
+                    selectedCategory = null
                 } else {
                     binding.spinnerCategory.text = item
-                    selectedCategory = item // Сохраняем выбранную категорию
+                    selectedCategory = item
                 }
             }
         }
@@ -134,11 +148,10 @@ class FilterFragment : Fragment() {
         updateGenreSpinnerText()
 
         if (selectedStartYear != null && selectedEndYear != null) {
-            binding.spinnerYear.text = getString(
-                R.string.year_range,
-                selectedStartYear.toString(),
-                selectedEndYear.toString()
-            )
+            val expected = getString(R.string.year_range, selectedStartYear.toString(), selectedEndYear.toString())
+            if (binding.spinnerYear.text == "Неважно") {
+                binding.spinnerYear.text = expected
+            }
         } else {
             binding.spinnerYear.text = "Неважно"
         }
@@ -170,7 +183,7 @@ class FilterFragment : Fragment() {
             binding.spinnerAge.setItems(ageRatingList)
 
             val initialAgeIndex = ageRatingList.indexOf(selectedAgeRating)
-            if (initialAgeIndex >= 0) {
+            if (binding.spinnerAge.text == "Неважно" && initialAgeIndex >= 0) {
                 binding.spinnerAge.selectItemByIndex(initialAgeIndex)
                 binding.spinnerAge.text = ageRatingList[initialAgeIndex]
             }
@@ -178,10 +191,10 @@ class FilterFragment : Fragment() {
             binding.spinnerAge.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
                 if (position == 0) {
                     binding.spinnerAge.text = "Неважно"
-                    selectedAgeRating = null // Сброс ограничения
+                    selectedAgeRating = null
                 } else {
                     binding.spinnerAge.text = item
-                    selectedAgeRating = item // Сохранение ограничения
+                    selectedAgeRating = item
                 }
             }
         }
@@ -191,7 +204,7 @@ class FilterFragment : Fragment() {
             binding.spinnerStatus.setItems(statusNames)
 
             val initialStatusIndex = statusTypes.indexOfFirst { it.id == selectedStatusId }
-            if (initialStatusIndex >= 0) {
+            if (binding.spinnerStatus.text == "Неважно" && initialStatusIndex >= 0) {
                 binding.spinnerStatus.selectItemByIndex(initialStatusIndex + 1)
                 binding.spinnerStatus.text = statusTypes[initialStatusIndex].name
             }
