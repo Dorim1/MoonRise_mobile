@@ -4,5 +4,14 @@
   { "contentId": 2, "genreId": 3 },
   { "contentId": 2, "genreId": 4 },
   { "contentId": 3, "genreId": 1 },
-  { "contentId": 3, "genreId": 1 }
+  { "contentId": 3, "genreId": 1 },
+  { "contentId": 4, "genreId": 5 },
+  { "contentId": 4, "genreId": 4 },
+  { "contentId": 4, "genreId": 7 },
+  { "contentId": 5, "genreId": 5 },
+  { "contentId": 5, "genreId": 4 },
+  { "contentId": 5, "genreId": 7 },
+  { "contentId": 6, "genreId": 5 },
+  { "contentId": 6, "genreId": 4 },
+  { "contentId": 6, "genreId": 7 }
 ]

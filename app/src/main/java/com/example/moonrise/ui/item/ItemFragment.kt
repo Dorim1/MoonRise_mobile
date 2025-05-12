@@ -131,6 +131,14 @@ class ItemFragment : Fragment() {
             binding.descriptionItem.text = contentWithCategory.content.description
             binding.releaseDate.text = getString(R.string.release_date, "${contentWithCategory.content.releaseDate} г.")
 
+            binding.titleItem.setOnClickListener {
+                showCopyTitlesBottomSheet()
+            }
+
+            binding.orTitleItem.setOnClickListener {
+                showCopyTitlesBottomSheet()
+            }
+
             // Загружаем изображение с обработкой ошибки
             Glide.with(this)
                 .load(contentWithCategory.content.image)
@@ -192,6 +200,7 @@ class ItemFragment : Fragment() {
             }
         }
 
+
         return root
     }
 
@@ -207,6 +216,12 @@ class ItemFragment : Fragment() {
             binding.descriptionItem.ellipsize = null
             binding.showMoreText.text = getString(R.string.hide)
         }
+    }
+
+    private fun showCopyTitlesBottomSheet() {
+        val title = binding.titleItem.text.toString()
+        val orTitle = binding.orTitleItem.text.toString()
+        CopyTitlesBottomSheet(title, orTitle).show(parentFragmentManager, "CopyTitlesBottomSheet")
     }
 
     override fun onDestroyView() {

@@ -21,4 +21,5 @@
     <string name="change_rating">Изменить оценку</string>
     <string name="delete_rating">Удалить оценку</string>
     <string name="franchise_releases">Релизов во франшизе: %1$d</string>
+    <string name="kinopoisk">Кинопоиск</string>
 </resources>

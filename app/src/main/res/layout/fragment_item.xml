@@ -48,6 +48,7 @@
 
                 <TextView
                     android:id="@+id/title_item"
+                    android:fontFamily="@font/roboto"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:layout_width="match_parent"
@@ -57,7 +58,7 @@
                     android:textSize="29sp"
                     android:text="Время приключений: Фиона и Кейк" />
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -68,25 +69,36 @@
                         android:id="@+id/or_title_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="center_vertical"
+                        android:layout_marginEnd="2dp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="Adventure Time: Fionna and Cake"
                         android:textColor="@color/white"
                         android:textSize="18sp"
-                        android:gravity="center_vertical"
-                        android:text="Adventure Time: Fionna and Cake" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/age_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
                         android:background="@drawable/rounded_rating_background"
+                        android:fontFamily="@font/roboto"
                         android:gravity="center"
+                        android:layout_marginStart="10dp"
                         android:paddingHorizontal="7dp"
                         android:paddingVertical="2dp"
                         android:text="16+"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/or_title_item"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -98,6 +110,7 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/addButton"
+                        android:fontFamily="@font/roboto"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -130,6 +143,7 @@
 
                         <TextView
                             android:id="@+id/rateText"
+                            android:fontFamily="@font/roboto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -152,6 +166,7 @@
 
                 <TextView
                     android:id="@+id/release_date"
+                    android:fontFamily="@font/roboto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Дата выпуска: 2023 г."
@@ -160,6 +175,7 @@
 
                 <TextView
                     android:id="@+id/category"
+                    android:fontFamily="@font/roboto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Категория: мультфильм"
@@ -168,6 +184,7 @@
 
                 <TextView
                     android:id="@+id/genre"
+                    android:fontFamily="@font/roboto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Жанр: мультфильм, фантастика, фэнтези, приключения"
@@ -177,6 +194,7 @@
 
             <TextView
                 android:id="@+id/about_what_label"
+                android:fontFamily="@font/roboto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
@@ -189,6 +207,7 @@
 
             <TextView
                 android:id="@+id/description_item"
+                android:fontFamily="@font/roboto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="22dp"
@@ -201,6 +220,7 @@
 
             <TextView
                 android:id="@+id/show_more_text"
+                android:fontFamily="@font/roboto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="22dp"
@@ -213,6 +233,7 @@
 
             <TextView
                 android:id="@+id/watch_label"
+                android:fontFamily="@font/roboto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -225,22 +246,25 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/watch_button"
+                android:fontFamily="@font/roboto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginHorizontal="22dp"
                 android:paddingVertical="8dp"
-                android:text="Открыть в Кинопоиске"
+                android:text="@string/kinopoisk"
+                android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="22sp"
                 android:background="@drawable/rounded_button_background"
                 android:drawableStart="@drawable/ic_play"
                 android:drawablePadding="5dp"
-                android:paddingStart="90dp"
-                android:paddingEnd="90dp"/>
+                android:paddingStart="120dp"
+                android:paddingEnd="120dp"/>
 
             <TextView
                 android:id="@+id/related_label"
+                android:fontFamily="@font/roboto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="42dp"

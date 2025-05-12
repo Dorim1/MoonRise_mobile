@@ -64,7 +64,8 @@ interface ContentDao {
     @Transaction
     @Query("""
     SELECT * FROM content 
-    WHERE title LIKE '%' || :query || '%'
+    WHERE title LIKE '%' || :query || '%' 
+       OR orTitle LIKE '%' || :query || '%'
 """)
     fun searchContentWithCategory(query: String): Flow<List<ContentWithCategory>>
 

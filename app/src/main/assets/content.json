@@ -31,5 +31,38 @@
     "ageRating": "18+",
     "releaseDate": 2021,
     "watchingUrl": "https://www.kinopoisk.ru/series/4540127/"
+  },
+  {
+    "id": 4,
+    "image": "https://i.imgur.com/xlT0d61.png",
+    "title": "Время приключений",
+    "orTitle": "Adventure Time",
+    "description": "Мальчик Финн и собака Джейк живут в доме на дереве. В детстве Финн поклялся помогать каждому, кто попал в беду, и теперь он вместе с Джейком то и дело устремляется навстречу приключениям, спасая обитателей окрестных земель.",
+    "categoryId": 2,
+    "ageRating": "12+",
+    "releaseDate": 2010,
+    "watchingUrl": "https://www.kinopoisk.ru/series/602284/"
+  },
+  {
+    "id": 5,
+    "image": "https://i.imgur.com/aZvFyVJ.png",
+    "title": "Время приключений: Далёкие земли",
+    "orTitle": "Adventure Time: Distant Lands",
+    "description": "HBO Max возвращает нас обратно в Земли Ууу с четырьмя новыми специальными выпусками Времени Приключений, объявленными как Adventure Time: Distant Lands; одночасовые эпизоды воссоединят поклонников с персонажами из оригинальной серии, которая завершила свой 10-й сезон на Cartoon Network в 2018 году.",
+    "categoryId": 2,
+    "ageRating": "6+",
+    "releaseDate": 2020,
+    "watchingUrl": "https://www.kinopoisk.ru/series/1316565/"
+  },
+  {
+    "id": 6,
+    "image": "https://i.imgur.com/C8kM41F.png",
+    "title": "Время приключений: Фионна и Кейк",
+    "orTitle": "Adventure Time: Fionna & Cake",
+    "description": "Фионна вместе со своей кошкой Кейк живет в альтернативной реальности, где нет магии, проводит дни в круговороте безделья, а по ночам мечтает о волшебном мире, который, кажется, навсегда останется недостижимым.",
+    "categoryId": 2,
+    "ageRating": "12+",
+    "releaseDate": 2023,
+    "watchingUrl": "https://www.kinopoisk.ru/series/4540127/"
   }
 ]

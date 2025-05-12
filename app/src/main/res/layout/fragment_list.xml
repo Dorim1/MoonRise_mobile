@@ -47,8 +47,8 @@
         android:layout_weight="1"
         android:scrollbars="vertical"
         android:scrollbarThumbVertical="@color/main_purple"
-        android:scrollbarTrackVertical="@color/main_purple"
         android:layout_marginTop="15dp"
+        android:layout_marginBottom="60dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:contentDescription=""/>
 
