@@ -17,14 +17,14 @@
         android:background="@drawable/rounded_item_background">
 
         <FrameLayout
-            android:layout_width="125dp"
-            android:layout_height="177dp">
+            android:layout_width="120dp"
+            android:layout_height="182dp">
 
             <ImageView
                 android:id="@+id/item_list_image"
-                android:layout_width="125dp"
-                android:layout_height="175dp"
-                android:scaleType="centerInside"
+                android:layout_width="120dp"
+                android:layout_height="180dp"
+                android:scaleType="fitXY"
                 android:background="@drawable/rounded_image"
                 android:clipToOutline="true"
                 app:srcCompat="@drawable/adventure_time"
@@ -79,6 +79,8 @@
                 android:textColor="@color/white"
                 android:focusable="true"
                 android:textStyle="bold"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:text="Название" />
 
             <LinearLayout
@@ -88,34 +90,45 @@
 
                 <TextView
                     android:id="@+id/item_list_category"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:textSize="16sp"
                     android:textColor="@color/gray_for_cancel"
                     android:paddingVertical="4dp"
                     android:paddingHorizontal="10dp"
-                    android:background="@drawable/rounded_dark_background"
+                    android:background="@drawable/rounded_button_cansel_border"
                     android:text="Категория"
                     android:maxLines="1"
                     android:ellipsize="end"/>
 
                 <TextView
                     android:id="@+id/item_list_releaseDate"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
                     android:textSize="16sp"
                     android:textColor="@color/gray_for_cancel"
                     android:paddingVertical="4dp"
                     android:paddingHorizontal="10dp"
-                    android:background="@drawable/rounded_dark_background"
+                    android:background="@drawable/rounded_button_cansel_border"
                     android:text="2023 г."
                     android:maxLines="1"
                     android:ellipsize="end"/>
             </LinearLayout>
 
+            <!-- Описание -->
+            <TextView
+                android:id="@+id/item_list_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:textColor="@color/gray_for_cancel"
+                android:text="Краткое описание аниме, фильма или сериала..."
+                android:maxLines="4"
+                android:ellipsize="end" />
         </LinearLayout>
 
     </LinearLayout>

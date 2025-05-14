@@ -58,8 +58,13 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
             val firstMatch = results.firstOrNull()
             if (firstMatch != null) {
                 lastFranchiseContentId = firstMatch.content.id
+
                 val related = contentDao.getRelatedByFranchise(firstMatch.content.id).first()
-                _franchiseContent.postValue(related)
+                    .filter { it.content.id != firstMatch.content.id } // убрать дубликат, если вдруг есть
+
+                val fullFranchiseList = listOf(firstMatch) + related
+
+                _franchiseContent.postValue(fullFranchiseList)
             } else {
                 lastFranchiseContentId = null
                 _franchiseContent.postValue(emptyList())

@@ -61,11 +61,13 @@ class ContentAdapter(private val navController: NavController) :
         private val loadingAnimation: LottieAnimationView = view.findViewById(R.id.loading_animation)
         private val favoriteIcon: ImageView = view.findViewById(R.id.favorite_icon)
         private val ratingTextView: TextView = view.findViewById(R.id.rating_text)
+        private val descriptionTextView: TextView = view.findViewById(R.id.item_list_description)
 
         fun bind(contentWithCategory: ContentWithCategory) {
             val content = contentWithCategory.content
             val status = contentWithCategory.status
             val rating = contentWithCategory.rating
+            descriptionTextView.text = content.description
 
             titleTextView.text = content.title
             categoryTextView.text = contentWithCategory.category.name

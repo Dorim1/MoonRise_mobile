@@ -20,6 +20,9 @@ class FranchiseFragment : Fragment() {
     private lateinit var viewModel: FranchiseViewModel
     private lateinit var adapter: ContentAdapter
     private lateinit var descriptionView: TextView
+    private lateinit var closeButton: AppCompatImageButton
+
+    private var isDescriptionVisible = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +43,8 @@ class FranchiseFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.franchiseItemsList)
         descriptionView = view.findViewById(R.id.franchise_info)
+        closeButton = view.findViewById(R.id.franchise_close_button)
+
         adapter = ContentAdapter(navController = findNavController())
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -55,18 +60,16 @@ class FranchiseFragment : Fragment() {
 
         viewModel.loadFranchise(contentId)
 
-        viewModel.description.observe(viewLifecycleOwner) { description ->
-            if (description.isNullOrEmpty()) {
-                descriptionView.visibility = View.GONE
-            } else {
-                descriptionView.visibility = View.VISIBLE
-                descriptionView.text = description
-            }
+        closeButton.setOnClickListener {
+            isDescriptionVisible = !isDescriptionVisible
+            descriptionView.visibility = if (isDescriptionVisible) View.VISIBLE else View.GONE
+            closeButton.setImageResource(
+                if (isDescriptionVisible) R.drawable.ic_eye_open else R.drawable.ic_eye_closed
+            )
         }
 
         view.findViewById<AppCompatImageButton>(R.id.back_button).setOnClickListener {
             findNavController().navigateUp()
         }
     }
-
 }

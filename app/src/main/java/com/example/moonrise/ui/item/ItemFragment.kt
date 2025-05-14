@@ -113,14 +113,8 @@ class ItemFragment : Fragment() {
 
 
         viewModel.getRelatedContent(contentId).observe(viewLifecycleOwner) { relatedContent ->
-            if (relatedContent.isNotEmpty()) {
-                binding.relatedLabel.visibility = View.VISIBLE
-                binding.relatedRecyclerView.visibility = View.VISIBLE
-                relatedAdapter.setRelatedContentList(relatedContent)
-            } else {
-                binding.relatedLabel.visibility = View.GONE
-                binding.relatedRecyclerView.visibility = View.GONE
-            }
+            binding.relatedBlock.visibility = if (relatedContent.isNotEmpty()) View.VISIBLE else View.GONE
+            relatedAdapter.setRelatedContentList(relatedContent)
         }
 
         viewModel.getContent(contentId).observe(viewLifecycleOwner) { contentWithCategory ->

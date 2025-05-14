@@ -10,15 +10,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.moonrise.R
 import com.example.moonrise.ui.list.ContentAdapter
 import kotlinx.coroutines.Job
@@ -60,27 +64,53 @@ class SearchFragment : Fragment() {
         val searchView = view.findViewById<SearchView>(R.id.search_in_list)
         val historyRecycler = view.findViewById<RecyclerView>(R.id.search_history_recycler)
         val franchiseButton = view.findViewById<AppCompatButton>(R.id.franchise_button)
+        val franchiseCloseButton = view.findViewById<AppCompatImageButton>(R.id.franchise_close_button)
+        val franchiseContentBlock = view.findViewById<View>(R.id.franchise_content_block)
+
+        val imageCenter = view.findViewById<ImageView>(R.id.franchise_image_center)
+        val imageLeft = view.findViewById<ImageView>(R.id.franchise_image_left)
+        val imageRight = view.findViewById<ImageView>(R.id.franchise_image_right)
 
         val historyAdapter = SearchHistoryAdapter(
             onItemClick = { selectedQuery -> searchView.setQuery(selectedQuery, true) },
             onDeleteClick = { queryToRemove -> viewModel.removeQueryFromHistory(queryToRemove) }
         )
-        historyRecycler.visibility = View.GONE
+
         historyRecycler.layoutManager = LinearLayoutManager(requireContext())
         historyRecycler.adapter = historyAdapter
 
-        val navController = findNavController()
-        adapter = ContentAdapter(navController)
+        adapter = ContentAdapter(findNavController())
         recyclerView = view.findViewById(R.id.search_result_recycler)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
+        viewModel.initManager(requireContext())
+
         viewModel.franchiseContent.observe(viewLifecycleOwner) { relatedList ->
             franchiseBlock.visibility = if (relatedList.isNotEmpty()) View.VISIBLE else View.GONE
             franchiseInfo.text = getString(R.string.franchise_releases, relatedList.size)
-        }
 
-        viewModel.initManager(requireContext())
+            if (relatedList.isNotEmpty()) {
+                // Загружаем первое изображение в центр
+                Glide.with(this)
+                    .load(relatedList.getOrNull(0)?.content?.image)
+                    .into(imageCenter)
+
+                // Второе — слева
+                Glide.with(this)
+                    .load(relatedList.getOrNull(1)?.content?.image)
+                    .into(imageLeft)
+
+                // Третье — справа
+                Glide.with(this)
+                    .load(relatedList.getOrNull(2)?.content?.image)
+                    .into(imageRight)
+            } else {
+                imageCenter.setImageDrawable(null)
+                imageLeft.setImageDrawable(null)
+                imageRight.setImageDrawable(null)
+            }
+        }
 
         viewModel.filteredContent.observe(viewLifecycleOwner) { results ->
             adapter.setContentList(results)
@@ -127,6 +157,17 @@ class SearchFragment : Fragment() {
         val filterButton = view.findViewById<View>(R.id.filter_button)
         filterButton.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_search_to_navigation_filter)
+        }
+
+        franchiseCloseButton.setOnClickListener {
+            val isCurrentlyVisible = franchiseContentBlock.isVisible
+            franchiseContentBlock.isVisible = !isCurrentlyVisible
+
+            if (isCurrentlyVisible) {
+                franchiseCloseButton.setImageResource(R.drawable.ic_eye_closed)
+            } else {
+                franchiseCloseButton.setImageResource(R.drawable.ic_eye_open)
+            }
         }
 
         val voiceButton = view.findViewById<View>(R.id.voice_button)

@@ -7,14 +7,14 @@
     android:layout_marginEnd="12dp">
 
     <FrameLayout
-        android:layout_width="125dp"
-        android:layout_height="177dp">
+        android:layout_width="120dp"
+        android:layout_height="182dp">
 
         <ImageView
             android:id="@+id/item_related_image"
-            android:layout_width="125dp"
-            android:layout_height="175dp"
-            android:scaleType="centerInside"
+            android:layout_width="120dp"
+            android:layout_height="180dp"
+            android:scaleType="fitXY"
             android:background="@drawable/rounded_image"
             android:clipToOutline="true"
             app:srcCompat="@drawable/adventure_time"
