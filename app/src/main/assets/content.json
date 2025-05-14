@@ -6,6 +6,7 @@
     "orTitle": "Original Movie 1",
     "description": "Волшебная страна Ууу. Финн — 13-летний мальчик, который обожает путешествовать и спасать принцесс из лап ужасных монстров и злодеев, населяющих Ууу. Джейк — лучший друг Финна. Это волшебная собака со способностью растягивать своё тело до практически любых размеров и форм. Джейку 28 лет и он исполняет роль эдакого приятеля-наставника Финна, а его волшебные способности помогают мальчику в его борьбе со злом.",
     "categoryId": 1,
+    "franchiseId": 101,
     "ageRating": "18+",
     "releaseDate": 2024,
     "watchingUrl": "https://www.kinopoisk.ru/series/4540127/"
@@ -17,6 +18,7 @@
     "orTitle": "Original Anime 1",
     "description": "Описание первого аниме.",
     "categoryId": 3,
+    "franchiseId": 101,
     "ageRating": "12+",
     "releaseDate": 2023,
     "watchingUrl": ""
@@ -39,6 +41,7 @@
     "orTitle": "Adventure Time",
     "description": "Мальчик Финн и собака Джейк живут в доме на дереве. В детстве Финн поклялся помогать каждому, кто попал в беду, и теперь он вместе с Джейком то и дело устремляется навстречу приключениям, спасая обитателей окрестных земель.",
     "categoryId": 2,
+    "franchiseId": 100,
     "ageRating": "12+",
     "releaseDate": 2010,
     "watchingUrl": "https://www.kinopoisk.ru/series/602284/"
@@ -50,6 +53,7 @@
     "orTitle": "Adventure Time: Distant Lands",
     "description": "HBO Max возвращает нас обратно в Земли Ууу с четырьмя новыми специальными выпусками Времени Приключений, объявленными как Adventure Time: Distant Lands; одночасовые эпизоды воссоединят поклонников с персонажами из оригинальной серии, которая завершила свой 10-й сезон на Cartoon Network в 2018 году.",
     "categoryId": 2,
+    "franchiseId": 100,
     "ageRating": "6+",
     "releaseDate": 2020,
     "watchingUrl": "https://www.kinopoisk.ru/series/1316565/"
@@ -61,6 +65,7 @@
     "orTitle": "Adventure Time: Fionna & Cake",
     "description": "Фионна вместе со своей кошкой Кейк живет в альтернативной реальности, где нет магии, проводит дни в круговороте безделья, а по ночам мечтает о волшебном мире, который, кажется, навсегда останется недостижимым.",
     "categoryId": 2,
+    "franchiseId": 100,
     "ageRating": "12+",
     "releaseDate": 2023,
     "watchingUrl": "https://www.kinopoisk.ru/series/4540127/"

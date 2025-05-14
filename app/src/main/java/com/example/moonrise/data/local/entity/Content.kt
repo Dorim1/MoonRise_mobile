@@ -15,6 +15,7 @@ data class Content(
     val orTitle: String,
     val description: String,
     val categoryId: Int,
+    val franchiseId: Int? = null,
     val ageRating: String,
     val releaseDate: Int,
     val watchingUrl: String?

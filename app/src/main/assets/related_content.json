@@ -1,5 +1,5 @@
 [
-  { "contentId": 1, "relatedId": 2, "franchiseId": 100 },
+  { "contentId": 1, "relatedId": 2, "franchiseId": 101 },
   { "contentId": 4, "relatedId": 5, "franchiseId": 100 },
   { "contentId": 4, "relatedId": 6, "franchiseId": 100 }
 ]

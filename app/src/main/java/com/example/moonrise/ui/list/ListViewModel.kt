@@ -13,7 +13,6 @@ import com.example.moonrise.data.local.entity.ContentGenre
 import com.example.moonrise.data.local.entity.ContentWithCategory
 import com.example.moonrise.data.local.entity.FranchiseInfo
 import com.example.moonrise.data.local.entity.Genre
-import com.example.moonrise.data.local.entity.RelatedContent
 import com.example.moonrise.data.local.entity.StatusType
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -152,19 +151,6 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    private fun loadRelatedContentFromJson(context: Context) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val existing = database.relatedContentDao().getRelated(1)
-            if (existing.isEmpty()) {
-                val jsonString =
-                    context.assets.open("related_content.json").bufferedReader().use { it.readText() }
-                val gson = Gson()
-                val list: List<RelatedContent> =
-                    gson.fromJson(jsonString, object : TypeToken<List<RelatedContent>>() {}.type)
-                database.relatedContentDao().insertAll(list)
-            }
-        }
-    }
 
     fun checkAndInitDatabase(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -175,7 +161,6 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                 loadContentGenresFromJson(context)
                 loadStatusTypesFromJson(context)
                 loadFranchiseInfoFromJson(context)
-                loadRelatedContentFromJson(context)
             }
         }
     }

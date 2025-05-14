@@ -47,11 +47,10 @@ class ItemFragment : Fragment() {
 
         val database = AppDatabase.getDatabase(requireContext())
         val contentDao = database.contentDao()
-        val relatedContentDao = database.relatedContentDao()
         val statusDao = database.statusDao()
         val ratingDao = database.ratingDao()
 
-        viewModel = ViewModelProvider(this, ItemViewModelFactory(contentDao, relatedContentDao, statusDao, ratingDao))[ItemViewModel::class.java]
+        viewModel = ViewModelProvider(this, ItemViewModelFactory(contentDao, statusDao, ratingDao))[ItemViewModel::class.java]
 
         viewModel.getStatus(contentId).observe(viewLifecycleOwner) { statusEntity ->
             if (statusEntity != null) {
@@ -167,7 +166,7 @@ class ItemFragment : Fragment() {
                 })
                 .into(binding.imageItem)
 
-            viewModel.loadRelatedContentFromJson(requireContext())
+//            viewModel.loadRelatedContentFromJson(requireContext())
 
             binding.category.text = getString(R.string.category_format, contentWithCategory.category.name)
 
