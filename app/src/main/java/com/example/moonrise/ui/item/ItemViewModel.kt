@@ -58,15 +58,4 @@ class ItemViewModel(
         }
     }
 
-//    fun loadRelatedContentFromJson(context: Context) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val existing = relatedContentDao.getRelated(1)
-//            if (existing.isEmpty()) {
-//                val jsonString = context.assets.open("related_content.json").bufferedReader().use { it.readText() }
-//                val gson = Gson()
-//                val relatedList: List<RelatedContent> = gson.fromJson(jsonString, object : TypeToken<List<RelatedContent>>() {}.type)
-//                relatedContentDao.insertAll(relatedList)
-//            }
-//        }
-//    }
 }

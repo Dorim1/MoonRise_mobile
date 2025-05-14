@@ -31,7 +31,7 @@ class FranchiseViewModel(application: Application) : AndroidViewModel(applicatio
                 val info = franchiseInfoDao.getFranchiseInfo(franchiseId)
                 _description.postValue(info?.description ?: "Описание не найдено.")
 
-                val relatedContent = contentDao.getRelatedByFranchise(contentId).first()
+                val relatedContent = contentDao.getAllByFranchiseIncludingSelf(contentId).first()
                 _contentList.postValue(relatedContent)
             } else {
                 _description.postValue("Описание не найдено.")
