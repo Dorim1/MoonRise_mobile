@@ -37,22 +37,22 @@
                     android:background="@null"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_arrow_back"
+                    android:contentDescription="@string/desc_back"
                     android:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Фильтры"
+                    android:text="@string/head_filters"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     android:layout_marginStart="10dp"/>
             </LinearLayout>
 
-            <!-- Категория -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Категория"
+                android:text="@string/category"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"/>
@@ -64,7 +64,7 @@
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="Неважно"
+                android:text="@string/no_matter"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
@@ -74,7 +74,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Жанр"
+                android:text="@string/genre"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"/>
@@ -86,7 +86,7 @@
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="Неважно"
+                android:text="@string/no_matter"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
@@ -96,7 +96,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Год выпуска"
+                android:text="@string/date_release"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"/>
@@ -108,17 +108,16 @@
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="Неважно"
+                android:text="@string/no_matter"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
                 app:spinner_arrow_tint="@color/white" />
 
-            <!-- Возрастные ограничения -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Возрастные ограничения"
+                android:text="@string/age_rating"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"/>
@@ -130,17 +129,16 @@
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="Неважно"
+                android:text="@string/no_matter"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
                 app:spinner_arrow_tint="@color/white" />
 
-            <!-- Статус -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Статус просмотра"
+                android:text="@string/status"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"/>
@@ -152,7 +150,7 @@
                 android:background="@drawable/spinner_background"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="Неважно"
+                android:text="@string/no_matter"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
@@ -180,7 +178,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Сбросить"
+            android:text="@string/close2"
             android:background="@drawable/rounded_button_cansel_border"
             android:textColor="@color/gray_for_cancel"/>
 
@@ -189,7 +187,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Применить"
+            android:text="@string/save4"
             android:background="@drawable/rounded_button_background"
             android:textColor="@color/black"
             android:layout_marginStart="16dp"/>

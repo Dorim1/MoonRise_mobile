@@ -26,6 +26,7 @@
             android:scaleType="centerInside"
             android:src="@drawable/ic_arrow_back"
             android:tint="@color/white"
+            android:contentDescription="@string/desc_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -34,7 +35,7 @@
             android:id="@+id/topBarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Фильтры"
+            android:text="@string/head_filters"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@id/back_button"
@@ -47,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:paddingHorizontal="15dp"
-            android:text="Изменить"
+            android:text="@string/change"
             android:background="@drawable/rounded_button_cansel_border"
             android:textColor="@color/gray_for_cancel"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,6 +63,7 @@
         android:layout_weight="1"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="60dp"
+        android:contentDescription="@string/desc_list"
         android:scrollbarThumbVertical="@color/main_purple"
         tools:listitem="@layout/item_in_list" />
 </LinearLayout>

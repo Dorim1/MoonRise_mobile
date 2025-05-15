@@ -91,17 +91,14 @@ class SearchFragment : Fragment() {
             franchiseInfo.text = getString(R.string.franchise_releases, relatedList.size)
 
             if (relatedList.isNotEmpty()) {
-                // Загружаем первое изображение в центр
                 Glide.with(this)
                     .load(relatedList.getOrNull(0)?.content?.image)
                     .into(imageCenter)
 
-                // Второе — слева
                 Glide.with(this)
                     .load(relatedList.getOrNull(1)?.content?.image)
                     .into(imageLeft)
 
-                // Третье — справа
                 Glide.with(this)
                     .load(relatedList.getOrNull(2)?.content?.image)
                     .into(imageRight)
@@ -132,6 +129,7 @@ class SearchFragment : Fragment() {
                 viewModel.addQueryToHistory(cleanQuery)
                 viewModel.searchContent(cleanQuery)
                 historyRecycler.visibility = View.GONE
+                searchView.clearFocus()
                 return true
             }
 

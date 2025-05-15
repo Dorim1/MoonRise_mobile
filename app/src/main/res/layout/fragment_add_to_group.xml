@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Выберите статус просмотра"
+        android:text="@string/head_choose_status"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/white"
@@ -32,7 +32,7 @@
             android:buttonTint="@color/radio_selector"
             android:minHeight="48dp"
             android:textSize="18sp"
-            android:text="Не смотрю" />
+            android:text="@string/not_watching" />
 
         <RadioButton
             android:id="@+id/radio_watching"
@@ -42,7 +42,7 @@
             android:buttonTint="@color/radio_selector"
             android:minHeight="48dp"
             android:textSize="18sp"
-            android:text="Смотрю" />
+            android:text="@string/watching" />
 
         <RadioButton
             android:id="@+id/radio_planned"
@@ -52,7 +52,7 @@
             android:buttonTint="@color/radio_selector"
             android:minHeight="48dp"
             android:textSize="18sp"
-            android:text="В планах" />
+            android:text="@string/planned" />
 
         <RadioButton
             android:id="@+id/radio_watched"
@@ -62,7 +62,7 @@
             android:buttonTint="@color/radio_selector"
             android:minHeight="48dp"
             android:textSize="18sp"
-            android:text="Просмотрено" />
+            android:text="@string/watched" />
 
         <RadioButton
             android:id="@+id/radio_favorite"
@@ -72,7 +72,7 @@
             android:buttonTint="@color/radio_selector"
             android:minHeight="48dp"
             android:textSize="18sp"
-            android:text="Любимое" />
+            android:text="@string/favorite" />
 
         <RadioButton
             android:id="@+id/radio_paused"
@@ -82,7 +82,7 @@
             android:buttonTint="@color/radio_selector"
             android:minHeight="48dp"
             android:textSize="18sp"
-            android:text="Отложено" />
+            android:text="@string/paused" />
 
         <RadioButton
             android:id="@+id/radio_dropped"
@@ -92,7 +92,7 @@
             android:buttonTint="@color/radio_selector"
             android:minHeight="48dp"
             android:textSize="18sp"
-            android:text="Брошено" />
+            android:text="@string/dropped" />
 
     </RadioGroup>
 
@@ -100,7 +100,7 @@
         android:id="@+id/buttonCancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Отмена"
+        android:text="@string/close4"
         android:textColor="@color/gray_for_cancel"
         android:background="@drawable/rounded_button_cansel_border"
         android:layout_marginTop="24dp"/>

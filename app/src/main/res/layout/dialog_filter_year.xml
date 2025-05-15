@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Фильтр по годам"
+        android:text="@string/head_filter_years"
         android:textSize="18sp"
         android:textColor="@color/white"
         android:layout_gravity="center" />
@@ -40,7 +40,7 @@
         android:id="@+id/btn_reset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Неважно"
+        android:text="@string/close3"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_button_cansel_border"
         android:strokeColor="@color/white"
@@ -50,7 +50,7 @@
         android:id="@+id/btn_apply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Продолжить"
+        android:text="@string/save3"
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_button_background"
         android:textColor="@color/black"/>

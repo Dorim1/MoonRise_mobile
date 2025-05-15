@@ -11,7 +11,7 @@
         android:id="@+id/dialog_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Фильтр по жанрам"
+        android:text="@string/head_filter_genre"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/white"
@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Сбросить"
+            android:text="@string/close2"
             android:background="@drawable/rounded_button_cansel_border"
             android:textColor="@color/gray_for_cancel"/>
 
@@ -52,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Выбрать"
+            android:text="@string/save2"
             android:layout_marginStart="16dp"
             android:background="@drawable/rounded_button_background"
             android:textColor="@color/black"/>

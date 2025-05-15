@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:background="@color/gray111">
 
-    <!-- Блок: Название -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,19 +16,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Название"
+            android:text="@string/name"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_marginEnd="8dp" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/copyTitleButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:src="@drawable/ic_copy"
             android:scaleType="centerInside"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Скопировать название"
+            android:contentDescription="@string/copy_name"
             android:tint="@color/white" />
     </LinearLayout>
 
@@ -41,14 +40,12 @@
         android:textSize="16sp"
         android:layout_marginBottom="16dp" />
 
-    <!-- Разделитель -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/gray333"
         android:layout_marginBottom="16dp" />
 
-    <!-- Блок: Оригинальное название -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,19 +56,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Оригинальное название"
+            android:text="@string/or_name"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_marginEnd="8dp" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/copyOrTitleButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:src="@drawable/ic_copy"
             android:scaleType="centerInside"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Скопировать оригинальное название"
+            android:contentDescription="@string/copy_or_name"
             android:tint="@color/white" />
     </LinearLayout>
 
@@ -83,12 +80,11 @@
         android:textSize="16sp"
         android:layout_marginBottom="24dp" />
 
-    <!-- Кнопка закрытия -->
     <Button
         android:id="@+id/closeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Закрыть"
+        android:text="@string/close"
         android:background="@drawable/rounded_button_cansel_border"
         android:textColor="@color/gray_for_cancel"/>
 </LinearLayout>

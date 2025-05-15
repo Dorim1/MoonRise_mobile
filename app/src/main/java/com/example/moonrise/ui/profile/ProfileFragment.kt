@@ -46,6 +46,7 @@ class ProfileFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let { viewModel.searchItems(it) }
+                searchView.clearFocus()
                 return true
             }
 
@@ -99,7 +100,6 @@ class ProfileFragment : Fragment() {
             contentAdapter.setContentList(items)
         }
 
-        // Наблюдение за фильтрованным списком
         viewModel.filteredItems.observe(viewLifecycleOwner) { filteredList ->
             contentAdapter.setContentList(filteredList)
         }

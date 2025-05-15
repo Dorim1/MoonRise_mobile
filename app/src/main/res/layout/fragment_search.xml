@@ -44,6 +44,7 @@
                 android:background="@null"
                 android:scaleType="centerInside"
                 android:layout_gravity="center_vertical"
+                android:contentDescription="@string/desc_voice"
                 android:tint="@color/white"
                 android:src="@drawable/ic_microphone" />
 
@@ -54,6 +55,7 @@
                 android:layout_marginStart="15dp"
                 android:background="@null"
                 android:scaleType="centerInside"
+                android:contentDescription="@string/desc_filters"
                 android:layout_gravity="center_vertical"
                 android:tint="@color/white"
                 android:src="@drawable/ic_filter" />
@@ -93,8 +95,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Франшиза"
-                    android:textSize="18sp"
+                    android:text="@string/franchise"
+                    android:textSize="22sp"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -106,7 +108,7 @@
                     android:src="@drawable/ic_eye_open"
                     android:tint="@color/white"
                     android:scaleType="centerInside"
-                    android:contentDescription="Закрыть франшизу"
+                    android:contentDescription="@string/desc_hide"
                     android:padding="2dp" />
             </LinearLayout>
 
@@ -172,7 +174,7 @@
                     android:id="@+id/franchise_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6 релизов во франшизе"
+                    android:text="@string/test_number_of_releases"
                     android:textColor="@color/white"
                     android:layout_marginTop="8dp"
                     android:layout_gravity="center_horizontal" />
@@ -181,7 +183,7 @@
                     android:id="@+id/franchise_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Перейти"
+                    android:text="@string/follow"
                     android:background="@drawable/rounded_button_background"
                     android:textColor="@color/black"
                     android:layout_marginTop="10dp"
@@ -202,8 +204,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Результаты поиска"
-                android:textSize="18sp"
+                android:text="@string/search_results"
+                android:textSize="22sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:paddingHorizontal="22dp"

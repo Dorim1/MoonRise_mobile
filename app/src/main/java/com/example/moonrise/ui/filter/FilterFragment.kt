@@ -133,6 +133,10 @@ class FilterFragment : Fragment() {
                 }
                 binding.spinnerCategory.setBackgroundResource(R.drawable.spinner_background)
             }
+
+            binding.spinnerCategory.setOnSpinnerDismissListener {
+                binding.spinnerCategory.setBackgroundResource(R.drawable.spinner_background)
+            }
         }
         viewModel.genres.observe(viewLifecycleOwner) { genres ->
             binding.spinnerGenre.setOnClickListener {
@@ -199,6 +203,10 @@ class FilterFragment : Fragment() {
                 }
                 binding.spinnerAge.setBackgroundResource(R.drawable.spinner_background)
             }
+
+            binding.spinnerAge.setOnSpinnerDismissListener {
+                binding.spinnerAge.setBackgroundResource(R.drawable.spinner_background)
+            }
         }
 
         viewModel.statusTypes.observe(viewLifecycleOwner) { statusTypes ->
@@ -219,6 +227,10 @@ class FilterFragment : Fragment() {
                     binding.spinnerStatus.text = item
                     selectedStatusId = statusTypes[position - 1].id
                 }
+                binding.spinnerStatus.setBackgroundResource(R.drawable.spinner_background)
+            }
+
+            binding.spinnerStatus.setOnSpinnerDismissListener {
                 binding.spinnerStatus.setBackgroundResource(R.drawable.spinner_background)
             }
         }

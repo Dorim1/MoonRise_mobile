@@ -11,7 +11,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Твоя оценка"
+        android:text="@string/head_your_rating"
         android:textSize="20sp"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -36,7 +36,7 @@
         android:id="@+id/cancel_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Неважно"
+        android:text="@string/close3"
         android:textColor="@color/gray_for_cancel"
         android:background="@drawable/rounded_button_cansel_border"
         android:layout_marginTop="20dp" />
@@ -45,7 +45,7 @@
         android:id="@+id/save_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Сохранить"
+        android:text="@string/save"
         android:textColor="@color/black"
         android:background="@drawable/rounded_button_background"
         android:layout_marginTop="10dp" />

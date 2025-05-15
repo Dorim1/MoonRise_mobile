@@ -30,7 +30,6 @@
                     android:layout_height="530dp"
                     android:scaleType="centerCrop"
                     android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/adventure_time"
                     app:shapeAppearanceOverlay="@style/RoundedBottomCorners"
                     app:layout_constraintBaseline_toTopOf="parent"
                     app:layout_constraintEnd_toStartOf="parent"
@@ -56,7 +55,7 @@
                     android:layout_marginHorizontal="22dp"
                     android:layout_marginTop="40dp"
                     android:textSize="29sp"
-                    android:text="Время приключений: Фиона и Кейк" />
+                    android:text="@string/test_title" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -74,7 +73,7 @@
                         android:layout_marginEnd="2dp"
                         android:maxLines="1"
                         android:ellipsize="end"
-                        android:text="Adventure Time: Fionna and Cake"
+                        android:text="@string/test_orTitle"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,7 +90,7 @@
                         android:layout_marginStart="10dp"
                         android:paddingHorizontal="7dp"
                         android:paddingVertical="2dp"
-                        android:text="16+"
+                        android:text="@string/test_rating"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -138,6 +137,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/rateText"
+                            android:contentDescription="@string/test_contentDesc"
                             android:layout_marginEnd="4dp" />
 
                         <TextView
@@ -168,7 +168,7 @@
                     android:fontFamily="@font/roboto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Дата выпуска: 2023 г."
+                    android:text="@string/test_date"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -177,7 +177,7 @@
                     android:fontFamily="@font/roboto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Категория: мультфильм"
+                    android:text="@string/test_category"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -186,7 +186,7 @@
                     android:fontFamily="@font/roboto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Жанр: мультфильм, фантастика, фэнтези, приключения"
+                    android:text="@string/test_genre"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -199,7 +199,7 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginHorizontal="22dp"
                 android:textStyle="bold"
-                android:text="О Чём"
+                android:text="@string/head_desc"
                 android:textSize="22sp"
                 android:textColor="@color/white"
                 />
@@ -215,7 +215,7 @@
                 android:textColor="@color/white"
                 android:maxLines="8"
                 android:ellipsize="end"
-                android:text="Описание"/>
+                android:text="@string/test_Desc"/>
 
             <TextView
                 android:id="@+id/show_more_text"
@@ -228,7 +228,7 @@
                 android:textSize="20sp"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="Подробнее..."/>
+                android:text="@string/show_more"/>
 
             <TextView
                 android:id="@+id/watch_label"
@@ -237,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginHorizontal="22dp"
-                android:text="Смотреть"
+                android:text="@string/head_watch"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -258,8 +258,8 @@
                 android:background="@drawable/rounded_button_background"
                 android:drawableStart="@drawable/ic_play"
                 android:drawablePadding="5dp"
-                android:paddingStart="110dp"
-                android:paddingEnd="110dp"/>
+                android:paddingStart="100dp"
+                android:paddingEnd="100dp"/>
 
 
             <LinearLayout
@@ -276,7 +276,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="22dp"
-                    android:text="Связанное"
+                    android:text="@string/head_related"
                     android:textSize="22sp"
                     android:textStyle="bold"
                     android:textColor="@color/white" />

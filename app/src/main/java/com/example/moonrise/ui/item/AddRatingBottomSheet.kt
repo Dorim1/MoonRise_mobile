@@ -43,7 +43,7 @@ class AddRatingBottomSheet(
                         ratingBar.rating = originalRating!!
                         saveButton.text = getString(R.string.delete_rating)
                     } else {
-                        saveButton.text = getString(R.string.save_rating)
+                        saveButton.text = getString(R.string.save)
                     }
                 }
             }
@@ -53,7 +53,7 @@ class AddRatingBottomSheet(
             if (originalRating != null && newRating != originalRating) {
                 saveButton.text = getString(R.string.change_rating)
             } else if (originalRating == null) {
-                saveButton.text = getString(R.string.save_rating)
+                saveButton.text = getString(R.string.save)
             } else {
                 saveButton.text = getString(R.string.delete_rating)
             }

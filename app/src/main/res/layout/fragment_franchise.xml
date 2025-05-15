@@ -24,6 +24,7 @@
             android:layout_height="36dp"
             android:background="@null"
             android:scaleType="centerInside"
+            android:contentDescription="@string/desc_back"
             android:src="@drawable/ic_arrow_back"
             android:tint="@color/white" />
 
@@ -31,7 +32,7 @@
             android:id="@+id/franchiseTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Франшиза"
+            android:text="@string/franchise"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:layout_marginStart="10dp" />
@@ -43,7 +44,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Заголовок "Описание" и кнопка -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Описание"
+                android:text="@string/test_Desc"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -68,6 +68,7 @@
                 android:layout_height="24dp"
                 android:background="@null"
                 android:scaleType="centerInside"
+                android:contentDescription="@string/desc_hide"
                 android:src="@drawable/ic_eye_open"
                 android:tint="@color/white" />
         </LinearLayout>
@@ -89,6 +90,7 @@
         android:layout_weight="1"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="60dp"
+        android:contentDescription="@string/desc_list"
         android:scrollbarThumbVertical="@color/main_purple"
         tools:listitem="@layout/item_in_list" />
 
