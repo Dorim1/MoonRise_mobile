@@ -9,7 +9,6 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.moonrise.R
-import com.example.moonrise.data.local.dao.StatusDao
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.data.local.entity.Status
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -18,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class AddToGroupBottomSheet(
     private val contentId: Int,
-    private val currentStatusId: Int? // теперь приходит id статуса, а не текст
+    private val currentStatusId: Int?
 ) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentAddToGroupBinding? = null
@@ -46,7 +45,6 @@ class AddToGroupBottomSheet(
         val statusDao = AppDatabase.getDatabase(requireContext()).statusDao()
         val statusTypeDao = AppDatabase.getDatabase(requireContext()).statusTypeDao()
 
-        // Установить выбранную радиокнопку по текущему статусу
         val selectedRadioId = statusIdMap.entries.find { it.value == currentStatusId }?.key
         selectedRadioId?.let { binding.radioGroup.check(it) }
 

@@ -186,7 +186,6 @@ class ItemFragment : Fragment() {
         }
 
         viewModel.getGenres(contentId).observe(viewLifecycleOwner) { genres ->
-            Log.d("ItemFragment", "Genres: $genres") // Логируем жанры
             val genreList = genres.joinToString(", ") { it.name }
             binding.genre.text = if (genreList.isNotEmpty()) {
                 getString(R.string.genres_format, genreList)
@@ -221,6 +220,7 @@ class ItemFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.relatedRecyclerView.adapter = null
         _binding = null
     }
 }

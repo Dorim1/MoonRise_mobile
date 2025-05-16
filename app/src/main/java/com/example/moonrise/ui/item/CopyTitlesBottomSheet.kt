@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.moonrise.databinding.BottomSheetCopyTitlesBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.Snackbar
 
 class CopyTitlesBottomSheet(
     private val title: String,
@@ -49,7 +50,7 @@ class CopyTitlesBottomSheet(
         val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText(label, text)
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(requireContext(), "$label скопировано", Toast.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, "$label скопировано", Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
