@@ -66,4 +66,13 @@
         android:contentDescription="@string/desc_list"
         android:scrollbarThumbVertical="@color/main_purple"
         tools:listitem="@layout/item_in_list" />
+
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="50dp"
+        android:text="@string/nothing_found"
+        android:visibility="gone" />
 </LinearLayout>
