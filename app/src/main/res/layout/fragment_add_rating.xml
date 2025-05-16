@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:background="@color/gray111"
     android:orientation="vertical"
-    android:paddingHorizontal="22dp"
     android:paddingVertical="25dp">
 
     <TextView
@@ -19,7 +18,7 @@
 
     <RatingBar
         android:id="@+id/rating_bar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numStars="10"
         android:stepSize="1"
@@ -36,6 +35,7 @@
         android:id="@+id/cancel_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
         android:text="@string/close3"
         android:textColor="@color/gray_for_cancel"
         android:background="@drawable/rounded_button_cansel_border"
@@ -45,6 +45,7 @@
         android:id="@+id/save_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
         android:text="@string/save"
         android:textColor="@color/black"
         android:background="@drawable/rounded_button_background"

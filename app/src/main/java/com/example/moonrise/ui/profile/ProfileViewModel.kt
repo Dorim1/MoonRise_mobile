@@ -42,7 +42,7 @@ class ProfileViewModel : ViewModel() {
 
         val filteredByQuery = if (currentQuery.isNotBlank()) {
             filteredByStatus.filter { item ->
-                item.content.title.contains(currentQuery, ignoreCase = true)
+                item.content.title.contains(currentQuery, ignoreCase = true) || item.content.orTitle.contains(currentQuery, true)
             }
         } else {
             filteredByStatus
