@@ -40,6 +40,7 @@ class FilteredListFragment : Fragment() {
         recyclerView = view.findViewById(R.id.filteredItemsList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = contentAdapter
+        recyclerView.setHasFixedSize(true)
 
         val args = arguments
         val selectedGenres = args?.getStringArrayList("selectedGenres") ?: emptyList()

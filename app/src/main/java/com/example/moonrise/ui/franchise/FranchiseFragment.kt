@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,10 +16,10 @@ import com.example.moonrise.ui.list.ContentAdapter
 
 class FranchiseFragment : Fragment() {
 
-    private lateinit var viewModel: FranchiseViewModel
     private lateinit var adapter: ContentAdapter
     private lateinit var descriptionView: TextView
     private lateinit var closeButton: AppCompatImageButton
+    private val viewModel: FranchiseViewModel by viewModels()
 
     private var isDescriptionVisible = true
 
@@ -35,13 +34,8 @@ class FranchiseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val contentId = requireArguments().getInt("contentId")
-
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-        )[FranchiseViewModel::class.java]
-
         val recyclerView = view.findViewById<RecyclerView>(R.id.franchiseItemsList)
+        recyclerView.setHasFixedSize(true)
         descriptionView = view.findViewById(R.id.franchise_info)
         closeButton = view.findViewById(R.id.franchise_close_button)
 

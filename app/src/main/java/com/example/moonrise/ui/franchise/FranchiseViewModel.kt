@@ -25,18 +25,24 @@ class FranchiseViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun loadFranchise(contentId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val franchiseId = franchiseInfoDao.getFranchiseIdForContent(contentId)
+            try {
+                val franchiseId = franchiseInfoDao.getFranchiseIdForContent(contentId)
 
-            if (franchiseId != null) {
-                val info = franchiseInfoDao.getFranchiseInfo(franchiseId)
-                _description.postValue(info?.description ?: "Описание не найдено.")
+                if (franchiseId != null) {
+                    val info = franchiseInfoDao.getFranchiseInfo(franchiseId)
+                    _description.postValue(info?.description ?: "Описание не найдено.")
 
-                val relatedContent = contentDao.getAllByFranchiseIncludingSelf(contentId).first()
-                _contentList.postValue(relatedContent)
-            } else {
-                _description.postValue("Описание не найдено.")
+                    val relatedContent = contentDao.getAllByFranchiseIncludingSelf(contentId).first()
+                    _contentList.postValue(relatedContent)
+                } else {
+                    _description.postValue("Описание не найдено.")
+                    _contentList.postValue(emptyList())
+                }
+            } catch (e: Exception) {
+                _description.postValue("Произошла ошибка при загрузке данных.")
                 _contentList.postValue(emptyList())
             }
+
         }
     }
 }
