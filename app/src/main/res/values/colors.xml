@@ -18,4 +18,18 @@
     <color name="white_gray2">#C9C9C9</color>
     <color name="white_gray3">#929292</color>
     <color name="_1a1a1a">#1A1A1A</color>
+
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorOnBackground">#0D062D</color>
+
+    <color name="colorSurface">#F5F5F5</color>
+    <color name="colorOnSurface">#0D062D</color>
+    <color name="colorOnSurfaceVariant">#222222</color>
+
+    <color name="colorPrimary">#9F1EE9</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+
+    <color name="colorSecondary">#787486</color>
+    <color name="colorOutline">#555555</color>
+
 </resources>

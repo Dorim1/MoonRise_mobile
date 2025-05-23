@@ -12,4 +12,8 @@
         <item name="cornerSizeTopRight">0dp</item>
     </style>
 
+    <style name="BottomNavIndicatorNone" parent="">
+        <item name="android:visibility">gone</item>
+    </style>
+
 </resources>

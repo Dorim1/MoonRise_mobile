@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray111"
+    android:background="?android:attr/colorBackground"
     android:paddingHorizontal="22dp"
     android:paddingVertical="25dp">
 
@@ -38,13 +38,13 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_arrow_back"
                     android:contentDescription="@string/desc_back"
-                    android:tint="@color/white" />
+                    android:tint="?attr/colorOnBackground" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/head_filters"
-                    android:textColor="@color/white"
+                    android:textColor="?attr/colorOnBackground"
                     android:textSize="24sp"
                     android:layout_marginStart="10dp"/>
             </LinearLayout>
@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/category"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"/>
 
@@ -62,20 +62,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/spinner_background"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="18sp"
                 android:text="@string/no_matter"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
-                app:spinner_arrow_tint="@color/white" />
+                app:spinner_arrow_tint="?attr/colorOnBackground" />
 
             <!-- Жанр -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/genre"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"/>
 
@@ -84,20 +84,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/spinner_background"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="18sp"
                 android:text="@string/no_matter"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
-                app:spinner_arrow_tint="@color/white" />
+                app:spinner_arrow_tint="?attr/colorOnBackground" />
 
             <!-- Год выпуска -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/date_release"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"/>
 
@@ -106,19 +106,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/spinner_background"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="18sp"
                 android:text="@string/no_matter"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
-                app:spinner_arrow_tint="@color/white" />
+                app:spinner_arrow_tint="?attr/colorOnBackground" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/age_rating"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"/>
 
@@ -127,19 +127,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/spinner_background"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="18sp"
                 android:text="@string/no_matter"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
-                app:spinner_arrow_tint="@color/white" />
+                app:spinner_arrow_tint="?attr/colorOnBackground" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/status"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"/>
 
@@ -148,13 +148,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/spinner_background"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="18sp"
                 android:text="@string/no_matter"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 app:spinner_arrow_gravity="end"
-                app:spinner_arrow_tint="@color/white" />
+                app:spinner_arrow_tint="?attr/colorOnBackground" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -180,7 +180,7 @@
             android:layout_height="wrap_content"
             android:text="@string/close2"
             android:background="@drawable/rounded_button_cansel_border"
-            android:textColor="@color/gray_for_cancel"/>
+            android:textColor="?attr/colorSecondary"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/apply_button"
@@ -189,7 +189,7 @@
             android:layout_height="wrap_content"
             android:text="@string/save4"
             android:background="@drawable/rounded_button_background"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimary"
             android:layout_marginStart="16dp"/>
     </LinearLayout>
 
