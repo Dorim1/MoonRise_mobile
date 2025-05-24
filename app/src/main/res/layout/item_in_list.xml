@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray111"
+    android:background="?android:colorBackground"
     android:padding="13dp">
 
     <LinearLayout
@@ -76,8 +76,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:focusable="true"
+                android:textFontWeight="600"
                 android:textStyle="bold"
                 android:maxLines="2"
                 android:ellipsize="end"
@@ -94,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
-                    android:textColor="@color/gray_for_cancel"
+                    android:textColor="?attr/colorOnSurface"
                     android:paddingVertical="4dp"
                     android:paddingHorizontal="10dp"
                     android:background="@drawable/rounded_button_cansel_border"
@@ -109,7 +110,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
                     android:textSize="16sp"
-                    android:textColor="@color/gray_for_cancel"
+                    android:textColor="?attr/colorOnSurface"
                     android:paddingVertical="4dp"
                     android:paddingHorizontal="10dp"
                     android:background="@drawable/rounded_button_cansel_border"
@@ -125,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textSize="15sp"
-                android:textColor="@color/gray_for_cancel"
+                android:textColor="?attr/colorOnSurface"
                 android:text="Краткое описание аниме, фильма или сериала..."
                 android:maxLines="4"
                 android:ellipsize="end" />

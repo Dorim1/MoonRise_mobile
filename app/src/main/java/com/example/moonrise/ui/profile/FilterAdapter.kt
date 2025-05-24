@@ -1,5 +1,6 @@
 package com.example.moonrise.ui.profile
 
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,12 +36,13 @@ class FilterAdapter(
         holder.count.text = item.count.toString()
 
         val isSelected = holder.bindingAdapterPosition == selectedIndex
-        holder.name.setTextColor(
-            ContextCompat.getColor(context, if (isSelected) android.R.color.white else android.R.color.darker_gray)
-        )
-        holder.count.setTextColor(
-            ContextCompat.getColor(context, if (isSelected) android.R.color.white else android.R.color.darker_gray)
-        )
+
+        val selectedColor = ContextCompat.getColor(context, R.color.colorOnBackground)
+        val unselectedColor = ContextCompat.getColor(context, R.color.colorSecondary)
+
+        val textColor = if (isSelected) selectedColor else unselectedColor
+        holder.name.setTextColor(textColor)
+        holder.count.setTextColor(textColor)
         holder.underline.visibility = if (isSelected) View.VISIBLE else View.GONE
 
         holder.itemView.setOnClickListener {

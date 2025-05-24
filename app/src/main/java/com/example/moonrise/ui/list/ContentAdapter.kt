@@ -93,7 +93,7 @@ class ContentAdapter(private val navController: NavController) :
 
             Glide.with(itemView.context)
                 .load(content.image)
-                .error(R.drawable.error_image)
+                .error(R.drawable.error_image_background)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,

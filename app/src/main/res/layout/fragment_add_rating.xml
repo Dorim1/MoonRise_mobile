@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray111"
     android:orientation="vertical"
-    android:paddingVertical="25dp">
+    android:background="?attr/colorBackgroundFloating"
+    android:paddingHorizontal="22dp"
+    android:paddingVertical="25dp"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/title"
@@ -12,9 +16,8 @@
         android:layout_height="wrap_content"
         android:text="@string/head_your_rating"
         android:textSize="20sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_gravity="center" />
+        android:textColor="?attr/colorOnBackground"
+        android:layout_gravity="center"/>
 
     <RatingBar
         android:id="@+id/rating_bar"
@@ -22,32 +25,34 @@
         android:layout_height="wrap_content"
         android:numStars="10"
         android:stepSize="1"
-        android:layout_gravity="center"
         android:isIndicator="false"
         android:layout_marginTop="16dp"
-        android:progressBackgroundTint="@color/gray555"
         android:progressTint="@color/main_purple"
         android:secondaryProgressTint="@color/main_purple"
-        style="?android:attr/ratingBarStyleIndicator"
-    />
+        android:layout_gravity="center"
+        style="?android:attr/ratingBarStyleIndicator" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/cancel_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="22dp"
         android:text="@string/close3"
-        android:textColor="@color/gray_for_cancel"
-        android:background="@drawable/rounded_button_cansel_border"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:textColor="?attr/colorSecondary"
+        app:cornerRadius="18dp"
+        android:minHeight="48dp"
+        android:paddingVertical="12dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/save_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="22dp"
         android:text="@string/save"
-        android:textColor="@color/black"
-        android:background="@drawable/rounded_button_background"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="8dp"
+        style="@style/Widget.Material3.Button"
+        android:textColor="?attr/colorOnPrimary"
+        app:cornerRadius="18dp"
+        android:minHeight="48dp"
+        android:paddingVertical="12dp" />
 </LinearLayout>

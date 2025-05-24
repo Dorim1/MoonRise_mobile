@@ -6,15 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/gray111"
+    android:background="?android:colorBackground"
     tools:context=".ui.list.ListFragment">
 
+    <!-- Поисковая строка и фильтр -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="25dp"
         android:layout_marginHorizontal="22dp">
+
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_in_list"
@@ -30,27 +32,27 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/filter_button"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:layout_marginStart="15dp"
-            android:background="@null"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="centerInside"
             android:contentDescription="@string/desc_filters"
             android:layout_gravity="center_vertical"
-            android:tint="@color/white"
+            android:tint="?attr/colorOnBackground"
             android:src="@drawable/ic_filter"/>
     </LinearLayout>
 
+    <!-- Список -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemsList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scrollbars="vertical"
-        android:scrollbarThumbVertical="@color/main_purple"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="60dp"
+        android:scrollbars="vertical"
+        android:contentDescription="@string/desc_list"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:contentDescription="@string/desc_list"/>
-
+        android:scrollbarThumbVertical="?attr/colorPrimary" />
 </LinearLayout>

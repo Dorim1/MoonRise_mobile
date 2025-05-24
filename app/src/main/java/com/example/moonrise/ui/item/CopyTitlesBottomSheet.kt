@@ -50,7 +50,7 @@ class CopyTitlesBottomSheet(
         val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText(label, text)
         clipboard.setPrimaryClip(clip)
-        Snackbar.make(binding.root, "$label скопировано", Snackbar.LENGTH_SHORT).show()
+        Toast.makeText(binding.root.context, "$label скопировано", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

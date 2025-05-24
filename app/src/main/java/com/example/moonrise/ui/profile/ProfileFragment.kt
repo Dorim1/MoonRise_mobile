@@ -1,16 +1,20 @@
 package com.example.moonrise.ui.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.moonrise.R
 import com.example.moonrise.data.local.database.AppDatabase
 import com.example.moonrise.data.local.entity.StatusWithCount
 import com.example.moonrise.databinding.FragmentProfileBinding
@@ -104,7 +108,47 @@ class ProfileFragment : Fragment() {
             contentAdapter.setContentList(filteredList)
         }
 
+        binding.themeToggleButton.setOnClickListener {
+            toggleTheme(requireContext())
+        }
 
+        val isDark = requireContext()
+            .getSharedPreferences("settings", Context.MODE_PRIVATE)
+            .getBoolean("dark_theme", false)
+
+        val currentIcon = if (isDark) {
+            R.drawable.ic_dark_mode
+        } else {
+            R.drawable.ic_light_mode
+        }
+        binding.themeToggleButton.setImageResource(currentIcon)
+
+    }
+
+    private fun toggleTheme(context: Context) {
+        val sharedPref = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val isDark = sharedPref.getBoolean("dark_theme", false)
+
+        val newIsDark = !isDark
+        sharedPref.edit {
+            putBoolean("dark_theme", newIsDark)
+        }
+
+        // Сменить тему
+        val mode = if (newIsDark) {
+            AppCompatDelegate.MODE_NIGHT_YES
+        } else {
+            AppCompatDelegate.MODE_NIGHT_NO
+        }
+        AppCompatDelegate.setDefaultNightMode(mode)
+
+        // Обновить иконку
+        val newIconRes = if (newIsDark) {
+            R.drawable.ic_dark_mode
+        } else {
+            R.drawable.ic_light_mode
+        }
+        binding.themeToggleButton.setImageResource(newIconRes)
     }
 
     override fun onDestroyView() {

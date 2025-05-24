@@ -2,6 +2,7 @@
 <resources>
     <color name="colorBackground">#111111</color>
     <color name="colorOnBackground">#FFFFFF</color>
+    <color name="colorBackgroundFloating">#151515</color>
 
     <color name="colorSurface">#151515</color>
     <color name="colorOnSurface">#FFFFFF</color>

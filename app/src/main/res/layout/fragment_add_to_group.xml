@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingHorizontal="22dp"
     android:paddingVertical="25dp"
-    android:background="@color/gray111">
+    android:background="?attr/colorBackgroundFloating">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/head_choose_status"
         android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorOnBackground"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="16dp"/>
+
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -24,84 +26,86 @@
         android:orientation="vertical"
         android:checkedButton="@id/radio_not_watching">
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_not_watching"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:buttonTint="@color/radio_selector"
-            android:minHeight="48dp"
+            android:text="@string/not_watching"
             android:textSize="18sp"
-            android:text="@string/not_watching" />
+            android:textColor="?attr/colorOnBackground"
+            app:buttonTint="@color/radio_selector"
+            android:minHeight="48dp"/>
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_watching"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:buttonTint="@color/radio_selector"
-            android:minHeight="48dp"
+            android:text="@string/watching"
             android:textSize="18sp"
-            android:text="@string/watching" />
+            android:textColor="?attr/colorOnBackground"
+            app:buttonTint="@color/radio_selector"
+            android:minHeight="48dp"/>
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_planned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:buttonTint="@color/radio_selector"
-            android:minHeight="48dp"
+            android:text="@string/planned"
             android:textSize="18sp"
-            android:text="@string/planned" />
+            android:textColor="?attr/colorOnBackground"
+            app:buttonTint="@color/radio_selector"
+            android:minHeight="48dp"/>
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_watched"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:buttonTint="@color/radio_selector"
-            android:minHeight="48dp"
+            android:text="@string/watched"
             android:textSize="18sp"
-            android:text="@string/watched" />
+            android:textColor="?attr/colorOnBackground"
+            app:buttonTint="@color/radio_selector"
+            android:minHeight="48dp"/>
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:buttonTint="@color/radio_selector"
-            android:minHeight="48dp"
+            android:text="@string/favorite"
             android:textSize="18sp"
-            android:text="@string/favorite" />
+            android:textColor="?attr/colorOnBackground"
+            app:buttonTint="@color/radio_selector"
+            android:minHeight="48dp"/>
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_paused"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:buttonTint="@color/radio_selector"
-            android:minHeight="48dp"
+            android:text="@string/paused"
             android:textSize="18sp"
-            android:text="@string/paused" />
+            android:textColor="?attr/colorOnBackground"
+            app:buttonTint="@color/radio_selector"
+            android:minHeight="48dp"/>
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_dropped"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:buttonTint="@color/radio_selector"
-            android:minHeight="48dp"
+            android:text="@string/dropped"
             android:textSize="18sp"
-            android:text="@string/dropped" />
-
+            android:textColor="?attr/colorOnBackground"
+            app:buttonTint="@color/radio_selector"
+            android:minHeight="48dp"/>
     </RadioGroup>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonCancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/close4"
-        android:textColor="@color/gray_for_cancel"
-        android:background="@drawable/rounded_button_cansel_border"
-        android:layout_marginTop="24dp"/>
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        app:cornerRadius="18dp"
+        android:layout_marginTop="24dp"
+        android:minHeight="48dp"
+        android:paddingVertical="12dp"
+        android:textColor="?attr/colorSecondary"/>
 </LinearLayout>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/gray111"
+    android:background="?attr/colorBackgroundFloating"
     android:paddingHorizontal="22dp"
     android:paddingVertical="25dp"
     android:gravity="center">
@@ -14,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/head_filter_years"
         android:textSize="18sp"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorOnBackground"
         android:layout_gravity="center" />
 
     <LinearLayout
@@ -36,23 +37,27 @@
             android:layout_marginStart="16dp"/>
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_reset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/close3"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_button_cansel_border"
-        android:strokeColor="@color/white"
-        android:textColor="@color/gray_for_cancel"/>
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        app:cornerRadius="18dp"
+        android:textColor="?attr/colorSecondary"
+        android:minHeight="48dp"
+        android:paddingVertical="12dp"/>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_apply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/save3"
         android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_button_background"
-        android:textColor="@color/black"/>
-
+        style="@style/Widget.Material3.Button"
+        app:cornerRadius="18dp"
+        android:textColor="?attr/colorOnPrimary"
+        android:minHeight="48dp"
+        android:paddingVertical="12dp"/>
 </LinearLayout>
