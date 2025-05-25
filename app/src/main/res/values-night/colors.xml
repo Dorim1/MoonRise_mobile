@@ -13,4 +13,6 @@
 
     <color name="colorSecondary">#D0D0D0</color>
     <color name="colorOutline">#555555</color>
+
+    <color name="colorErrorContainer">#181818</color>
 </resources>

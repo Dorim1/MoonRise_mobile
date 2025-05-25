@@ -11,6 +11,7 @@
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="colorOutline">@color/colorOutline</item>
         <item name="colorSurfaceVariant">@color/colorOnSurfaceVariant</item>
+        <item name="colorErrorContainer">@color/colorErrorContainer</item>
 
         <!-- Статус-бар -->
         <item name="android:statusBarColor">@color/colorBackground</item>

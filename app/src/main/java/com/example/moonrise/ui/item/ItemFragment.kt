@@ -102,18 +102,18 @@ class ItemFragment : Fragment() {
             ratingBottomSheet.show(parentFragmentManager, "RatingBottomSheetFragment")
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getRating(contentId).collect { rating ->
-                    if (rating != null) {
-                        binding.rateText.text = rating.ratingValue.toInt().toString()
-                        binding.rateText.visibility = View.VISIBLE
-                    } else {
-                        binding.rateText.visibility = View.GONE
-                    }
-                }
-            }
-        }
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                viewModel.getRating(contentId).collect { rating ->
+//                    if (rating != null) {
+//                        binding.rateText.text = rating.ratingValue.toInt().toString()
+//                        binding.rateText.visibility = View.VISIBLE
+//                    } else {
+//                        binding.rateText.visibility = View.GONE
+//                    }
+//                }
+//            }
+//        }
 
 
 
