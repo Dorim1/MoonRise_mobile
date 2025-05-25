@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.powerspinner)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.core.splashscreen)
     testImplementation(libs.junit)
     implementation(libs.glide)
     implementation(libs.lottie)

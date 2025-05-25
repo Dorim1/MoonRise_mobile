@@ -23,6 +23,7 @@ exoplayer = "2.19.1"
 powerspinner = "1.2.7"
 legacySupportV4 = "1.0.0"
 fragmentKtx = "1.5.6"
+coreSplashscreen = "1.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -48,6 +49,7 @@ exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "
 powerspinner = { group = "com.github.skydoves", name = "powerspinner", version.ref = "powerspinner" }
 androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashscreen" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -119,7 +119,6 @@
                         android:text="@string/add_button"
                         android:textColor="@color/black"
                         android:textSize="22sp"
-                        app:cornerRadius="18dp"
                         android:minHeight="48dp"
                         android:paddingVertical="8dp"
                         style="@style/Widget.Material3.Button.OutlinedButton"

@@ -54,5 +54,5 @@
         android:scrollbars="vertical"
         android:contentDescription="@string/desc_list"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:scrollbarThumbVertical="?attr/colorPrimary" />
+        android:scrollbarThumbVertical="@color/main_purple" />
 </LinearLayout>

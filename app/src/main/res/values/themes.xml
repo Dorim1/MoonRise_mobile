@@ -1,4 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Тема SplashScreen -->
+    <style name="Theme.Moonrise.Splash" parent="Theme.SplashScreen">
+        <!-- Цвет фона заставки -->
+        <item name="windowSplashScreenBackground">@color/colorBackground</item>
+        <!-- Иконка, которая будет отображаться -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/rounded_splash_icon</item>
+        <!-- Тема, в которую перейдет приложение после заставки -->
+        <item name="postSplashScreenTheme">@style/Theme.Moonrise</item>
+    </style>
+
     <style name="Theme.Moonrise" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Основные цвета -->
         <item name="colorPrimary">@color/colorPrimary</item>
