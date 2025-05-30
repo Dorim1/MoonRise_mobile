@@ -23,6 +23,7 @@ class FilterViewModel(
     val ageRatings = contentDao.getAllAgeRatings().asLiveData()
     val statusTypes = statusTypeDao.observeAllStatusTypes().asLiveData()
 
+
     fun getYearRange(): LiveData<Pair<Int?, Int?>> = liveData {
         val yearRange = contentDao.getYearRange()
         emit(yearRange)
@@ -34,5 +35,6 @@ class FilterViewModel(
     var selectedAgeRating: String? = null
     var selectedStartYear: Int? = null
     var selectedEndYear: Int? = null
+    var selectedSort: String? = null
 
 }

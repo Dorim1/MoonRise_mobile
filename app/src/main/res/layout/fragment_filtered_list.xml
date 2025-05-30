@@ -51,7 +51,6 @@
             android:text="@string/change"
             android:textColor="?attr/colorSecondary"
             style="@style/Widget.Material3.Button.OutlinedButton"
-            app:cornerRadius="18dp"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

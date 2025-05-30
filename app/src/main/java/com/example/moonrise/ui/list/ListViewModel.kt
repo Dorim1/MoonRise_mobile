@@ -17,6 +17,7 @@ import com.example.moonrise.data.local.entity.StatusType
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -32,24 +33,49 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     private val _filteredContent = MutableLiveData<List<ContentWithCategory>>()
     private val franchiseInfoDao = database.franchiseInfoDao()
 
+    private var randomizedContent: List<ContentWithCategory>? = null
+    private var isShuffled = false
+    private var currentContentList: List<ContentWithCategory> = emptyList()
+
     val filteredContent: LiveData<List<ContentWithCategory>> = _filteredContent
 
 
-    fun loadAllContent() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val allContent = contentDao.getAllContentWithCategory().first()
-            _filteredContent.postValue(allContent)
+     private fun observeAllContent() {
+        viewModelScope.launch {
+            contentDao.getAllContentWithCategory()
+                .collectLatest { list ->
+
+                    if (!isShuffled) {
+                        currentContentList = list.shuffled()
+                        isShuffled = true
+                    } else {
+                        val updatedMap = list.associateBy { it.content.id }
+                        currentContentList = currentContentList.mapNotNull { old ->
+                            updatedMap[old.content.id]
+                        }
+                    }
+
+                    _filteredContent.postValue(currentContentList)
+                }
         }
     }
 
     fun searchContent(query: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val results = if (query.isBlank()) {
-                contentDao.getAllContentWithCategory().first()
+        viewModelScope.launch {
+            if (query.isBlank()) {
+                _filteredContent.postValue(currentContentList)
             } else {
-                contentDao.searchContentWithCategory(query).first()
+                contentDao.searchContentWithCategory(query)
+                    .collectLatest { searchResults ->
+                        _filteredContent.postValue(searchResults)
+                    }
             }
-            _filteredContent.postValue(results)
+        }
+    }
+
+    fun refreshContent() {
+        randomizedContent?.let {
+            _filteredContent.postValue(it)
         }
     }
 
@@ -152,7 +178,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    fun checkAndInitDatabase(context: Context) {
+    fun checkAndInitDatabase(context: Context, onFinished: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             if (contentDao.getContentCount() == 0) {
                 loadDataFromJson(context)
@@ -162,6 +188,13 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                 loadStatusTypesFromJson(context)
                 loadFranchiseInfoFromJson(context)
             }
+
+            while (contentDao.getContentCount() == 0) {
+                kotlinx.coroutines.delay(100)
+            }
+
+            observeAllContent() // <<<<< переместили сюда
+            onFinished()
         }
     }
 

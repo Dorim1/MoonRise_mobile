@@ -69,6 +69,35 @@ class FilterFragment : Fragment() {
         val backButton = view.findViewById<AppCompatImageButton>(R.id.back_button)
         val cancelButton = view.findViewById<AppCompatButton>(R.id.cancel_button)
 
+        val sortOptions = listOf(
+            "Неважно",
+            "По названию (А–Я)",
+            "По названию (Я–А)",
+            "По дате (Сначала новые)",
+            "По дате (Сначала старые)"
+        )
+        binding.spinnerSort.setItems(sortOptions)
+
+        binding.spinnerSort.post {
+            val initialSortIndex = sortOptions.indexOf(viewModel.selectedSort ?: "Неважно")
+            if (initialSortIndex >= 0) {
+                binding.spinnerSort.selectItemByIndex(initialSortIndex)
+            }
+        }
+
+        binding.spinnerSort.setOnSpinnerItemSelectedListener<String> { _, _, position, item ->
+            if (position == 0) {
+                viewModel.selectedSort = null
+            } else {
+                viewModel.selectedSort = item
+            }
+            binding.spinnerSort.setBackgroundResource(R.drawable.spinner_background)
+        }
+
+        binding.spinnerSort.setOnSpinnerDismissListener {
+            binding.spinnerSort.setBackgroundResource(R.drawable.spinner_background)
+        }
+
         backButton.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -96,6 +125,7 @@ class FilterFragment : Fragment() {
                 putString("selectedAgeRating", selectedAgeRating)
                 putInt("selectedStartYear", selectedStartYear ?: -1)
                 putInt("selectedEndYear", selectedEndYear ?: -1)
+                putString("selectedSort", viewModel.selectedSort)
             }
 
             findNavController().navigate(R.id.action_navigation_filter_to_filteredListFragment, result)
@@ -108,10 +138,7 @@ class FilterFragment : Fragment() {
         val contentDao = database.contentDao()
         val statusTypeDao = database.statusTypeDao()
 
-        viewModel = ViewModelProvider(
-            this,
-            FilterViewModelFactory(genreDao, categoryDao, contentDao, statusTypeDao)
-        )[FilterViewModel::class.java]
+
 
         viewModel.categories.observe(viewLifecycleOwner) { categories ->
             val categoryNames = mutableListOf("Неважно") + categories.map { it.name }

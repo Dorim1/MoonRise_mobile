@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="@string/close2"
             style="@style/Widget.Material3.Button.OutlinedButton"
-            app:cornerRadius="18dp"
+
             android:textColor="?attr/colorSecondary"
             android:minHeight="48dp"
             android:paddingVertical="12dp"/>
@@ -57,7 +57,7 @@
             android:text="@string/save2"
             android:layout_marginStart="16dp"
             style="@style/Widget.Material3.Button"
-            app:cornerRadius="18dp"
+
             android:textColor="?attr/colorOnPrimary"
             android:minHeight="48dp"
             android:paddingVertical="12dp"/>

@@ -92,6 +92,5 @@
         android:layout_height="wrap_content"
         android:text="@string/close"
         android:textColor="?attr/colorSecondary"
-        style="@style/Widget.Material3.Button.OutlinedButton"
-        app:cornerRadius="18dp" />
+        style="@style/Widget.Material3.Button.OutlinedButton" />
 </LinearLayout>

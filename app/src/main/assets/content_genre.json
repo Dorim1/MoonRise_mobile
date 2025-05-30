@@ -1,17 +1,150 @@
 [
   { "contentId": 1, "genreId": 1 },
-  { "contentId": 1, "genreId": 2 },
-  { "contentId": 2, "genreId": 3 },
-  { "contentId": 2, "genreId": 4 },
+  { "contentId": 1, "genreId": 9 },
+
+  { "contentId": 2, "genreId": 1 },
+  { "contentId": 2, "genreId": 9 },
+
   { "contentId": 3, "genreId": 1 },
-  { "contentId": 3, "genreId": 1 },
-  { "contentId": 4, "genreId": 5 },
-  { "contentId": 4, "genreId": 4 },
-  { "contentId": 4, "genreId": 7 },
+  { "contentId": 3, "genreId": 9 },
+
+  { "contentId": 4, "genreId": 9 },
+  { "contentId": 4, "genreId": 1 },
+  { "contentId": 4, "genreId": 2 },
+
   { "contentId": 5, "genreId": 5 },
   { "contentId": 5, "genreId": 4 },
   { "contentId": 5, "genreId": 7 },
+
   { "contentId": 6, "genreId": 5 },
   { "contentId": 6, "genreId": 4 },
-  { "contentId": 6, "genreId": 7 }
+  { "contentId": 6, "genreId": 7 },
+
+  { "contentId": 7, "genreId": 5 },
+  { "contentId": 7, "genreId": 4 },
+  { "contentId": 7, "genreId": 7 },
+
+  { "contentId": 8, "genreId": 8 },
+  { "contentId": 8, "genreId": 4 },
+
+  { "contentId": 9, "genreId": 10 },
+  { "contentId": 9, "genreId": 4 },
+  { "contentId": 9, "genreId": 6 },
+
+  { "contentId": 10, "genreId": 10 },
+  { "contentId": 10, "genreId": 4 },
+  { "contentId": 10, "genreId": 6 },
+
+  { "contentId": 11, "genreId": 10 },
+  { "contentId": 11, "genreId": 4 },
+  { "contentId": 11, "genreId": 6 },
+
+  { "contentId": 12, "genreId": 10 },
+  { "contentId": 12, "genreId": 4 },
+  { "contentId": 12, "genreId": 6 },
+
+  { "contentId": 13, "genreId": 10 },
+  { "contentId": 13, "genreId": 4 },
+  { "contentId": 13, "genreId": 6 },
+
+  { "contentId": 14, "genreId": 10 },
+  { "contentId": 14, "genreId": 4 },
+  { "contentId": 14, "genreId": 6 },
+
+  { "contentId": 15, "genreId": 6 },
+  { "contentId": 15, "genreId": 10 },
+  { "contentId": 15, "genreId": 4 },
+  { "contentId": 15, "genreId": 1 },
+
+  { "contentId": 16, "genreId": 10 },
+  { "contentId": 16, "genreId": 1 },
+  { "contentId": 16, "genreId": 5 },
+
+  { "contentId": 17, "genreId": 4 },
+  { "contentId": 17, "genreId": 6 },
+
+  { "contentId": 18, "genreId": 1 },
+  { "contentId": 18, "genreId": 7 },
+
+  { "contentId": 19, "genreId": 8 },
+  { "contentId": 19, "genreId": 10 },
+  { "contentId": 19, "genreId": 4 },
+
+  { "contentId": 20, "genreId": 9 },
+  { "contentId": 20, "genreId": 2 },
+  { "contentId": 20, "genreId": 1 },
+
+  { "contentId": 21, "genreId": 9 },
+  { "contentId": 21, "genreId": 2 },
+  { "contentId": 21, "genreId": 1 },
+
+  { "contentId": 22, "genreId": 6 },
+  { "contentId": 22, "genreId": 2 },
+  { "contentId": 22, "genreId": 5 },
+
+  { "contentId": 23, "genreId": 6 },
+  { "contentId": 23, "genreId": 2 },
+  { "contentId": 23, "genreId": 5 },
+
+  { "contentId": 24, "genreId": 6 },
+  { "contentId": 24, "genreId": 2 },
+  { "contentId": 24, "genreId": 5 },
+
+  { "contentId": 25, "genreId": 6 },
+  { "contentId": 25, "genreId": 2 },
+  { "contentId": 25, "genreId": 5 },
+
+  { "contentId": 26, "genreId": 5 },
+  { "contentId": 26, "genreId": 6 },
+  { "contentId": 26, "genreId": 2 },
+  { "contentId": 26, "genreId": 10 },
+
+  { "contentId": 27, "genreId": 5 },
+  { "contentId": 27, "genreId": 6 },
+  { "contentId": 27, "genreId": 2 },
+  { "contentId": 27, "genreId": 10 },
+
+  { "contentId": 28, "genreId": 4 },
+  { "contentId": 28, "genreId": 8 },
+
+  { "contentId": 29, "genreId": 1 },
+  { "contentId": 29, "genreId": 11 },
+
+  { "contentId": 30, "genreId": 1 },
+  { "contentId": 30, "genreId": 9 },
+  { "contentId": 30, "genreId": 12 },
+
+  { "contentId": 31, "genreId": 9 },
+  { "contentId": 31, "genreId": 1 },
+  { "contentId": 31, "genreId": 7 },
+
+  { "contentId": 32, "genreId": 4 },
+  { "contentId": 32, "genreId": 10 },
+  { "contentId": 32, "genreId": 8 },
+
+  { "contentId": 33, "genreId": 4 },
+  { "contentId": 33, "genreId": 6 },
+  { "contentId": 33, "genreId": 10 },
+  { "contentId": 33, "genreId": 7 },
+  { "contentId": 33, "genreId": 8 },
+
+  { "contentId": 34, "genreId": 8 },
+  { "contentId": 34, "genreId": 10 },
+
+  { "contentId": 35, "genreId": 6 },
+  { "contentId": 35, "genreId": 8 },
+  { "contentId": 35, "genreId": 4 },
+
+  { "contentId": 36, "genreId": 5 },
+  { "contentId": 36, "genreId": 1 },
+
+  { "contentId": 37, "genreId": 7 },
+  { "contentId": 37, "genreId": 13 },
+  { "contentId": 37, "genreId": 4 },
+  { "contentId": 37, "genreId": 10 },
+  { "contentId": 37, "genreId": 8 }
+
+
+
+
 ]

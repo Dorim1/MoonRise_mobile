@@ -40,7 +40,6 @@
         android:layout_marginTop="20dp"
         style="@style/Widget.Material3.Button.OutlinedButton"
         android:textColor="?attr/colorSecondary"
-        app:cornerRadius="18dp"
         android:minHeight="48dp"
         android:paddingVertical="12dp" />
 
@@ -52,7 +51,6 @@
         android:layout_marginTop="8dp"
         style="@style/Widget.Material3.Button"
         android:textColor="?attr/colorOnPrimary"
-        app:cornerRadius="18dp"
         android:minHeight="48dp"
         android:paddingVertical="12dp" />
 </LinearLayout>

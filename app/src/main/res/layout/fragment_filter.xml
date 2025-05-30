@@ -157,6 +157,27 @@
                 app:spinner_arrow_gravity="end"
                 app:spinner_arrow_tint="?attr/colorOnBackground" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sort"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"/>
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/spinner_sort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner_background"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="18sp"
+                android:text="@string/no_matter"
+                android:padding="10dp"
+                android:layout_marginBottom="20dp"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_tint="?attr/colorOnBackground" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -181,7 +202,6 @@
             android:text="@string/close2"
             android:textColor="?attr/colorSecondary"
             style="@style/Widget.Material3.Button.OutlinedButton"
-            app:cornerRadius="18dp"
             android:minHeight="48dp"
             android:paddingVertical="12dp"/>
 
@@ -192,7 +212,6 @@
             android:layout_height="wrap_content"
             android:text="@string/save4"
             android:layout_marginStart="16dp"
-            app:cornerRadius="18dp"
             android:textColor="?attr/colorOnPrimary"
             android:minHeight="48dp"
             android:paddingVertical="12dp"/>

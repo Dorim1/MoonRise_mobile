@@ -4,7 +4,7 @@
         <!-- Цвет фона заставки -->
         <item name="windowSplashScreenBackground">@color/colorBackground</item>
         <!-- Иконка, которая будет отображаться -->
-        <item name="windowSplashScreenAnimatedIcon">@drawable/rounded_splash_icon</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/icon_logo</item>
         <!-- Тема, в которую перейдет приложение после заставки -->
         <item name="postSplashScreenTheme">@style/Theme.Moonrise</item>
     </style>

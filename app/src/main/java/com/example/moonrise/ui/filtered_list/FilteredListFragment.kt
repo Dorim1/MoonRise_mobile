@@ -33,7 +33,6 @@ class FilteredListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val emptyView = view.findViewById<TextView>(R.id.emptyView)
-
         val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
         contentAdapter = ContentAdapter(navController)
 
@@ -49,6 +48,7 @@ class FilteredListFragment : Fragment() {
         val selectedAgeRating = args?.getString("selectedAgeRating")
         val selectedStartYear = args?.getInt("selectedStartYear")?.takeIf { it != -1 }
         val selectedEndYear = args?.getInt("selectedEndYear")?.takeIf { it != -1 }
+        val selectedSort = args?.getString("selectedSort")
 
         viewModel.applyFilters(
             selectedGenres,
@@ -60,9 +60,18 @@ class FilteredListFragment : Fragment() {
         )
 
         viewModel.filteredContent.observe(viewLifecycleOwner) { filteredList ->
-            contentAdapter.setContentList(filteredList)
 
-            if (filteredList.isEmpty()) {
+            val sortedList = when (selectedSort) {
+                "По названию (А–Я)" -> filteredList.sortedBy { it.content.title }
+                "По названию (Я–А)" -> filteredList.sortedByDescending { it.content.title }
+                "По дате (Сначала новые)" -> filteredList.sortedByDescending { it.content.releaseDate }
+                "По дате (Сначала старые)" -> filteredList.sortedBy { it.content.releaseDate }
+                else -> filteredList
+            }
+
+            contentAdapter.setContentList(sortedList)
+
+            if (sortedList.isEmpty()) {
                 emptyView.visibility = View.VISIBLE
                 recyclerView.visibility = View.GONE
             } else {

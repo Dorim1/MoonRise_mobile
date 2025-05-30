@@ -30,10 +30,29 @@ class ListFragment : Fragment() {
         val navController = findNavController()
         contentAdapter = ContentAdapter(navController)
 
+        setupRecyclerView(view)
+        setupSearchView(view)
+
+        viewModel.filteredContent.observe(viewLifecycleOwner) { contentList ->
+            contentAdapter.setContentList(contentList)
+        }
+
+        viewModel.checkAndInitDatabase(requireContext()) {}
+
+        viewModel.refreshContent()
+
+        view.findViewById<View>(R.id.filter_button).setOnClickListener {
+            navController.navigate(R.id.action_navigation_list_to_navigation_filter)
+        }
+    }
+
+    private fun setupRecyclerView(view: View) {
         recyclerView = view.findViewById(R.id.itemsList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = contentAdapter
+    }
 
+    private fun setupSearchView(view: View) {
         val searchView = view.findViewById<SearchView>(R.id.search_in_list)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -47,19 +66,5 @@ class ListFragment : Fragment() {
                 return true
             }
         })
-
-        viewModel.filteredContent.observe(viewLifecycleOwner) { contentList ->
-            contentAdapter.setContentList(contentList)
-        }
-
-        viewModel.checkAndInitDatabase(requireContext())
-        viewModel.loadAllContent()
-
-
-        val filterButton = view.findViewById<View>(R.id.filter_button)
-        filterButton.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_list_to_navigation_filter)
-        }
-
     }
 }
